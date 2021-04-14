@@ -32,7 +32,8 @@ jobs:
         run: npm run build
     
       - name: Make zip file
-        run: zip -qq -r ./moodof-client.zip .
+        working-directory: ./build
+        run: zip ./moodof-client.zip .
         shell: bash
 
       - name: Configure AWS credentials
