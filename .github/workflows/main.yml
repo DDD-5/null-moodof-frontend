@@ -32,7 +32,7 @@ jobs:
         run: npm run build
     
       - name: Make zip file
-        run: zip ./moodof-client.zip ./build
+        run: zip ./moodof-client.zip ./build appspec.yml
         shell: bash
 
       - name: Configure AWS credentials
