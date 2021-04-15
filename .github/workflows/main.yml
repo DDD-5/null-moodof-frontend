@@ -1,0 +1,49 @@
+on:
+  push:
+    branches:
+     - master
+
+name: Deploy React to Amazon EC2
+env:
+  PROJECT_NAME: action_codedeploy
+
+jobs:
+  deploy:
+    name: DEPLOY
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+    
+      - name: Make zip file
+        run: zip -qq -r ./moodof-client.zip ./build appspec.yml
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./moodof-client.zip s3://moodof-deploy1/$PROJECT_NAME/moodof-client.zip
+
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name moodof-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name dev --s3-location bucket=moodof-deploy1,bundleType=zip,key=$PROJECT_NAME/moodof-client.zip
