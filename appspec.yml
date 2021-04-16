@@ -3,9 +3,16 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/client
+    overwrite: true
 
 permissions:
   - object: /
     pattern: "**"
     owner: ubuntu
     group: ubuntu
+
+hooks:
+  AfterInstall:
+    - location: /deploy.sh
+      timeout: 60
+      runas: root
