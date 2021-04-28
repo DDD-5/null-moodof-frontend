@@ -1,11 +1,25 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { css } from '@emotion/react';
 import {
   Intro,
   PhotoStorage,
   PhotoBoard,
   NotFound,
 } from './pages';
+import { Navigation } from './components';
+
+const WrappedComponent = ({ component }) => {
+  const globalWrapStyle = css({
+    paddingLeft: '280px',
+  });
+
+  return (
+    <div css={globalWrapStyle}>
+      {component}
+    </div>
+  );
+};
 
 const Router = () => (
   <Switch>
@@ -13,10 +27,12 @@ const Router = () => (
       <Intro />
     </Route>
     <Route exact path="/board/:boardId">
-      <PhotoBoard />
+      <Navigation />
+      <WrappedComponent component={<PhotoBoard />} />
     </Route>
     <Route exact path="/">
-      <PhotoStorage />
+      <Navigation />
+      <WrappedComponent component={<PhotoStorage />} />
     </Route>
     <Route path="*">
       <NotFound />
