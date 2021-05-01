@@ -174,9 +174,12 @@ code {
   font-weight: 900;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html, body, #root {
   min-height: 100vh;
   font-family: 'Noto Sans KR', sans-serif;
-  box-sizing: border-box;
   color: #21272A;
 }

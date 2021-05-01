@@ -4,6 +4,7 @@ import {
   Logo, Fold, Storage, TrashCan,
 } from '../../assets/icons';
 import Project from './Project';
+import Profile from './Profile';
 
 const navigationStyle = css({
   width: 280,
@@ -12,7 +13,6 @@ const navigationStyle = css({
   top: 0,
   backgroundColor: '#FAFAFA',
   borderRight: '1px solid rgba(0, 0, 0, 0.1)',
-  overflow: 'scroll',
 });
 
 const titleStyle = css({
@@ -25,7 +25,9 @@ const titleStyle = css({
 });
 
 const menuStyle = css({
-  margin: '24px 16px 24px 16px',
+  overflow: 'scroll',
+  height: 'calc(100% - 56px)',
+  padding: '24px 16px 104px 16px',
 });
 
 const storageStyle = css({
@@ -50,23 +52,28 @@ const Navigation = () => (
   <nav css={navigationStyle}>
     <div css={titleStyle}>
       <Logo />
-      <Fold style={{ cursor: 'pointer' }} />
+      <Fold css={{ cursor: 'pointer' }} />
     </div>
 
     <div css={menuStyle}>
       <div css={storageStyle}>
-        <Storage style={{ marginRight: '6px' }} />
+        <Storage css={{ marginRight: '6px' }} />
         <span>이미지 보관함</span>
       </div>
       <div>
         <Project />
         <Project />
+        <Project />
+        <Project />
+        <Project />
       </div>
       <div css={trashCanStyle}>
-        <TrashCan style={{ marginRight: '6px' }} />
+        <TrashCan css={{ marginRight: '6px' }} />
         <span>휴지통</span>
       </div>
     </div>
+
+    <Profile />
   </nav>
 );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const TrashCan = ({ style }) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" css={style}>
+const TrashCan = ({ ...args }) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...args}>
     <path d="M2 6H4.22222H22" stroke="black" strokeWidth="1.5" />
     <path d="M10 10.5L10 11.1667L10 16.5" stroke="black" strokeWidth="1.5" />
     <path d="M14 10.5L14 11.1667L14 16.5" stroke="black" strokeWidth="1.5" />

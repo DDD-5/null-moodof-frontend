@@ -48,7 +48,7 @@ const boardNameStyle = css({
 const Project = () => (
   <div css={projectStyle}>
     <div css={projectNameStyle}>
-      <ChevronDown style={{ marginRight: '2px' }} />
+      <ChevronDown css={{ marginRight: '2px' }} />
       <span>프로젝트 A</span>
     </div>
     <ul css={boardListStyle}>
