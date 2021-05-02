@@ -57,7 +57,7 @@ const Category = ({
         <ChevronDown css={{ marginRight: '2px' }} />
         <span>{name}</span>
       </div>
-      <ul css={boardListStyle}>
+      <div css={boardListStyle}>
         {boardData.map((board) => (
           <Board
             key={board.id}
@@ -74,7 +74,7 @@ const Category = ({
             moveBoard={moveBoard}
           />
         )}
-      </ul>
+      </div>
     </div>
   );
 };

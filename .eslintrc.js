@@ -4,6 +4,9 @@ module.exports = {
     browser: true,
     node: true,
   },
+  parserOptions: {
+    ecmaVersion: 2020,
+  },
   rules: {
     'react/jsx-one-expression-per-line': 'off',
     'import/prefer-default-export': 'off',

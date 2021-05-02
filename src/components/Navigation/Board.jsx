@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { useDrag, useDrop } from 'react-dnd';
 
-const boardNameStyle = (isDragging, isOver) => css({
+const boardNameStyle = (isDragging, isOver, isMatchPath) => css({
   height: 40,
   fontSize: 14,
   paddingLeft: 17,
@@ -12,6 +13,9 @@ const boardNameStyle = (isDragging, isOver) => css({
   cursor: 'pointer',
   opacity: isDragging && 0.5,
   outline: isOver && '1px solid grey',
+  color: 'inherit',
+  textDecoration: 'none',
+  backgroundColor: isMatchPath && '#F5F5F5',
   '&:hover': {
     backgroundColor: '#F5F5F5',
   },
@@ -58,20 +62,22 @@ const Board = ({
     },
   }));
 
+  const matchBoardPath = useRouteMatch(`/board/${id}`);
+
   return (
     isEmpty
       ? (
-        <li
+        <div
           css={emptyStyle(isOver)}
           ref={(node) => dragRef(dropRef(node))}
         />
       ) : (
-        <li
-          css={boardNameStyle(isDragging, isOver, isEmpty)}
+        <Link
+          to={`/board/${id}`}
+          css={boardNameStyle(isDragging, isOver, matchBoardPath?.isExact)}
           ref={(node) => dragRef(dropRef(node))}
-        >
-          {name}
-        </li>
+        >{name}
+        </Link>
       )
   );
 };

@@ -5,6 +5,7 @@ import {
   Intro,
   PhotoStorage,
   PhotoBoard,
+  TrashCan,
   NotFound,
 } from './pages';
 import { Navigation } from './components';
@@ -29,6 +30,10 @@ const Router = () => (
     <Route exact path="/board/:boardId">
       <Navigation />
       <WrappedComponent component={<PhotoBoard />} />
+    </Route>
+    <Route exact path="/trash">
+      <Navigation />
+      <WrappedComponent component={<TrashCan />} />
     </Route>
     <Route exact path="/">
       <Navigation />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { css } from '@emotion/react';
 import {
   Logo, Fold, Storage, TrashCan,
@@ -30,22 +31,36 @@ const menuStyle = css({
   padding: '24px 16px 104px 16px',
 });
 
-const storageStyle = css({
+const storageStyle = (isMatchPath) => css({
   height: 40,
   display: 'flex',
   alignItems: 'center',
-  margin: '0 8px 7.5px 8px',
+  padding: '0 8px 0 8px',
+  marginBottom: 7.5,
   fontSize: 14,
+  color: 'inherit',
+  textDecoration: 'none',
   cursor: 'pointer',
+  backgroundColor: isMatchPath && '#F5F5F5',
+  '&:hover': {
+    backgroundColor: '#F5F5F5',
+  },
 });
 
-const trashCanStyle = css({
+const trashCanStyle = (isMatchPath) => css({
   height: 40,
   display: 'flex',
   alignItems: 'center',
-  margin: '7.5px 8px 0 8px',
+  padding: '0 8px 0 8px',
+  marginTop: 7.5,
   fontSize: 14,
+  color: 'inherit',
+  textDecoration: 'none',
   cursor: 'pointer',
+  backgroundColor: isMatchPath && '#F5F5F5',
+  '&:hover': {
+    backgroundColor: '#F5F5F5',
+  },
 });
 
 const Navigation = () => {
@@ -135,18 +150,21 @@ const Navigation = () => {
     });
   };
 
+  const matchStoragePath = useRouteMatch('/');
+  const matchTrashPath = useRouteMatch('/trash');
+
   return (
     <nav css={navigationStyle}>
-      <div css={titleStyle}>
+      <Link to="/" css={titleStyle}>
         <Logo />
         <Fold css={{ cursor: 'pointer' }} />
-      </div>
+      </Link>
 
       <div css={menuStyle}>
-        <div css={storageStyle}>
+        <Link to="/" css={storageStyle(matchStoragePath?.isExact)}>
           <Storage css={{ marginRight: '6px' }} />
           <span>이미지 보관함</span>
-        </div>
+        </Link>
         <div>
           {categoryData.map((category) => (
             <Category
@@ -159,10 +177,10 @@ const Navigation = () => {
             />
           ))}
         </div>
-        <div css={trashCanStyle}>
+        <Link to="/trash" css={trashCanStyle(matchTrashPath?.isExact)}>
           <TrashCan css={{ marginRight: '6px' }} />
           <span>휴지통</span>
-        </div>
+        </Link>
       </div>
 
       <Profile />
