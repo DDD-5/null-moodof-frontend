@@ -5,3 +5,8 @@ export { default as ChevronDown } from './ChevronDown';
 export { default as ChevronUp } from './ChevronUp';
 export { default as TrashCan } from './TrashCan';
 export { default as Logout } from './Logout';
+export { default as Plus } from './Plus';
+export { default as Filter } from './Filter';
+export { default as Sort } from './Sort';
+export { default as Move } from './Move';
+export { default as Save } from './Save';

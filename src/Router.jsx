@@ -8,17 +8,23 @@ import {
   TrashCan,
   NotFound,
 } from './pages';
-import { Navigation } from './components';
+import { Navigation, Header } from './components';
+import { HEADER_TYPE } from './constants';
 
-const WrappedComponent = ({ component }) => {
+const AppFrame = ({ children, headerType }) => {
   const globalWrapStyle = css({
-    paddingLeft: '280px',
+    paddingTop: 56,
+    paddingLeft: 280,
   });
 
   return (
-    <div css={globalWrapStyle}>
-      {component}
-    </div>
+    <>
+      <Navigation />
+      <Header headerType={headerType} />
+      <div css={globalWrapStyle}>
+        {children}
+      </div>
+    </>
   );
 };
 
@@ -28,16 +34,19 @@ const Router = () => (
       <Intro />
     </Route>
     <Route exact path="/board/:boardId">
-      <Navigation />
-      <WrappedComponent component={<PhotoBoard />} />
+      <AppFrame headerType={HEADER_TYPE.BOARD}>
+        <PhotoBoard />
+      </AppFrame>
     </Route>
     <Route exact path="/trash">
-      <Navigation />
-      <WrappedComponent component={<TrashCan />} />
+      <AppFrame headerType={HEADER_TYPE.TRASH}>
+        <TrashCan />
+      </AppFrame>
     </Route>
     <Route exact path="/">
-      <Navigation />
-      <WrappedComponent component={<PhotoStorage />} />
+      <AppFrame headerType={HEADER_TYPE.STORAGE}>
+        <PhotoStorage />
+      </AppFrame>
     </Route>
     <Route path="*">
       <NotFound />
