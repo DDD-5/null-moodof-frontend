@@ -1,5 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { useDispatch } from 'react-redux';
+import { action as appActions } from '../../store/app/slices';
+import { MODAL_TYPE } from '../../constants';
 
 const photoWrapperStyle = css({
   '@media (min-width: 1200px)': {
@@ -37,18 +40,28 @@ const photoImgStyle = css({
   transform: 'translate(-50%, -50%)',
 });
 
-const Photo = () => (
-  <div css={photoWrapperStyle}>
-    <div css={photoStyle}>
-      <div css={photoCenteredStyle}>
-        <img
-          css={photoImgStyle}
-          src="http://image.chosun.com/sitedata/image/201904/10/2019041001881_0.png"
-          alt="IU"
-        />
+const Photo = () => {
+  const dispatch = useDispatch();
+
+  const handleClickPhoto = () => {
+    dispatch(appActions.openModal({
+      modalType: MODAL_TYPE.IMAGE_DETAIL_MODAL,
+    }));
+  };
+
+  return (
+    <div css={photoWrapperStyle} onClick={handleClickPhoto}>
+      <div css={photoStyle}>
+        <div css={photoCenteredStyle}>
+          <img
+            css={photoImgStyle}
+            src="http://image.chosun.com/sitedata/image/201904/10/2019041001881_0.png"
+            alt="IU"
+          />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Photo;
