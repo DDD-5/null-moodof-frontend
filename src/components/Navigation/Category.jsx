@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { useDrag, useDrop } from 'react-dnd';
-import { ChevronDown } from '../../assets/icons';
+import { ChevronDown } from '../../assets/icons/18';
 import Board from './Board';
 
 const categoryStyle = (isDragging, isOver) => css({

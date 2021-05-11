@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { css } from '@emotion/react';
-import {
-  Logo, Fold, Storage, TrashCan,
-} from '../../assets/icons';
 import Category from './Category';
 import Profile from './Profile';
+import { Main } from '../../assets/icons/logo';
+import { Storage, TrashCan } from '../../assets/icons/24';
+import { Fold } from '../../assets/icons/32';
 
 const navigationStyle = css({
   width: 280,
@@ -156,7 +156,7 @@ const Navigation = () => {
   return (
     <nav css={navigationStyle}>
       <Link to="/" css={titleStyle}>
-        <Logo />
+        <Main />
         <Fold css={{ cursor: 'pointer' }} />
       </Link>
 

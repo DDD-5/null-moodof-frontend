@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { Sort, Filter, Plus } from '../../../assets/icons';
+import { Sort, Filter } from '../../../assets/icons/24';
+import { Plus } from '../../../assets/icons/16';
 
 const iconBlockStyle = css({
   display: 'flex',

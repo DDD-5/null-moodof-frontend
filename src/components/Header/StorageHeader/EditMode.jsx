@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { Move, Save, TrashCan } from '../../../assets/icons';
+import { Move, Save, TrashCan } from '../../../assets/icons/24';
 
 const countTextStyle = css({
   fontSize: 14,
