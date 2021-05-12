@@ -1,0 +1,9 @@
+export const HEADER_TYPE = {
+  STORAGE: 'STORAGE',
+  BOARD: 'BOARD',
+  TRASH: 'TRASH',
+};
+
+export const MODAL_TYPE = {
+  IMAGE_DETAIL_MODAL: 'IMAGE_DETAIL_MODAL',
+};

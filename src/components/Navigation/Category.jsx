@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { useDrag, useDrop } from 'react-dnd';
-import { ChevronDown } from '../../assets/icons';
+import { ChevronDown } from '../../assets/icons/18';
 import Board from './Board';
 
 const categoryStyle = (isDragging, isOver) => css({
@@ -57,7 +57,7 @@ const Category = ({
         <ChevronDown css={{ marginRight: '2px' }} />
         <span>{name}</span>
       </div>
-      <ul css={boardListStyle}>
+      <div css={boardListStyle}>
         {boardData.map((board) => (
           <Board
             key={board.id}
@@ -74,7 +74,7 @@ const Category = ({
             moveBoard={moveBoard}
           />
         )}
-      </ul>
+      </div>
     </div>
   );
 };

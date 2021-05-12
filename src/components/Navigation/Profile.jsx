@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
-import { ChevronUp, ChevronDown, Logout } from '../../assets/icons';
+import { ChevronUp, ChevronDown } from '../../assets/icons/18';
+import { Logout } from '../../assets/icons/40';
 
 const profileStyle = css({
   position: 'fixed',
