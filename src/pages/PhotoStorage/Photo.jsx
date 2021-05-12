@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import { action as appActions } from '../../store/app/slices';
@@ -36,11 +36,16 @@ const photoCenteredStyle = css({
   transform: 'translate(50%, 50%)',
 });
 
-const photoImgStyle = css({
-  transform: 'translate(-50%, -50%)',
-});
-
 const Photo = () => {
+  // TODO 수정 필요
+  const wrapperRef = useRef(null);
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
+
+  const photoImgStyle = css({
+    height: `${isImgLoaded ? wrapperRef?.current?.clientHeight : 0}px`,
+    transform: 'translate(-50%, -50%)',
+  });
+
   const dispatch = useDispatch();
 
   const handleClickPhoto = () => {
@@ -50,12 +55,13 @@ const Photo = () => {
   };
 
   return (
-    <div css={photoWrapperStyle} onClick={handleClickPhoto}>
+    <div css={photoWrapperStyle} onClick={handleClickPhoto} ref={wrapperRef}>
       <div css={photoStyle}>
         <div css={photoCenteredStyle}>
           <img
             css={photoImgStyle}
-            src="http://image.chosun.com/sitedata/image/201904/10/2019041001881_0.png"
+            onLoad={() => setIsImgLoaded(true)}
+            src="https://seoulhype.files.wordpress.com/2020/05/iu_full.jpg?w=1500&h=768&crop=1"
             alt="IU"
           />
         </div>
