@@ -6,4 +6,5 @@ export const HEADER_TYPE = {
 
 export const MODAL_TYPE = {
   IMAGE_DETAIL_MODAL: 'IMAGE_DETAIL_MODAL',
+  GO_TRASH_MODAL: 'GO_TRASH_MODAL',
 };

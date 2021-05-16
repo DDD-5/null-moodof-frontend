@@ -1,8 +1,11 @@
 import React from 'react';
 import ImageDetailModal from './ImageDetailModal';
+import GoTrashModal from './GoTrashModal';
+import { MODAL_TYPE } from '../../constants';
 
 const MODAL_COMPONENTS = {
-  IMAGE_DETAIL_MODAL: ImageDetailModal,
+  [MODAL_TYPE.IMAGE_DETAIL_MODAL]: ImageDetailModal,
+  [MODAL_TYPE.GO_TRASH_MODAL]: GoTrashModal,
 };
 
 const AppModal = (props) => {
