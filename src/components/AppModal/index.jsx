@@ -7,9 +7,8 @@ const MODAL_COMPONENTS = {
 
 const AppModal = (props) => {
   const { modalType, modalProps } = props;
-  if (!modalType || !modalProps.open) return <span />;
-
   const SpecificModal = MODAL_COMPONENTS[modalType];
+
   return <SpecificModal {...modalProps} />;
 };
 
