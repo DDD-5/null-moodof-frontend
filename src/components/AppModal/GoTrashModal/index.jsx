@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
+import { Button } from '../..';
 import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
 
@@ -47,34 +48,6 @@ const buttonBlock = css({
   display: 'flex',
   justifyContent: 'space-between',
   padding: 16,
-  '& button': {
-    width: 138,
-    height: 32,
-  },
-});
-
-const closeButtonStyle = css({
-  backgroundColor: 'rgba(0, 0, 0, 0.4)',
-  color: 'rgba(255, 255, 255, 0.6)',
-  border: 'none',
-  cursor: 'pointer',
-  borderRadius: 4,
-  '&:hover': {
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    color: 'white',
-  },
-});
-
-const goTrashButtonStyle = css({
-  backgroundColor: 'rgba(33, 39, 42, 1)',
-  color: 'rgba(255, 255, 255, 0.6)',
-  border: 'none',
-  cursor: 'pointer',
-  borderRadius: 4,
-  '&:hover': {
-    backgroundColor: 'rgba(18, 22, 25, 1)',
-    color: 'white',
-  },
 });
 
 const GoTrashModal = () => {
@@ -96,8 +69,20 @@ const GoTrashModal = () => {
           <span css={subTitleStyle}>선택한 이미지가 30일 후 완전히 삭제됩니다.</span>
         </div>
         <div css={buttonBlock}>
-          <button type="button" css={closeButtonStyle} onClick={handleCloseModal}>취소</button>
-          <button type="button" css={goTrashButtonStyle} onClick={handleClickGoTrash}>휴지통으로 이동</button>
+          <Button
+            onClick={handleCloseModal}
+            colorType="sub"
+            customStyle={{ width: 138, height: 32 }}
+          >
+            취소
+          </Button>
+          <Button
+            onClick={handleClickGoTrash}
+            colorType="main"
+            customStyle={{ width: 138, height: 32 }}
+          >
+            휴지통으로 이동
+          </Button>
         </div>
       </div>
     </div>
