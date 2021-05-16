@@ -5,7 +5,7 @@ import {
   Intro,
   PhotoStorage,
   PhotoBoard,
-  TrashCan,
+  TrashStorage,
   NotFound,
 } from './pages';
 import { Navigation, Header } from './components';
@@ -40,7 +40,7 @@ const Router = () => (
     </Route>
     <Route exact path="/trash">
       <AppFrame headerType={HEADER_TYPE.TRASH}>
-        <TrashCan />
+        <TrashStorage />
       </AppFrame>
     </Route>
     <Route exact path="/">

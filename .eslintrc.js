@@ -18,5 +18,6 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
     'no-param-reassign': 'off',
     'react/no-array-index-key': 'off',
+    'import/no-cycle': 'off',
   },
 };

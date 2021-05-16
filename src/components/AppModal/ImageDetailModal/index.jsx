@@ -38,7 +38,7 @@ const navigationButtons = css({
   },
 });
 
-const ImageDetailModal = () => {
+const ImageDetailModal = ({ imgSrc, imgAlt }) => {
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
@@ -65,8 +65,8 @@ const ImageDetailModal = () => {
       <img
         onClick={handleClickImg}
         css={imageStyle}
-        src="https://seoulhype.files.wordpress.com/2020/05/iu_full.jpg?w=1500&h=768&crop=1"
-        alt="IU"
+        src={imgSrc}
+        alt={imgAlt}
       />
       <div css={navigationButtons}>
         <ChevronLeft onClick={handleClickPrev} />

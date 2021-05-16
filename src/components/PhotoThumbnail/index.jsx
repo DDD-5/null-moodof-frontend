@@ -1,8 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { css } from '@emotion/react';
-import { useDispatch } from 'react-redux';
-import { action as appActions } from '../../store/app/slices';
-import { MODAL_TYPE } from '../../constants';
 
 const photoWrapperStyle = css({
   '@media (min-width: 1200px)': {
@@ -36,8 +33,14 @@ const photoCenteredStyle = css({
   transform: 'translate(50%, 50%)',
 });
 
-const Photo = () => {
-  // TODO 수정 필요
+const PhotoThumbnail = ({
+  imgSrc,
+  imgAlt,
+  handleClickPhoto = () => {},
+  handleClickCheck = () => {},
+  handleClickUncheck = () => {},
+}) => {
+  // TODO height 받아오는 부분 수정 필요
   const wrapperRef = useRef(null);
   const [isImgLoaded, setIsImgLoaded] = useState(false);
 
@@ -46,14 +49,6 @@ const Photo = () => {
     transform: 'translate(-50%, -50%)',
   });
 
-  const dispatch = useDispatch();
-
-  const handleClickPhoto = () => {
-    dispatch(appActions.openModal({
-      modalType: MODAL_TYPE.IMAGE_DETAIL_MODAL,
-    }));
-  };
-
   return (
     <div css={photoWrapperStyle} onClick={handleClickPhoto} ref={wrapperRef}>
       <div css={photoStyle}>
@@ -61,8 +56,8 @@ const Photo = () => {
           <img
             css={photoImgStyle}
             onLoad={() => setIsImgLoaded(true)}
-            src="https://seoulhype.files.wordpress.com/2020/05/iu_full.jpg?w=1500&h=768&crop=1"
-            alt="IU"
+            src={imgSrc}
+            alt={imgAlt}
           />
         </div>
       </div>
@@ -70,4 +65,4 @@ const Photo = () => {
   );
 };
 
-export default Photo;
+export default PhotoThumbnail;
