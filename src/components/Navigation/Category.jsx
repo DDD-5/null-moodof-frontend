@@ -2,6 +2,8 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ChevronDown } from '../../assets/icons/18';
+import { Ellipsis } from '../../assets/icons/16';
+import { Plus } from '../../assets/icons/10';
 import Board from './Board';
 
 const categoryStyle = (isDragging, isOver) => css({
@@ -14,12 +16,34 @@ const categoryStyle = (isDragging, isOver) => css({
   },
 });
 
-const categoryNameStyle = css({
+const categoryNameWrapperStyle = css({
   height: 24,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  '&:hover': {
+    '& .hover-buttons': {
+      display: 'flex',
+      alignItems: 'center',
+    },
+  },
+});
+
+const categoryNameStyle = css({
   display: 'flex',
   alignItems: 'center',
   color: '#A2A9B0',
   fontSize: 12,
+});
+
+const categoryHoverButtons = css({
+  display: 'none',
+  alignItems: 'center',
+  '& svg': {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
 });
 
 const boardListStyle = css({
@@ -53,9 +77,15 @@ const Category = ({
 
   return (
     <div css={categoryStyle(isDragging, isOver)} ref={(node) => dragRef(dropRef(node))}>
-      <div css={categoryNameStyle}>
-        <ChevronDown css={{ marginRight: '2px' }} />
-        <span>{name}</span>
+      <div css={categoryNameWrapperStyle}>
+        <div css={categoryNameStyle}>
+          <ChevronDown css={{ marginRight: '2px' }} />
+          <span>{name}</span>
+        </div>
+        <div className="hover-buttons" css={categoryHoverButtons}>
+          <Plus />
+          <Ellipsis css={{ marginLeft: 15 }} />
+        </div>
       </div>
       <div css={boardListStyle}>
         {boardData.map((board) => (
