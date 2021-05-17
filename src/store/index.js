@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import app from './app/slices';
+import photoStorage from './photoStorage/slices';
 
-const rootReducer = combineReducers({ app });
+const rootReducer = combineReducers({ app, photoStorage });
 
 const configureAppStore = () => {
   const store = configureStore({

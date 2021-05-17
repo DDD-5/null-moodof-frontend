@@ -1,8 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PhotoThumbnail } from '../../components';
 import { action as appActions } from '../../store/app/slices';
+import { action as photoStorageActions } from '../../store/photoStorage/slices';
 import { MODAL_TYPE } from '../../constants';
 
 const IMG_SRC = 'https://seoulhype.files.wordpress.com/2020/05/iu_full.jpg?w=1500&h=768&crop=1';
@@ -17,9 +18,29 @@ const photoStorageStyle = css({
 
 const PhotoStorage = () => {
   const dispatch = useDispatch();
+  const { isCheckReady, checkedList } = useSelector((state) => state.photoStorage);
 
-  const handleClickPhoto = () => {
-    dispatch(appActions.openModal({
+  const getIsChecked = (photoId) => checkedList.indexOf(photoId) >= 0;
+
+  const handleClickCheck = (photoId) => () => dispatch(photoStorageActions.checkPhoto({
+    photoId,
+  }));
+
+  const handleClickUncheck = (photoId) => () => dispatch(photoStorageActions.unCheckPhoto({
+    photoId,
+  }));
+
+  const handleClickPhoto = (photoId) => {
+    const isChecked = getIsChecked(photoId);
+
+    if (isCheckReady) {
+      if (isChecked) {
+        return handleClickUncheck(photoId);
+      }
+      return handleClickCheck(photoId);
+    }
+
+    return () => dispatch(appActions.openModal({
       modalType: MODAL_TYPE.IMAGE_DETAIL_MODAL,
       modalProps: {
         // TODO photoId를 넘겨 조회하도록 수정
@@ -36,7 +57,10 @@ const PhotoStorage = () => {
           key={index}
           imgSrc={IMG_SRC}
           imgAlt={IMG_ALT}
-          handleClickPhoto={handleClickPhoto}
+          isChecked={getIsChecked(index)}
+          handleClickPhoto={handleClickPhoto(index)}
+          handleClickCheck={handleClickCheck(index)}
+          handleClickUncheck={handleClickUncheck(index)}
         />
       ))}
     </div>

@@ -50,7 +50,7 @@ const buttonBlock = css({
   padding: 16,
 });
 
-const GoTrashModal = () => {
+const GoTrashModal = ({ checkedList }) => {
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
@@ -59,7 +59,10 @@ const GoTrashModal = () => {
     }));
   };
 
-  const handleClickGoTrash = () => {};
+  const handleClickGoTrash = () => {
+    // TODO checkedList를 가지고 Trash로 보내는 API 호출
+    console.log(checkedList);
+  };
 
   return (
     <div css={goTrashModalStyle} onClick={handleCloseModal}>

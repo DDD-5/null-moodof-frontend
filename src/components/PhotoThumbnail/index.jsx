@@ -1,7 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { css } from '@emotion/react';
 
-const photoWrapperStyle = css({
+const photoWrapperStyle = (isChecked) => css({
+  position: 'relative',
+  outline: isChecked ? '2px solid #2F80ED' : '',
+  cursor: 'pointer',
   '@media (min-width: 1200px)': {
     width: '18%',
     margin: '0 2.5% 2.5% 0',
@@ -14,6 +17,11 @@ const photoWrapperStyle = css({
     margin: '0 4% 4% 0',
     '&:nth-of-type(4n)': {
       marginRight: 0,
+    },
+  },
+  '&:hover': {
+    '& .check-button': {
+      display: 'block',
     },
   },
 });
@@ -33,9 +41,22 @@ const photoCenteredStyle = css({
   transform: 'translate(50%, 50%)',
 });
 
+const checkButtonStyle = (isChecked) => css({
+  display: isChecked ? 'block' : 'none',
+  position: 'absolute',
+  top: 5,
+  left: 5,
+  opacity: isChecked ? 1 : 0.5,
+  '& input': {
+    width: 20,
+    height: 20,
+  },
+});
+
 const PhotoThumbnail = ({
   imgSrc,
   imgAlt,
+  isChecked = false,
   handleClickPhoto = () => {},
   handleClickCheck = () => {},
   handleClickUncheck = () => {},
@@ -50,7 +71,11 @@ const PhotoThumbnail = ({
   });
 
   return (
-    <div css={photoWrapperStyle} onClick={handleClickPhoto} ref={wrapperRef}>
+    <div
+      css={photoWrapperStyle(isChecked)}
+      onClick={handleClickPhoto}
+      ref={wrapperRef}
+    >
       <div css={photoStyle}>
         <div css={photoCenteredStyle}>
           <img
@@ -60,6 +85,14 @@ const PhotoThumbnail = ({
             alt={imgAlt}
           />
         </div>
+      </div>
+
+      <div className="check-button" css={checkButtonStyle(isChecked)} onClick={(e) => e.stopPropagation()}>
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={isChecked ? handleClickUncheck : handleClickCheck}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { css } from '@emotion/react';
+import { useSelector } from 'react-redux';
 import Defulat from './Default';
 import EditMode from './EditMode';
 
@@ -21,19 +22,15 @@ const rightBlockStyle = css({
 });
 
 const StorageHeader = () => {
-  const [isEditMode, setIsEditMode] = useState(false);
-
-  const handleToggleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
+  const { isCheckReady } = useSelector((state) => state.photoStorage);
 
   return (
     <header css={headerStyle}>
       <div>
-        <h2 css={headerTitleStyle} onClick={handleToggleEditMode}>이미지 보관함</h2>
+        <h2 css={headerTitleStyle}>이미지 보관함</h2>
       </div>
       <div css={rightBlockStyle}>
-        {isEditMode
+        {isCheckReady
           ? <EditMode />
           : <Defulat />}
       </div>
