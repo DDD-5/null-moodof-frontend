@@ -33,9 +33,9 @@ const iconBlockStyle = css({
   },
 });
 
-const WrappedIcon = ({ Icon, onClick }) => (
-  <div css={iconBlockStyle}>
-    <Icon onClick={onClick} />
+const WrappedIcon = ({ Icon, handleClick }) => (
+  <div css={iconBlockStyle} onClick={handleClick}>
+    <Icon />
   </div>
 );
 
@@ -58,7 +58,7 @@ const Default = () => {
       <input type="checkbox" css={checkInputStyle} />
       <WrappedIcon Icon={Move} />
       <WrappedIcon Icon={Download} />
-      <WrappedIcon Icon={TrashCan} onClick={handleClickGoTrash} />
+      <WrappedIcon Icon={TrashCan} handleClick={handleClickGoTrash} />
     </>
   );
 };

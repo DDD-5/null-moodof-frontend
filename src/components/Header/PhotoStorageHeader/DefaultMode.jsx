@@ -18,8 +18,8 @@ const iconBlockStyle = css({
   },
 });
 
-const WrappedIcon = ({ Icon }) => (
-  <div css={iconBlockStyle}>
+const WrappedIcon = ({ Icon, handleClick }) => (
+  <div css={iconBlockStyle} onClick={handleClick}>
     <Icon />
   </div>
 );

@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const photoStorageSlice = createSlice({
-  name: 'photoStorage',
+const trashStorageSlice = createSlice({
+  name: 'trashStorage',
   initialState: {
-    isEditMode: false,
     checkedList: [],
   },
   reducers: {
@@ -11,25 +10,20 @@ const photoStorageSlice = createSlice({
       const { photoId } = action.payload;
 
       state.checkedList.push(photoId);
-      state.isEditMode = true;
     },
     unCheckPhoto(state, action) {
       const { photoId } = action.payload;
       const checkIndex = state.checkedList.findIndex((i) => i === photoId);
 
       state.checkedList.splice(checkIndex, 1);
-      if (!state.checkedList.length) {
-        state.isEditMode = false;
-      }
     },
     clearCheckedList(state) {
-      state.isEditMode = false;
       state.checkedList = [];
     },
   },
 });
 
-const { actions, reducer } = photoStorageSlice;
+const { actions, reducer } = trashStorageSlice;
 
 export const action = { ...actions };
 export default reducer;

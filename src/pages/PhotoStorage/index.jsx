@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PhotoThumbnail } from '../../components';
@@ -19,6 +19,10 @@ const photoStorageStyle = css({
 const PhotoStorage = () => {
   const dispatch = useDispatch();
   const { isEditMode, checkedList } = useSelector((state) => state.photoStorage);
+
+  useEffect(() => () => {
+    dispatch(photoStorageActions.clearCheckedList());
+  }, []);
 
   const getIsChecked = (photoId) => checkedList.indexOf(photoId) >= 0;
 

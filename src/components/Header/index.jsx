@@ -18,7 +18,7 @@ const Header = ({ headerType }) => (
   <header css={headerStyle}>
     {headerType === HEADER_TYPE.PHOTO_STORAGE && <PhotoStorageHeader />}
     {headerType === HEADER_TYPE.BOARD && <BoardHeader />}
-    {headerType === HEADER_TYPE.PHOTO_STORAGE && <TrashStorageHeader />}
+    {headerType === HEADER_TYPE.TRASH_STORAGE && <TrashStorageHeader />}
   </header>
 );
 

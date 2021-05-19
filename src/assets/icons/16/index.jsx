@@ -10,3 +10,7 @@ export { default as TrashCan } from './TrashCan';
 export { default as Logout } from './Logout';
 export { default as Move } from './Move';
 export { default as Download } from './Download';
+export { default as Column } from './Column';
+export { default as Share } from './Share';
+export { default as Spacing } from './Spacing';
+export { default as Restore } from './Restore';
