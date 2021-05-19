@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const photoStorageSlice = createSlice({
   name: 'photoStorage',
   initialState: {
-    isCheckReady: false,
+    isEditMode: false,
     checkedList: [],
   },
   reducers: {
@@ -11,7 +11,7 @@ const photoStorageSlice = createSlice({
       const { photoId } = action.payload;
 
       state.checkedList.push(photoId);
-      state.isCheckReady = true;
+      state.isEditMode = true;
     },
     unCheckPhoto(state, action) {
       const { photoId } = action.payload;
@@ -19,7 +19,7 @@ const photoStorageSlice = createSlice({
 
       state.checkedList.splice(checkIndex, 1);
       if (!state.checkedList.length) {
-        state.isCheckReady = false;
+        state.isEditMode = false;
       }
     },
   },

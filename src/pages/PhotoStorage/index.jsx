@@ -18,7 +18,7 @@ const photoStorageStyle = css({
 
 const PhotoStorage = () => {
   const dispatch = useDispatch();
-  const { isCheckReady, checkedList } = useSelector((state) => state.photoStorage);
+  const { isEditMode, checkedList } = useSelector((state) => state.photoStorage);
 
   const getIsChecked = (photoId) => checkedList.indexOf(photoId) >= 0;
 
@@ -33,7 +33,7 @@ const PhotoStorage = () => {
   const handleClickPhoto = (photoId) => {
     const isChecked = getIsChecked(photoId);
 
-    if (isCheckReady) {
+    if (isEditMode) {
       if (isChecked) {
         return handleClickUncheck(photoId);
       }

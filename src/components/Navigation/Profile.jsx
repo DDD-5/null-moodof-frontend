@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
-import { ChevronUp, ChevronDown } from '../../assets/icons/18';
-import { Logout } from '../../assets/icons/40';
+import { Logout, ChevronUp, ChevronDown } from '../../assets/icons/16';
 
 const profileStyle = css({
   position: 'fixed',
@@ -36,7 +35,6 @@ const logoutStyle = css({
   display: 'flex',
   alignItems: 'center',
   cursor: 'pointer',
-  padding: '0 16px 0 16px',
   color: '#616161',
 });
 
@@ -46,6 +44,26 @@ const chevronStyle = css({
   cursor: 'pointer',
 });
 
+const defaultBlockStyle = css({
+  width: 240,
+  height: 64,
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  padding: '0 16px 0 16px',
+  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+  borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+});
+
+const expandBlockStyle = css({
+  height: 56,
+  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+  borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+  display: 'flex',
+  alignItems: 'center',
+  padding: '0 24px 0 24px',
+});
+
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -53,33 +71,12 @@ const Profile = () => {
     setIsOpen(!isOpen);
   };
 
-  const defaultBlockStyle = css({
-    width: 280,
-    height: 80,
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    padding: '0 16px 0 16px',
-    borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-    borderRight: '1px solid rgba(0, 0, 0, 0.1)',
-    background: isOpen ? '#F5F5F5' : '#FAFAFA',
-  });
-
-  const expandBlockStyle = css({
-    height: 56,
-    borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-    borderRight: '1px solid rgba(0, 0, 0, 0.1)',
-    display: 'flex',
-    alignItems: 'center',
-    background: isOpen ? '#F5F5F5' : '#FAFAFA',
-  });
-
   return (
     <div css={profileStyle}>
       {isOpen && (
         <div css={expandBlockStyle}>
           <div css={logoutStyle}>
-            <Logout css={{ marginRight: 12 }} />
+            <Logout css={{ marginRight: 8 }} />
             <span>로그아웃</span>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { useSelector } from 'react-redux';
-import Defulat from './Default';
+import DefaultMode from './DefaultMode';
 import EditMode from './EditMode';
 
 const headerStyle = css({
@@ -21,8 +21,8 @@ const rightBlockStyle = css({
   alignItems: 'center',
 });
 
-const StorageHeader = () => {
-  const { isCheckReady } = useSelector((state) => state.photoStorage);
+const PhotoStorageHeader = () => {
+  const { isEditMode } = useSelector((state) => state.photoStorage);
 
   return (
     <header css={headerStyle}>
@@ -30,12 +30,12 @@ const StorageHeader = () => {
         <h2 css={headerTitleStyle}>이미지 보관함</h2>
       </div>
       <div css={rightBlockStyle}>
-        {isCheckReady
+        {isEditMode
           ? <EditMode />
-          : <Defulat />}
+          : <DefaultMode />}
       </div>
     </header>
   );
 };
 
-export default StorageHeader;
+export default PhotoStorageHeader;

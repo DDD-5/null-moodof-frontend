@@ -1,7 +1,7 @@
 export const HEADER_TYPE = {
-  STORAGE: 'STORAGE',
+  PHOTO_STORAGE: 'PHOTO_STORAGE',
   BOARD: 'BOARD',
-  TRASH: 'TRASH',
+  TRASH_STORAGE: 'TRASH_STORAGE',
 };
 
 export const MODAL_TYPE = {

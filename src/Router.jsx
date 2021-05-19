@@ -14,7 +14,7 @@ import { HEADER_TYPE } from './constants';
 const AppFrame = ({ children, headerType }) => {
   const globalWrapStyle = css({
     paddingTop: 56,
-    paddingLeft: 280,
+    paddingLeft: 240,
   });
 
   return (
@@ -39,12 +39,12 @@ const Router = () => (
       </AppFrame>
     </Route>
     <Route exact path="/trash">
-      <AppFrame headerType={HEADER_TYPE.TRASH}>
+      <AppFrame headerType={HEADER_TYPE.TRASH_STORAGE}>
         <TrashStorage />
       </AppFrame>
     </Route>
     <Route exact path="/">
-      <AppFrame headerType={HEADER_TYPE.STORAGE}>
+      <AppFrame headerType={HEADER_TYPE.PHOTO_STORAGE}>
         <PhotoStorage />
       </AppFrame>
     </Route>
