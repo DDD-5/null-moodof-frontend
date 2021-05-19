@@ -61,7 +61,6 @@ const DeleteModal = ({ checkedList }) => {
 
   const handleClickDelete = () => {
     // TODO checkedList를 가지고 Delete로 보내는 API 호출
-    console.log(checkedList);
   };
 
   return (

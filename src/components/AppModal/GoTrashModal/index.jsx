@@ -61,7 +61,6 @@ const GoTrashModal = ({ checkedList }) => {
 
   const handleClickGoTrash = () => {
     // TODO checkedList를 가지고 Trash로 보내는 API 호출
-    console.log(checkedList);
   };
 
   return (
@@ -69,7 +68,7 @@ const GoTrashModal = ({ checkedList }) => {
       <div css={modalContentStyle} onClick={(e) => e.stopPropagation()}>
         <div css={textBlock}>
           <span css={titleStyle}>휴지통으로 이동하시겠습니까?</span>
-          <span css={subTitleStyle}>선택한 이미지가 30일 후 완전히 삭제됩니다.</span>
+          <span css={subTitleStyle}>{checkedList.length}개의 이미지가 30일 후 완전히 삭제됩니다.</span>
         </div>
         <div css={buttonBlock}>
           <Button
