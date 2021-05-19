@@ -61,7 +61,6 @@ const RestoreModal = ({ checkedList }) => {
 
   const handleClickRestore = () => {
     // TODO checkedList를 가지고 Restore로 보내는 API 호출
-    console.log(checkedList);
   };
 
   return (
