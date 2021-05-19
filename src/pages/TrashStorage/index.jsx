@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PhotoThumbnail } from '../../components';
-import { action as appActions } from '../../store/app/slices';
-import { action as photoStorageActions } from '../../store/photoStorage/slices';
-import { MODAL_TYPE } from '../../constants';
+import { action as trashStorageActions } from '../../store/trashStorage/slices';
 
 const IMG_SRC = 'https://seoulhype.files.wordpress.com/2020/05/iu_full.jpg?w=1500&h=768&crop=1';
 const IMG_ALT = 'IU is Love.';
@@ -18,40 +16,29 @@ const photoStorageStyle = css({
 
 const PhotoStorage = () => {
   const dispatch = useDispatch();
-  const { isEditMode, checkedList } = useSelector((state) => state.photoStorage);
+  const { checkedList } = useSelector((state) => state.trashStorage);
 
   useEffect(() => () => {
-    dispatch(photoStorageActions.clearCheckedList());
+    dispatch(trashStorageActions.clearCheckedList());
   }, []);
 
   const getIsChecked = (photoId) => checkedList.indexOf(photoId) >= 0;
 
-  const handleClickCheck = (photoId) => () => dispatch(photoStorageActions.checkPhoto({
+  const handleClickCheck = (photoId) => () => dispatch(trashStorageActions.checkPhoto({
     photoId,
   }));
 
-  const handleClickUncheck = (photoId) => () => dispatch(photoStorageActions.unCheckPhoto({
+  const handleClickUncheck = (photoId) => () => dispatch(trashStorageActions.unCheckPhoto({
     photoId,
   }));
 
   const handleClickPhoto = (photoId) => {
     const isChecked = getIsChecked(photoId);
 
-    if (isEditMode) {
-      if (isChecked) {
-        return handleClickUncheck(photoId);
-      }
-      return handleClickCheck(photoId);
+    if (isChecked) {
+      return handleClickUncheck(photoId);
     }
-
-    return () => dispatch(appActions.openModal({
-      modalType: MODAL_TYPE.PHOTO_DETAIL_MODAL,
-      modalProps: {
-        // TODO photoId를 넘겨 조회하도록 수정
-        imgSrc: IMG_SRC,
-        imgAlt: IMG_ALT,
-      },
-    }));
+    return handleClickCheck(photoId);
   };
 
   return (

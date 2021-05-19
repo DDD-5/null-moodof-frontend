@@ -4,11 +4,10 @@ import { css } from '@emotion/react';
 import Category from './Category';
 import Profile from './Profile';
 import { Main } from '../../assets/icons/logo';
-import { Storage, TrashCan } from '../../assets/icons/24';
-import { Fold } from '../../assets/icons/32';
+import { Fold, Photo, TrashCan } from '../../assets/icons/16';
 
 const navigationStyle = css({
-  width: 280,
+  width: 240,
   height: '100vh',
   position: 'fixed',
   top: 0,
@@ -17,7 +16,7 @@ const navigationStyle = css({
 });
 
 const titleStyle = css({
-  height: 56,
+  height: 48,
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   padding: '0 16px 0 19px',
   display: 'flex',
@@ -27,8 +26,8 @@ const titleStyle = css({
 
 const menuStyle = css({
   overflow: 'scroll',
-  height: 'calc(100% - 56px)',
-  padding: '24px 16px 104px 16px',
+  height: 'calc(100% - 48px)',
+  padding: '8px 16px 72px 16px',
 });
 
 const storageStyle = (isMatchPath) => css({
@@ -41,9 +40,10 @@ const storageStyle = (isMatchPath) => css({
   color: 'inherit',
   textDecoration: 'none',
   cursor: 'pointer',
-  backgroundColor: isMatchPath && '#F5F5F5',
+  backgroundColor: isMatchPath && '#EEEEEE',
+  borderRadius: 4,
   '&:hover': {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: isMatchPath ? '#EEEEEE' : '#F5F5F5',
   },
 });
 
@@ -52,14 +52,15 @@ const trashCanStyle = (isMatchPath) => css({
   display: 'flex',
   alignItems: 'center',
   padding: '0 8px 0 8px',
-  marginTop: 7.5,
+  marginTop: 10,
   fontSize: 14,
   color: 'inherit',
   textDecoration: 'none',
   cursor: 'pointer',
-  backgroundColor: isMatchPath && '#F5F5F5',
+  backgroundColor: isMatchPath && '#EEEEEE',
+  borderRadius: 4,
   '&:hover': {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: isMatchPath ? '#EEEEEE' : '#F5F5F5',
   },
 });
 
@@ -67,49 +68,49 @@ const Navigation = () => {
   const [categoryData, setCategoryData] = useState([
     {
       id: 'a',
-      name: '프로젝트a',
+      name: '프로젝트 A',
       boardData: [
         {
           id: 'a',
           categoryId: 'a',
-          name: '보드a',
+          name: '보드 A',
         },
         {
           id: 'b',
           categoryId: 'a',
-          name: '보드b',
+          name: '보드 B',
         },
       ],
     },
     {
       id: 'b',
-      name: '프로젝트b',
+      name: '프로젝트 B',
       boardData: [
         {
           id: 'c',
           categoryId: 'b',
-          name: '보드c',
+          name: '보드 C',
         },
         {
           id: 'd',
           categoryId: 'b',
-          name: '보드d',
+          name: '보드 D',
         },
       ],
     },
     {
       id: 'c',
-      name: '프로젝트c',
+      name: '프로젝트 C',
       boardData: [
         {
           id: 'e',
           categoryId: 'c',
-          name: '보드e',
+          name: '보드 E',
         },
         {
           id: 'f',
           categoryId: 'c',
-          name: '보드f',
+          name: '보드 F',
         },
       ],
     },
@@ -162,7 +163,7 @@ const Navigation = () => {
 
       <div css={menuStyle}>
         <Link to="/" css={storageStyle(matchStoragePath?.isExact)}>
-          <Storage css={{ marginRight: '6px' }} />
+          <Photo css={{ marginRight: '6px' }} />
           <span>이미지 보관함</span>
         </Link>
         <div>

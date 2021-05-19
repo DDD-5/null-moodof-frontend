@@ -1,10 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
-import { action as appActions } from '../../../store/app/slices';
 import {
   ChevronLeft, Tag, Save, TrashCan,
 } from '../../../assets/icons/24';
+import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
 
 const headerStyle = css({
@@ -41,17 +41,17 @@ const rightBlockStyle = css({
   },
 });
 
-const ImageDetailModal = () => {
+const PhotoDetailModal = () => {
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.IMAGE_DETAIL_MODAL,
+      modalType: MODAL_TYPE.PHOTO_DETAIL_MODAL,
     }));
   };
 
   return (
-    <header css={headerStyle}>
+    <header css={headerStyle} onClick={(e) => e.stopPropagation()}>
       <div css={closeStyle} onClick={handleCloseModal}>
         <ChevronLeft css={{ marginRight: 2 }} />
         <span>나가기</span>
@@ -68,4 +68,4 @@ const ImageDetailModal = () => {
   );
 };
 
-export default ImageDetailModal;
+export default PhotoDetailModal;

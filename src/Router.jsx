@@ -5,7 +5,7 @@ import {
   Intro,
   PhotoStorage,
   PhotoBoard,
-  TrashCan,
+  TrashStorage,
   NotFound,
 } from './pages';
 import { Navigation, Header } from './components';
@@ -14,7 +14,7 @@ import { HEADER_TYPE } from './constants';
 const AppFrame = ({ children, headerType }) => {
   const globalWrapStyle = css({
     paddingTop: 56,
-    paddingLeft: 280,
+    paddingLeft: 240,
   });
 
   return (
@@ -39,12 +39,12 @@ const Router = () => (
       </AppFrame>
     </Route>
     <Route exact path="/trash">
-      <AppFrame headerType={HEADER_TYPE.TRASH}>
-        <TrashCan />
+      <AppFrame headerType={HEADER_TYPE.TRASH_STORAGE}>
+        <TrashStorage />
       </AppFrame>
     </Route>
     <Route exact path="/">
-      <AppFrame headerType={HEADER_TYPE.STORAGE}>
+      <AppFrame headerType={HEADER_TYPE.PHOTO_STORAGE}>
         <PhotoStorage />
       </AppFrame>
     </Route>
