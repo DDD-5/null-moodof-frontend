@@ -19,5 +19,6 @@ module.exports = {
     'no-param-reassign': 'off',
     'react/no-array-index-key': 'off',
     'import/no-cycle': 'off',
+    'no-nested-ternary': 'off',
   },
 };

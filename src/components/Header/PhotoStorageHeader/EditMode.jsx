@@ -1,29 +1,33 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Move, Save, TrashCan } from '../../../assets/icons/24';
+import { Move, Download, TrashCan } from '../../../assets/icons/16';
 import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
 
 const countTextStyle = css({
   fontSize: 14,
-  marginRight: 26,
+  marginRight: 12,
+  color: 'rgba(0, 0, 0, 0.4)',
 });
 
 const checkInputStyle = css({
   width: 16,
   height: 16,
-  marginRight: 24,
+  marginRight: 16,
 });
 
 const iconBlockStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: 48,
-  height: 48,
+  width: 32,
+  height: 32,
   marginRight: 8,
   cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: 'rgba(245, 245, 245, 1)',
+  },
   '&:last-child': {
     marginRight: 0,
   },
@@ -53,7 +57,7 @@ const Default = () => {
       <span css={countTextStyle}>{checkedList.length}개 이미지가 선택됨</span>
       <input type="checkbox" css={checkInputStyle} />
       <WrappedIcon Icon={Move} />
-      <WrappedIcon Icon={Save} />
+      <WrappedIcon Icon={Download} />
       <WrappedIcon Icon={TrashCan} onClick={handleClickGoTrash} />
     </>
   );

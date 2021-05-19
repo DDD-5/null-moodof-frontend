@@ -13,14 +13,18 @@ const boardNameStyle = (isDragging, isOver, isMatchPath) => css({
   justifyContent: 'space-between',
   alignItems: 'center',
   cursor: 'pointer',
-  opacity: isDragging && 0.5,
-  outline: isOver && '1px solid grey',
   color: 'inherit',
   textDecoration: 'none',
-  backgroundColor: isMatchPath && '#EEEEEE',
+  backgroundColor: (isOver || isDragging)
+    ? 'rgba(240, 246, 255, 1)'
+    : isMatchPath && '#EEEEEE',
   borderRadius: 4,
   '&:hover': {
-    backgroundColor: isMatchPath ? '#EEEEEE' : '#F5F5F5',
+    backgroundColor: (isOver || isDragging)
+      ? 'rgba(240, 246, 255, 1)'
+      : isMatchPath
+        ? '#EEEEEE'
+        : '#F5F5F5',
     '& .hover-buttons': {
       display: 'flex',
       alignItems: 'center',
