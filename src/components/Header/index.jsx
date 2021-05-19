@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import StorageHeader from './StorageHeader';
+import PhotoStorageHeader from './PhotoStorageHeader';
 import { HEADER_TYPE } from '../../constants';
 
 const headerStyle = css({
@@ -14,9 +14,9 @@ const headerStyle = css({
 
 const Header = ({ headerType }) => (
   <header css={headerStyle}>
-    {headerType === HEADER_TYPE.STORAGE && <StorageHeader />}
-    {headerType === HEADER_TYPE.BOARD && <StorageHeader />}
-    {headerType === HEADER_TYPE.TRASH && <StorageHeader />}
+    {headerType === HEADER_TYPE.STORAGE && <PhotoStorageHeader />}
+    {headerType === HEADER_TYPE.BOARD && <PhotoStorageHeader />}
+    {headerType === HEADER_TYPE.TRASH && <PhotoStorageHeader />}
   </header>
 );
 

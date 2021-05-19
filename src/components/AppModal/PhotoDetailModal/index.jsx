@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from '../../../assets/icons/48';
 import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
 
-const imageDetailModalStyle = css({
+const photoDetailModalStyle = css({
   position: 'fixed',
   top: 0,
   width: '100%',
@@ -38,12 +38,12 @@ const navigationButtons = css({
   },
 });
 
-const ImageDetailModal = ({ imgSrc, imgAlt }) => {
+const PhotoDetailModal = ({ imgSrc, imgAlt }) => {
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.IMAGE_DETAIL_MODAL,
+      modalType: MODAL_TYPE.PHOTO_DETAIL_MODAL,
     }));
   };
 
@@ -60,7 +60,7 @@ const ImageDetailModal = ({ imgSrc, imgAlt }) => {
   };
 
   return (
-    <div css={imageDetailModalStyle} onClick={handleCloseModal}>
+    <div css={photoDetailModalStyle} onClick={handleCloseModal}>
       <Header />
       <img
         onClick={handleClickImg}
@@ -76,4 +76,4 @@ const ImageDetailModal = ({ imgSrc, imgAlt }) => {
   );
 };
 
-export default ImageDetailModal;
+export default PhotoDetailModal;

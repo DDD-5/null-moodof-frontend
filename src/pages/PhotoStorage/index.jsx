@@ -41,7 +41,7 @@ const PhotoStorage = () => {
     }
 
     return () => dispatch(appActions.openModal({
-      modalType: MODAL_TYPE.IMAGE_DETAIL_MODAL,
+      modalType: MODAL_TYPE.PHOTO_DETAIL_MODAL,
       modalProps: {
         // TODO photoId를 넘겨 조회하도록 수정
         imgSrc: IMG_SRC,

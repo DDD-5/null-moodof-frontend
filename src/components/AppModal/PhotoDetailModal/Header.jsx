@@ -41,12 +41,12 @@ const rightBlockStyle = css({
   },
 });
 
-const ImageDetailModal = () => {
+const PhotoDetailModal = () => {
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.IMAGE_DETAIL_MODAL,
+      modalType: MODAL_TYPE.PHOTO_DETAIL_MODAL,
     }));
   };
 
@@ -68,4 +68,4 @@ const ImageDetailModal = () => {
   );
 };
 
-export default ImageDetailModal;
+export default PhotoDetailModal;
