@@ -3,23 +3,34 @@ import { createSlice } from '@reduxjs/toolkit';
 const appSlice = createSlice({
   name: 'app',
   initialState: {
-    modal: [],
+    modals: [],
+    menu: {},
   },
   reducers: {
+    // 모달
     openModal(state, action) {
       const { modalType, modalProps } = action.payload;
 
-      state.modal.push({
+      state.modals.push({
         modalType,
         modalProps,
-        open: true,
       });
     },
     closeModal(state, action) {
       const { modalType } = action.payload;
-      const modalIndex = state.modal.findIndex((m) => m.modalType === modalType);
+      const modalIndex = state.modals.findIndex((m) => m.modalType === modalType);
 
-      state.modal.splice(modalIndex, 1);
+      state.modals.splice(modalIndex, 1);
+    },
+    // 메뉴
+    openMenu(state, action) {
+      const { menuType, menuProps } = action.payload;
+
+      state.menu.menuType = menuType;
+      state.menu.menuProps = menuProps;
+    },
+    closeMenu(state) {
+      state.menu = {};
     },
   },
 });

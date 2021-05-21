@@ -10,3 +10,10 @@ export const MODAL_TYPE = {
   DELETE_MODAL: 'DELETE_MODAL',
   RESTORE_MODAL: 'RESTORE_MODAL',
 };
+
+export const MENU_TYPE = {
+  NAVIGATION: {
+    CATEGORY: 'CATEGORY',
+    BOARD: 'BOARD',
+  },
+};

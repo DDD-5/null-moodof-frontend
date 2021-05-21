@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
+
+import { action as appActions } from '../../store/app/slices';
+import { MENU_TYPE } from '../../constants';
 import { Ellipsis } from '../../assets/icons/16';
 
 const boardNameStyle = (isDragging, isOver, isSelected) => css({
@@ -78,6 +82,20 @@ const Board = ({
   moveBoard,
   isEmpty,
 }) => {
+  const dispatch = useDispatch();
+
+  const handleClickMenu = (e) => {
+    e.preventDefault();
+
+    dispatch(appActions.openMenu({
+      menuType: MENU_TYPE.NAVIGATION.BOARD,
+      menuProps: {
+        pageX: e.pageX,
+        pageY: e.pageY,
+      },
+    }));
+  };
+
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'board',
     item: { id, categoryId },
@@ -115,7 +133,11 @@ const Board = ({
         >
           <span>{name}</span>
           <div className="hover-buttons" css={boardHoverButtons}>
-            <WrappedHoverIcon Icon={Ellipsis} isSelected={isSelected} />
+            <WrappedHoverIcon
+              Icon={Ellipsis}
+              isSelected={isSelected}
+              handleClick={handleClickMenu}
+            />
           </div>
         </Link>
       )
