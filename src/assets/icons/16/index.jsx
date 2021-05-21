@@ -6,6 +6,8 @@ export { default as Fold } from './Fold';
 export { default as Photo } from './Photo';
 export { default as ChevronUp } from './ChevronUp';
 export { default as ChevronDown } from './ChevronDown';
+export { default as ChevronLeft } from './ChevronLeft';
+export { default as ChevronRight } from './ChevronRight';
 export { default as TrashCan } from './TrashCan';
 export { default as Logout } from './Logout';
 export { default as Move } from './Move';
