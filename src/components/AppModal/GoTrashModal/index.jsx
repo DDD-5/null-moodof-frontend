@@ -55,7 +55,7 @@ const GoTrashModal = ({ checkedList }) => {
 
   const handleCloseModal = () => {
     dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.GO_TRASH_MODAL,
+      modalType: MODAL_TYPE.GO_TRASH,
     }));
   };
 

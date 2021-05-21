@@ -45,7 +45,7 @@ const Default = () => {
 
   const handleClickGoTrash = () => {
     dispatch(appActions.openModal({
-      modalType: MODAL_TYPE.GO_TRASH_MODAL,
+      modalType: MODAL_TYPE.GO_TRASH,
       modalProps: {
         checkedList,
       },

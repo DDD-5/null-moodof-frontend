@@ -55,7 +55,7 @@ const RestoreModal = ({ checkedList }) => {
 
   const handleCloseModal = () => {
     dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.RESTORE_MODAL,
+      modalType: MODAL_TYPE.RESTORE,
     }));
   };
 
