@@ -63,7 +63,7 @@ const Default = () => {
   const handleClickDelete = () => {
     if (checkedList.length) {
       dispatch(appActions.openModal({
-        modalType: MODAL_TYPE.DELETE_MODAL,
+        modalType: MODAL_TYPE.DELETE,
         modalProps: {
           checkedList,
         },
@@ -74,7 +74,7 @@ const Default = () => {
   const handleClickRestore = () => {
     if (checkedList.length) {
       dispatch(appActions.openModal({
-        modalType: MODAL_TYPE.RESTORE_MODAL,
+        modalType: MODAL_TYPE.RESTORE,
         modalProps: {
           checkedList,
         },

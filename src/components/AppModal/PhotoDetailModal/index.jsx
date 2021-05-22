@@ -43,7 +43,7 @@ const PhotoDetailModal = ({ imgSrc, imgAlt }) => {
 
   const handleCloseModal = () => {
     dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.PHOTO_DETAIL_MODAL,
+      modalType: MODAL_TYPE.PHOTO_DETAIL,
     }));
   };
 

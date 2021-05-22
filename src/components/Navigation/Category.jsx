@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/react';
+import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
-import { Ellipsis, ChevronUp } from '../../assets/icons/16';
-import { Add } from '../../assets/icons/12';
+
 import Board from './Board';
+
+import { action as appActions } from '../../store/app/slices';
+import { MENU_TYPE } from '../../constants';
+import { Ellipsis, ChevronUp, ChevronDown } from '../../assets/icons/16';
+import { Add } from '../../assets/icons/12';
 
 const categoryStyle = (isDragging, isOver) => css({
   padding: '10px 0 10px 0',
@@ -76,6 +81,19 @@ const Category = ({
   moveCategory,
   moveBoard,
 }) => {
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleClickMenu = (e) => {
+    dispatch(appActions.openMenu({
+      menuType: MENU_TYPE.NAVIGATION.CATEGORY,
+      menuProps: {
+        pageX: e.pageX,
+        pageY: e.pageY,
+      },
+    }));
+  };
+
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'category',
     item: { id },
@@ -94,36 +112,45 @@ const Category = ({
     },
   }));
 
+  const handleToggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div css={categoryStyle(isDragging, isOver)} ref={(node) => dragRef(dropRef(node))}>
       <div css={categoryNameWrapperStyle}>
         <div css={categoryNameStyle}>
-          <ChevronUp css={{ marginRight: 8 }} />
+          {isOpen
+            ? <ChevronUp color="rgba(0, 0, 0, 0.4)" css={{ marginRight: 8, cursor: 'pointer' }} onClick={handleToggleOpen} />
+            : <ChevronDown color="rgba(0, 0, 0, 0.4)" css={{ marginRight: 8, cursor: 'pointer' }} onClick={handleToggleOpen} />}
           <span>{name}</span>
         </div>
         <div className="hover-buttons" css={categoryHoverButtons}>
           <WrappedHoverIcon Icon={Add} />
-          <WrappedHoverIcon Icon={Ellipsis} />
+          <WrappedHoverIcon Icon={Ellipsis} handleClick={handleClickMenu} />
         </div>
       </div>
-      <div css={boardListStyle}>
-        {boardData.map((board) => (
-          <Board
-            key={board.id}
-            id={board.id}
-            categoryId={board.categoryId}
-            name={board.name}
-            moveBoard={moveBoard}
-          />
-        ))}
-        {!boardData.length && (
+
+      {isOpen && (
+        <div css={boardListStyle}>
+          {boardData.map((board) => (
+            <Board
+              key={board.id}
+              id={board.id}
+              categoryId={board.categoryId}
+              name={board.name}
+              moveBoard={moveBoard}
+            />
+          ))}
+          {!boardData.length && (
           <Board
             isEmpty
             categoryId={id}
             moveBoard={moveBoard}
           />
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

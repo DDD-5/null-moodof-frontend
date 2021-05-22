@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
+import { useDispatch } from 'react-redux';
+
+import { action as userActions } from '../../store/user/slices';
 import { Logout, ChevronUp, ChevronDown } from '../../assets/icons/16';
 
 const profileStyle = css({
@@ -65,17 +68,22 @@ const expandBlockStyle = css({
 });
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleProfileToggle = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleClickSignout = () => {
+    dispatch(userActions.logout());
+  };
+
   return (
     <div css={profileStyle}>
       {isOpen && (
         <div css={expandBlockStyle}>
-          <div css={logoutStyle}>
+          <div css={logoutStyle} onClick={handleClickSignout}>
             <Logout css={{ marginRight: 8 }} />
             <span>로그아웃</span>
           </div>

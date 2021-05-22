@@ -6,10 +6,10 @@ import RestoreModal from './RestoreModal';
 import { MODAL_TYPE } from '../../constants';
 
 const MODAL_COMPONENTS = {
-  [MODAL_TYPE.PHOTO_DETAIL_MODAL]: PhotoDetailModal,
-  [MODAL_TYPE.GO_TRASH_MODAL]: GoTrashModal,
-  [MODAL_TYPE.DELETE_MODAL]: DeleteModal,
-  [MODAL_TYPE.RESTORE_MODAL]: RestoreModal,
+  [MODAL_TYPE.PHOTO_DETAIL]: PhotoDetailModal,
+  [MODAL_TYPE.GO_TRASH]: GoTrashModal,
+  [MODAL_TYPE.DELETE]: DeleteModal,
+  [MODAL_TYPE.RESTORE]: RestoreModal,
 };
 
 const AppModal = (props) => {

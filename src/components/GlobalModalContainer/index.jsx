@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import AppModal from '../AppModal';
 
 const GlobalModalContainer = () => {
-  const { modal } = useSelector((state) => state.app);
+  const { modals } = useSelector((state) => state.app);
 
-  return modal.map(
+  return modals.map(
     (m, index) => (
       <AppModal
         key={index}

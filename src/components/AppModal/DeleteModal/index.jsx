@@ -55,7 +55,7 @@ const DeleteModal = ({ checkedList }) => {
 
   const handleCloseModal = () => {
     dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.DELETE_MODAL,
+      modalType: MODAL_TYPE.DELETE,
     }));
   };
 
