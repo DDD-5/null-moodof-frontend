@@ -1,12 +1,6 @@
-import React, { useEffect } from 'react';
-import {
-  Switch,
-  Route,
-  useLocation,
-  useHistory,
-} from 'react-router-dom';
+import React from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { useDispatch } from 'react-redux';
 
 import {
   Intro,
@@ -17,7 +11,6 @@ import {
 } from './pages';
 import { Navigation, Header } from './components';
 
-import { action as userActions } from './store/user/slices';
 import { HEADER_TYPE } from './constants';
 
 const AppFrame = ({ children, headerType }) => {
@@ -38,29 +31,20 @@ const AppFrame = ({ children, headerType }) => {
 };
 
 const Router = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
   const history = useHistory();
 
-  // 토큰 제어
-  useEffect(() => {
-    const localToken = window.localStorage.getItem('token');
+  const localToken = window.localStorage.getItem('token');
+  const params = new URLSearchParams(window.location.search);
+  const tokenParam = params.get('token');
 
-    if (localToken) {
-      dispatch(userActions.setToken(localToken));
-    } else {
-      const params = new URLSearchParams(location.search);
-      const tokenParam = params.get('token');
-
-      if (tokenParam) {
-        window.localStorage.setItem('token', tokenParam);
-        dispatch(userActions.setToken(tokenParam));
-        history.replace('/');
-      } else {
-        window.location.href = (`https://www.moodof.net/oauth2/authorize/google?redirect_uri=${window.location.href}`);
-      }
-    }
-  }, []);
+  if (localToken) {
+    window.localStorage.setItem('token', localToken);
+  } else if (tokenParam) {
+    window.localStorage.setItem('token', tokenParam);
+    history.replace('/');
+  } else {
+    window.location.href = (`https://www.moodof.net/oauth2/authorize/google?redirect_uri=${window.location.href}`);
+  }
 
   return (
     <Switch>
