@@ -137,18 +137,22 @@ const Navigation = () => {
           <Photo css={{ marginRight: '6px' }} />
           <span>이미지 보관함</span>
         </Link>
-        <div>
-          {categoryData.map((category) => (
-            <Category
-              key={category.id}
-              id={category.id}
-              name={category.title}
-              boardList={category.boardList}
-              moveCategory={moveCategory}
-              moveBoard={moveBoard}
-            />
-          ))}
-        </div>
+
+        {(!!categories.length && !isCategoriesLoading) && (
+          <div>
+            {categoryData.map((category) => (
+              <Category
+                key={category.id}
+                id={category.id}
+                name={category.title}
+                boardList={category.boardList}
+                moveCategory={moveCategory}
+                moveBoard={moveBoard}
+              />
+            ))}
+          </div>
+        )}
+
         <Link to="/trash" css={trashCanStyle(matchTrashPath?.isExact)}>
           <TrashCan css={{ marginRight: '6px' }} />
           <span>휴지통</span>

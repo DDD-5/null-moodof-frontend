@@ -98,7 +98,7 @@ const Profile = () => {
 
   return (
     <div css={profileStyle(isOpen)}>
-      {!isUserLoading && (
+      {(!!Object.keys(user).length && !isUserLoading) && (
         <>
           {isOpen && (
           <div css={expandBlockStyle} onClick={handleClickSignout}>
