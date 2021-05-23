@@ -11,7 +11,7 @@ module.exports = {
     'react/jsx-one-expression-per-line': 'off',
     'import/prefer-default-export': 'off',
     'react/prop-types': 'off',
-    'no-unused-vars': 1,
+    'no-unused-vars': 'off',
     'react/jsx-props-no-spreading': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
