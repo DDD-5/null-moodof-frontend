@@ -11,7 +11,7 @@ import {
 } from './pages';
 import { Navigation, Header } from './components';
 
-import { HEADER_TYPE } from './constants';
+import { HEADER_TYPE, ENV } from './constants';
 
 const AppFrame = ({ children, headerType }) => {
   const globalWrapStyle = css({
@@ -43,7 +43,7 @@ const Router = () => {
     window.localStorage.setItem('token', tokenParam);
     history.replace('/');
   } else {
-    window.location.href = (`https://www.moodof.net/oauth2/authorize/google?redirect_uri=${window.location.href}`);
+    window.location.href = (`${ENV.oAuthUrl}?redirect_uri=${window.location.href}`);
   }
 
   return (

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {
+  memo, useState, useRef, useEffect,
+} from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { action as appActions } from '../../store/app/slices';
+import { action as navigationActions } from '../../store/navigation/slices';
 import { MENU_TYPE } from '../../constants';
 import { Ellipsis } from '../../assets/icons/16';
 
@@ -69,6 +72,28 @@ const hoverIconBlockStyle = (isSelected) => css({
   },
 });
 
+const renameBoardStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  height: 40,
+  padding: '0 12px 0 24px',
+  marginBottom: 5,
+  '&:last-child': {
+    marginBottom: 0,
+  },
+  '& input': {
+    width: 180,
+    height: 30,
+    border: '1px solid rgba(0, 0, 0, 0.2)',
+    borderRadius: 4,
+    padding: '0 8px',
+    '&:focus': {
+      border: '1px solid #2F80ED',
+      outline: 'none',
+    },
+  },
+});
+
 const WrappedHoverIcon = ({ Icon, handleClick, isSelected }) => (
   <div css={hoverIconBlockStyle(isSelected)} onClick={handleClick}>
     <Icon />
@@ -83,18 +108,19 @@ const Board = ({
   isEmpty,
 }) => {
   const dispatch = useDispatch();
+  const { renameBoardInput } = useSelector((state) => state.navigation);
+  const isRenameBoardInputOpen = renameBoardInput.isOpen
+    && renameBoardInput.categoryId === categoryId
+    && renameBoardInput.boardId === id;
 
-  const handleClickMenu = (e) => {
-    e.preventDefault();
+  const [renameBoardInputValue, setRenameBoardInputValue] = useState(name);
+  const renameBoardInputRef = useRef(null);
 
-    dispatch(appActions.openMenu({
-      menuType: MENU_TYPE.NAVIGATION.BOARD,
-      menuProps: {
-        pageX: e.pageX,
-        pageY: e.pageY,
-      },
-    }));
-  };
+  useEffect(() => {
+    if (renameBoardInputRef.current) {
+      renameBoardInputRef.current.focus();
+    }
+  }, [isRenameBoardInputOpen]);
 
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'board',
@@ -115,6 +141,40 @@ const Board = ({
     },
   }));
 
+  const handleClickMenu = (e) => {
+    e.preventDefault();
+
+    dispatch(appActions.openMenu({
+      menuType: MENU_TYPE.NAVIGATION.BOARD,
+      menuProps: {
+        pageX: e.pageX,
+        pageY: e.pageY,
+        categoryId,
+        boardId: id,
+      },
+    }));
+  };
+
+  const handleBlurRenameBoard = () => {
+    dispatch(navigationActions.setRenameBoardInput({ isOpen: false, categoryId, boardId: id }));
+    setRenameBoardInputValue(name);
+  };
+
+  const handleChangeRenameBoard = (e) => {
+    setRenameBoardInputValue(e.target.value);
+  };
+
+  const handleKeyPressRenameBoard = (e) => {
+    if (e.key === 'Enter') {
+      if (renameBoardInputValue) {
+        dispatch(navigationActions.setRenameBoardInput({ isOpen: false, categoryId, boardId: id }));
+        dispatch(navigationActions.updateBoardNameRequest(
+          { boardId: id, name: renameBoardInputValue },
+        ));
+      }
+    }
+  };
+
   const matchBoardPath = useRouteMatch(`/board/${id}`);
   const isSelected = matchBoardPath?.isExact;
 
@@ -126,22 +186,39 @@ const Board = ({
           ref={(node) => dragRef(dropRef(node))}
         />
       ) : (
-        <Link
-          to={`/board/${id}`}
-          css={boardNameStyle(isDragging, isOver, isSelected)}
-          ref={(node) => dragRef(dropRef(node))}
-        >
-          <span>{name}</span>
-          <div className="hover-buttons" css={boardHoverButtons}>
-            <WrappedHoverIcon
-              Icon={Ellipsis}
-              isSelected={isSelected}
-              handleClick={handleClickMenu}
-            />
-          </div>
-        </Link>
+        isRenameBoardInputOpen
+          ? (
+            <div css={renameBoardStyle}>
+              <input
+                placeholder={name}
+                maxLength="20"
+                value={renameBoardInputValue}
+                ref={renameBoardInputRef}
+                onChange={handleChangeRenameBoard}
+                onBlur={handleBlurRenameBoard}
+                onKeyPress={handleKeyPressRenameBoard}
+              />
+            </div>
+          )
+          : (
+            <Link
+              to={`/board/${id}`}
+              css={boardNameStyle(isDragging, isOver, isSelected)}
+              ref={(node) => dragRef(dropRef(node))}
+            >
+              <span>{name}</span>
+              <div className="hover-buttons" css={boardHoverButtons}>
+                <WrappedHoverIcon
+                  Icon={Ellipsis}
+                  isSelected={isSelected}
+                  handleClick={handleClickMenu}
+                />
+              </div>
+            </Link>
+          )
+
       )
   );
 };
 
-export default Board;
+export default memo(Board);

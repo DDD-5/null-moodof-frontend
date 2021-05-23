@@ -151,12 +151,14 @@ const Category = ({
 
   const handleKeyPressCreateBoard = (e) => {
     if (e.key === 'Enter') {
-      dispatch(navigationActions.createBoardRequest({
-        categoryId: id,
-        name: newBoardInputValue,
-        previousBoardId: boardList?.[boardList.length - 1]?.id || 0,
-      }));
-      setIsNewBoardInputOpen(false);
+      if (newBoardInputValue) {
+        dispatch(navigationActions.createBoardRequest({
+          categoryId: id,
+          name: newBoardInputValue,
+          previousBoardId: boardList?.[boardList.length - 1]?.id || 0,
+        }));
+        setIsNewBoardInputOpen(false);
+      }
     }
   };
 

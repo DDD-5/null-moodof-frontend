@@ -1,5 +1,6 @@
 export const ENV = {
   apiEndpoint: 'https://www.moodof.net/api',
+  oAuthUrl: 'https://www.moodof.net/oauth2/authorize/google',
 };
 
 export const HEADER_TYPE = {

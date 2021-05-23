@@ -16,3 +16,5 @@ export { default as Column } from './Column';
 export { default as Share } from './Share';
 export { default as Spacing } from './Spacing';
 export { default as Restore } from './Restore';
+export { default as Copy } from './Copy';
+export { default as Edit } from './Edit';
