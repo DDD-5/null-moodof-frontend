@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -94,7 +94,7 @@ const Profile = () => {
     profileUrl,
     nickname,
     email,
-  } = user?.data || {};
+  } = user || {};
 
   return (
     <div css={profileStyle(isOpen)}>
@@ -125,4 +125,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default memo(Profile);

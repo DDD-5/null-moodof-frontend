@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, {
+  memo, useState, useRef, useEffect,
+} from 'react';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
@@ -6,6 +8,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import Board from './Board';
 
 import { action as appActions } from '../../store/app/slices';
+import { action as navigationActions } from '../../store/navigation/slices';
 import { MENU_TYPE } from '../../constants';
 import { Ellipsis, ChevronUp, ChevronDown } from '../../assets/icons/16';
 import { Add } from '../../assets/icons/12';
@@ -68,6 +71,24 @@ const hoverIconBlockStyle = css({
   },
 });
 
+const newBoardStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  height: 40,
+  padding: '0 12px 0 24px',
+  '& input': {
+    width: 180,
+    height: 30,
+    border: '1px solid rgba(0, 0, 0, 0.2)',
+    borderRadius: 4,
+    padding: '0 8px',
+    '&:focus': {
+      border: '1px solid #2F80ED',
+      outline: 'none',
+    },
+  },
+});
+
 const WrappedHoverIcon = ({ Icon, handleClick }) => (
   <div css={hoverIconBlockStyle} onClick={handleClick}>
     <Icon />
@@ -77,22 +98,21 @@ const WrappedHoverIcon = ({ Icon, handleClick }) => (
 const Category = ({
   id,
   name,
-  boardData,
+  boardList,
   moveCategory,
   moveBoard,
 }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(true);
+  const [isNewBoardInputOpen, setIsNewBoardInputOpen] = useState(false);
+  const [newBoardInputValue, setNewBoardInputValue] = useState('');
+  const newBoardInputRef = useRef(null);
 
-  const handleClickMenu = (e) => {
-    dispatch(appActions.openMenu({
-      menuType: MENU_TYPE.NAVIGATION.CATEGORY,
-      menuProps: {
-        pageX: e.pageX,
-        pageY: e.pageY,
-      },
-    }));
-  };
+  useEffect(() => {
+    if (newBoardInputRef.current) {
+      newBoardInputRef.current.focus();
+    }
+  }, [isNewBoardInputOpen]);
 
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'category',
@@ -116,6 +136,40 @@ const Category = ({
     setIsOpen(!isOpen);
   };
 
+  const handleClickCreateBoard = () => {
+    setIsNewBoardInputOpen(true);
+  };
+
+  const handleBlurCreateBoard = () => {
+    setIsNewBoardInputOpen(false);
+    setNewBoardInputValue('');
+  };
+
+  const handleChangeCreateBoard = (e) => {
+    setNewBoardInputValue(e.target.value);
+  };
+
+  const handleKeyPressCreateBoard = (e) => {
+    if (e.key === 'Enter') {
+      dispatch(navigationActions.createBoardRequest({
+        categoryId: id,
+        name: newBoardInputValue,
+        previousBoardId: boardList?.[boardList.length - 1]?.id || 0,
+      }));
+      setIsNewBoardInputOpen(false);
+    }
+  };
+
+  const handleClickMenu = (e) => {
+    dispatch(appActions.openMenu({
+      menuType: MENU_TYPE.NAVIGATION.CATEGORY,
+      menuProps: {
+        pageX: e.pageX,
+        pageY: e.pageY,
+      },
+    }));
+  };
+
   return (
     <div css={categoryStyle(isDragging, isOver)} ref={(node) => dragRef(dropRef(node))}>
       <div css={categoryNameWrapperStyle}>
@@ -126,14 +180,14 @@ const Category = ({
           <span>{name}</span>
         </div>
         <div className="hover-buttons" css={categoryHoverButtons}>
-          <WrappedHoverIcon Icon={Add} />
+          <WrappedHoverIcon Icon={Add} handleClick={handleClickCreateBoard} />
           <WrappedHoverIcon Icon={Ellipsis} handleClick={handleClickMenu} />
         </div>
       </div>
 
       {isOpen && (
         <div css={boardListStyle}>
-          {boardData.map((board) => (
+          {boardList.map((board) => (
             <Board
               key={board.id}
               id={board.id}
@@ -142,12 +196,25 @@ const Category = ({
               moveBoard={moveBoard}
             />
           ))}
-          {!boardData.length && (
-          <Board
-            isEmpty
-            categoryId={id}
-            moveBoard={moveBoard}
-          />
+          {isNewBoardInputOpen && (
+            <div css={newBoardStyle}>
+              <input
+                placeholder="새 보드"
+                maxLength="20"
+                value={newBoardInputValue}
+                ref={newBoardInputRef}
+                onBlur={handleBlurCreateBoard}
+                onChange={handleChangeCreateBoard}
+                onKeyPress={handleKeyPressCreateBoard}
+              />
+            </div>
+          )}
+          {!boardList.length && !isNewBoardInputOpen && (
+            <Board
+              isEmpty
+              categoryId={id}
+              moveBoard={moveBoard}
+            />
           )}
         </div>
       )}
@@ -155,4 +222,4 @@ const Category = ({
   );
 };
 
-export default Category;
+export default memo(Category);

@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { cloneDeep } from 'lodash';
+
 import Category from './Category';
 import Profile from './Profile';
+
+import { action as navigationActions } from '../../store/navigation/slices';
 import { Main } from '../../assets/icons/logo';
 import { Fold, Photo, TrashCan } from '../../assets/icons/16';
 
@@ -26,8 +31,9 @@ const titleStyle = css({
 
 const menuStyle = css({
   overflow: 'scroll',
-  height: 'calc(100% - 48px)',
-  padding: '8px 16px 72px 16px',
+  height: 'calc(100% - 112px)',
+  padding: '8px 16px 8px 16px',
+  marginBottom: 72,
 });
 
 const storageStyle = (isMatchPath) => css({
@@ -65,56 +71,21 @@ const trashCanStyle = (isMatchPath) => css({
 });
 
 const Navigation = () => {
-  const [categoryData, setCategoryData] = useState([
-    {
-      id: 'a',
-      name: '프로젝트 A',
-      boardData: [
-        {
-          id: 'a',
-          categoryId: 'a',
-          name: '보드 A',
-        },
-        {
-          id: 'b',
-          categoryId: 'a',
-          name: '보드 B',
-        },
-      ],
-    },
-    {
-      id: 'b',
-      name: '프로젝트 B',
-      boardData: [
-        {
-          id: 'c',
-          categoryId: 'b',
-          name: '보드 C',
-        },
-        {
-          id: 'd',
-          categoryId: 'b',
-          name: '보드 D',
-        },
-      ],
-    },
-    {
-      id: 'c',
-      name: '프로젝트 C',
-      boardData: [
-        {
-          id: 'e',
-          categoryId: 'c',
-          name: '보드 E',
-        },
-        {
-          id: 'f',
-          categoryId: 'c',
-          name: '보드 F',
-        },
-      ],
-    },
-  ]);
+  const dispatch = useDispatch();
+  const {
+    categories,
+    loading: { user: isCategoriesLoading },
+  } = useSelector((state) => state.navigation);
+
+  const [categoryData, setCategoryData] = useState([]);
+
+  useEffect(() => {
+    dispatch(navigationActions.getCategoriesRequest());
+  }, []);
+
+  useEffect(() => {
+    setCategoryData(categories || []);
+  }, [categories]);
 
   const findCategory = (data, id) => data.find((category) => category.id === id);
   const findCategoryId = (data, id) => data.findIndex((category) => category.id === id);
@@ -124,7 +95,7 @@ const Navigation = () => {
       const targetCategoryId = findCategoryId(prevState, id);
       const targetToCategoryId = findCategoryId(prevState, toId);
 
-      const newCategoryData = [...prevState];
+      const newCategoryData = cloneDeep(prevState);
       const movingCategory = newCategoryData.splice(targetCategoryId, 1)[0];
       newCategoryData.splice(targetToCategoryId, 0, movingCategory);
       return newCategoryData;
@@ -133,7 +104,7 @@ const Navigation = () => {
 
   const findBoardId = (data, categoryId, boardId) => {
     const targetCategory = findCategory(data, categoryId);
-    return targetCategory.boardData.findIndex((board) => board.id === boardId);
+    return targetCategory.boardList.findIndex((board) => board.id === boardId);
   };
 
   const moveBoard = (categoryId, id, toCategoryId, toId) => {
@@ -143,10 +114,10 @@ const Navigation = () => {
       const targetBoardId = findBoardId(prevState, categoryId, id);
       const targetToBoardId = toId ? findBoardId(prevState, toCategoryId, toId) : 0;
 
-      const newCategoryData = [...prevState];
-      const movingBoard = newCategoryData[targetCategoryId].boardData.splice(targetBoardId, 1)[0];
+      const newCategoryData = cloneDeep(prevState);
+      const movingBoard = newCategoryData[targetCategoryId].boardList.splice(targetBoardId, 1)[0];
       movingBoard.categoryId = toCategoryId;
-      newCategoryData[targetToCategoryId].boardData.splice(targetToBoardId, 0, movingBoard);
+      newCategoryData[targetToCategoryId].boardList.splice(targetToBoardId, 0, movingBoard);
       return newCategoryData;
     });
   };
@@ -171,8 +142,8 @@ const Navigation = () => {
             <Category
               key={category.id}
               id={category.id}
-              name={category.name}
-              boardData={category.boardData}
+              name={category.title}
+              boardList={category.boardList}
               moveCategory={moveCategory}
               moveBoard={moveBoard}
             />
@@ -189,4 +160,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default memo(Navigation);

@@ -10,8 +10,9 @@ function* getUser() {
   try {
     const token = getToken();
     const response = yield call(userApi.getUser, token);
-    yield put(userActions.getUserSuccess(response));
+    yield put(userActions.getUserSuccess(response.data));
   } catch (error) {
+    alert('문제가 발생했습니다.');
     yield put(userActions.getUserFailed(error));
   }
 }

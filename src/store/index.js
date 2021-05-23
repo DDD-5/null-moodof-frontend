@@ -5,20 +5,25 @@ import { all } from 'redux-saga/effects';
 
 import app from './app/slices';
 import auth from './auth/slices';
+import navigation from './navigation/slices';
 import photoStorage from './photoStorage/slices';
 import trashStorage from './trashStorage/slices';
-import userSaga from './auth/sagas';
+
+import authSaga from './auth/sagas';
+import navigationSaga from './navigation/sagas';
 
 const rootReducer = combineReducers({
   app,
   auth,
+  navigation,
   photoStorage,
   trashStorage,
 });
 
 function* rootSaga() {
   yield all([
-    userSaga(),
+    authSaga(),
+    navigationSaga(),
   ]);
 }
 
