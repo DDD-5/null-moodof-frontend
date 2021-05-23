@@ -20,5 +20,6 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'import/no-cycle': 'off',
     'no-nested-ternary': 'off',
+    'no-alert': 'off',
   },
 };

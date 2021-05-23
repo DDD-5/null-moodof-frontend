@@ -1,3 +1,7 @@
+export const ENV = {
+  apiEndpoint: 'https://www.moodof.net/api',
+};
+
 export const HEADER_TYPE = {
   PHOTO_STORAGE: 'PHOTO_STORAGE',
   BOARD: 'BOARD',

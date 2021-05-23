@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { action as userActions } from '../../store/user/slices';
+import { action as userActions } from '../../store/auth/slices';
 import { Logout, ChevronUp, ChevronDown } from '../../assets/icons/16';
 
-const profileStyle = css({
+const profileStyle = (isOpen) => css({
+  width: 240,
+  height: isOpen ? 120 : 65,
   position: 'fixed',
   bottom: 0,
+  backgroundColor: '#FAFAFA',
+  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+  borderRight: '1px solid rgba(0, 0, 0, 0.1)',
 });
 
 const imageStyle = css({
   width: 40,
   height: 40,
-  backgroundColor: '#005B70',
   color: 'white',
   borderRadius: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
 });
 
 const nameBlockStyle = css({
@@ -26,9 +27,18 @@ const nameBlockStyle = css({
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'center',
-  width: 160,
+  width: 140,
   '& span': {
-    width: '100%',
+    width: 140,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    '&:nth-of-type(1)': {
+      fontSize: 14,
+    },
+    '&:nth-of-type(2)': {
+      fontSize: 12,
+      color: 'rgba(0, 0, 0, 0.4);',
+    },
   },
 });
 
@@ -37,39 +47,40 @@ const logoutStyle = css({
   fontSize: 14,
   display: 'flex',
   alignItems: 'center',
-  cursor: 'pointer',
   color: '#616161',
 });
 
 const chevronStyle = css({
   position: 'absolute',
-  right: 16,
+  right: 15,
   cursor: 'pointer',
 });
 
 const defaultBlockStyle = css({
-  width: 240,
-  height: 64,
+  height: 65,
   display: 'flex',
   alignItems: 'center',
   flexWrap: 'wrap',
-  padding: '0 16px 0 16px',
-  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-  borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+  padding: '0 15px 0 15px',
 });
 
 const expandBlockStyle = css({
-  height: 56,
-  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-  borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+  height: 55,
   display: 'flex',
   alignItems: 'center',
   padding: '0 24px 0 24px',
+  borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+  cursor: 'pointer',
 });
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const { user, loading: { user: isUserLoading } } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(userActions.getUserRequest());
+  }, []);
 
   const handleProfileToggle = () => {
     setIsOpen(!isOpen);
@@ -79,29 +90,39 @@ const Profile = () => {
     dispatch(userActions.logout());
   };
 
-  return (
-    <div css={profileStyle}>
-      {isOpen && (
-        <div css={expandBlockStyle}>
-          <div css={logoutStyle} onClick={handleClickSignout}>
-            <Logout css={{ marginRight: 8 }} />
-            <span>로그아웃</span>
-          </div>
-        </div>
-      )}
+  const {
+    profileUrl,
+    nickname,
+    email,
+  } = user || {};
 
-      <div css={defaultBlockStyle}>
-        <div css={imageStyle}>MK</div>
-        <div css={nameBlockStyle}>
-          <span css={{ fontSize: 14 }}>Mood Kim</span>
-          <span css={{ fontSize: 12, marginTop: 4 }}>moodkim@gmail.com</span>
-        </div>
-        {isOpen
-          ? <ChevronDown css={chevronStyle} onClick={handleProfileToggle} />
-          : <ChevronUp css={chevronStyle} onClick={handleProfileToggle} />}
-      </div>
+  return (
+    <div css={profileStyle(isOpen)}>
+      {!isUserLoading && (
+        <>
+          {isOpen && (
+          <div css={expandBlockStyle} onClick={handleClickSignout}>
+            <div css={logoutStyle}>
+              <Logout css={{ marginRight: 8 }} />
+              <span>로그아웃</span>
+            </div>
+          </div>
+          )}
+
+          <div css={defaultBlockStyle}>
+            <img css={imageStyle} src={profileUrl} alt="profile" />
+            <div css={nameBlockStyle}>
+              <span>{nickname}</span>
+              <span>{email}</span>
+            </div>
+            {isOpen
+              ? <ChevronDown css={chevronStyle} onClick={handleProfileToggle} />
+              : <ChevronUp css={chevronStyle} onClick={handleProfileToggle} />}
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
-export default Profile;
+export default memo(Profile);
