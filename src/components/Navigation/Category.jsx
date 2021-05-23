@@ -34,6 +34,9 @@ const categoryNameWrapperStyle = css({
       display: 'flex',
       alignItems: 'center',
     },
+    '& .category-name': {
+      width: 110,
+    },
   },
 });
 
@@ -42,6 +45,12 @@ const categoryNameStyle = css({
   alignItems: 'center',
   color: '#A2A9B0',
   fontSize: 12,
+  '& span': {
+    width: 165,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
 });
 
 const categoryHoverButtons = css({
@@ -179,7 +188,7 @@ const Category = ({
           {isOpen
             ? <ChevronUp color="rgba(0, 0, 0, 0.4)" css={{ marginRight: 8, cursor: 'pointer' }} onClick={handleToggleOpen} />
             : <ChevronDown color="rgba(0, 0, 0, 0.4)" css={{ marginRight: 8, cursor: 'pointer' }} onClick={handleToggleOpen} />}
-          <span>{name}</span>
+          <span className="category-name">{name}</span>
         </div>
         <div className="hover-buttons" css={categoryHoverButtons}>
           <WrappedHoverIcon Icon={Add} handleClick={handleClickCreateBoard} />

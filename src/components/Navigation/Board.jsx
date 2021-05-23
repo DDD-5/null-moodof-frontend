@@ -36,9 +36,18 @@ const boardNameStyle = (isDragging, isOver, isSelected) => css({
       display: 'flex',
       alignItems: 'center',
     },
+    '& .board-name': {
+      width: 140,
+    },
   },
   '&:last-child': {
     marginBottom: 0,
+  },
+  '& span': {
+    width: 165,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 });
 
@@ -166,7 +175,9 @@ const Board = ({
 
   const handleKeyPressRenameBoard = (e) => {
     if (e.key === 'Enter') {
-      if (renameBoardInputValue) {
+      if (name === renameBoardInputValue) {
+        dispatch(navigationActions.setRenameBoardInput({ isOpen: false, categoryId, boardId: id }));
+      } else if (renameBoardInputValue) {
         dispatch(navigationActions.setRenameBoardInput({ isOpen: false, categoryId, boardId: id }));
         dispatch(navigationActions.updateBoardNameRequest(
           { boardId: id, name: renameBoardInputValue },
@@ -206,7 +217,7 @@ const Board = ({
               css={boardNameStyle(isDragging, isOver, isSelected)}
               ref={(node) => dragRef(dropRef(node))}
             >
-              <span>{name}</span>
+              <span className="board-name">{name}</span>
               <div className="hover-buttons" css={boardHoverButtons}>
                 <WrappedHoverIcon
                   Icon={Ellipsis}
