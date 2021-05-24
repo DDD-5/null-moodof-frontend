@@ -19,8 +19,8 @@ const photoDetailModalStyle = css({
 
 const imageStyle = css({
   zIndex: 10,
-  maxWidth: '60%',
-  maxHeight: '60%',
+  maxWidth: '70%',
+  maxHeight: '70%',
 });
 
 const navigationButtons = css({

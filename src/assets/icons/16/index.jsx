@@ -19,3 +19,4 @@ export { default as Restore } from './Restore';
 export { default as Copy } from './Copy';
 export { default as Edit } from './Edit';
 export { default as AddCategory } from './AddCategory';
+export { default as Check } from './Check';

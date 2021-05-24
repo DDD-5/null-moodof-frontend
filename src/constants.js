@@ -21,4 +21,10 @@ export const MENU_TYPE = {
     CATEGORY: 'CATEGORY',
     BOARD: 'BOARD',
   },
+  HEADER: {
+    PHOTO_STORAGE: {
+      SORT: 'SORT',
+      TAG_FILTER: 'TAG_FILTER',
+    },
+  },
 };

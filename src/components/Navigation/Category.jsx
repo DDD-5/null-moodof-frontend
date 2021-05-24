@@ -167,6 +167,7 @@ const Category = ({
           previousBoardId: boardList?.[boardList.length - 1]?.id || 0,
         }));
         setIsNewBoardInputOpen(false);
+        setNewBoardInputValue('');
       }
     }
   };
