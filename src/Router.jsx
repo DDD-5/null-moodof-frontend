@@ -14,8 +14,8 @@ import { Navigation, Header } from './components';
 import { HEADER_TYPE, ENV } from './constants';
 
 const AppFrame = ({ children, headerType }) => {
-  const globalWrapStyle = css({
-    paddingTop: 56,
+  const globalWrapperStyle = css({
+    paddingTop: 48,
     paddingLeft: 240,
   });
 
@@ -23,7 +23,7 @@ const AppFrame = ({ children, headerType }) => {
     <>
       <Navigation />
       <Header headerType={headerType} />
-      <div css={globalWrapStyle}>
+      <div css={globalWrapperStyle}>
         {children}
       </div>
     </>

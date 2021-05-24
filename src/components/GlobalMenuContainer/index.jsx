@@ -6,7 +6,7 @@ const GlobalMenuContainer = () => {
   const { menu } = useSelector((state) => state.app);
 
   return (
-    Object.keys(menu).length && (
+    !!Object.keys(menu).length && (
       <AppMenu
         menuType={menu.menuType}
         menuProps={menu.menuProps}
