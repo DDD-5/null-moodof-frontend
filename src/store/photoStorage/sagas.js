@@ -18,12 +18,27 @@ function* getStoragePhotos() {
   }
 }
 
+function* getStoragePhotoDetail({ payload }) {
+  try {
+    const token = getToken();
+    const response = yield call(photoApi.getStoragePhotoDetail, token, payload);
+    yield put(photoStorageActions.getStoragePhotoDetailSuccess(response.data));
+  } catch (error) {
+    yield put(photoStorageActions.getStoragePhotoDetailFailed(error));
+  }
+}
+
 function* watchGetStoragePhotos() {
   yield takeLatest(photoStorageActions.getStoragePhotosRequest, getStoragePhotos);
+}
+
+function* watchGetStoragePhotoDetail() {
+  yield takeLatest(photoStorageActions.getStoragePhotoDetailRequest, getStoragePhotoDetail);
 }
 
 export default function* rootSaga() {
   yield all([
     watchGetStoragePhotos(),
+    watchGetStoragePhotoDetail(),
   ]);
 }

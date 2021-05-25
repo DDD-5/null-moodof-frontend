@@ -52,6 +52,7 @@ const checkButtonStyle = (isChecked) => css({
 });
 
 const PhotoThumbnail = ({
+  id,
   imgSrc,
   imgAlt,
   isChecked = false,
@@ -67,7 +68,7 @@ const PhotoThumbnail = ({
 
   const wrapperRef = useRef(null);
   const imageRef = useRef(null);
-  const [isImgLoaded, setIsImgLoaded] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [imageWidth, setImageWidth] = useState(0);
   const [imageHeight, setImageHeight] = useState(0);
   const [wrapperWidth, setWrapperWidth] = useState(0);
@@ -78,12 +79,15 @@ const PhotoThumbnail = ({
     setWrapperHeight(wrapperRef.current.clientHeight);
     setImageWidth(imageRef.current.width);
     setImageHeight(imageRef.current.height);
-  }, [isImgLoaded]);
+    return () => {
+      setIsImageLoaded(false);
+    };
+  }, [isImageLoaded]);
 
   return (
     <div
       css={photoWrapperStyle(isChecked, imagePercent, columnCount, spacingSize)}
-      onClick={handleClickPhoto}
+      onClick={() => handleClickPhoto(id)}
       ref={wrapperRef}
     >
       <div css={photoStyle}>
@@ -91,7 +95,7 @@ const PhotoThumbnail = ({
           <img
             css={photoImgStyle(imageWidth, imageHeight, wrapperWidth, wrapperHeight)}
             onLoad={(e) => {
-              setIsImgLoaded(true);
+              setIsImageLoaded(true);
             }}
             src={imgSrc}
             alt={imgAlt}

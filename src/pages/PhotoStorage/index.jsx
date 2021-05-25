@@ -8,14 +8,13 @@ import { action as appActions } from '../../store/app/slices';
 import { action as photoStorageActions } from '../../store/photoStorage/slices';
 import { MODAL_TYPE } from '../../constants';
 
-const IMG_SRC = 'https://file2.nocutnews.co.kr/newsroom/image/2021/03/25/202103251659468108_0.jpg';
-const IMG_ALT = 'IU is Love.';
 const PADDING_SIZE = 18;
 
 const photoStorageStyle = css({
   display: 'flex',
   padding: `40px ${PADDING_SIZE}px`,
   flexWrap: 'wrap',
+  userSelect: 'none',
 });
 
 const PhotoStorage = () => {
@@ -66,25 +65,24 @@ const PhotoStorage = () => {
     return () => dispatch(appActions.openModal({
       modalType: MODAL_TYPE.PHOTO_DETAIL,
       modalProps: {
-        // TODO photoId를 넘겨 조회하도록 수정
-        imgSrc: IMG_SRC,
-        imgAlt: IMG_ALT,
+        photoId,
       },
     }));
   };
 
   return (
     <div css={photoStorageStyle} ref={photoStorageRef}>
-      {storagePhotos?.map((img, index) => (
+      {storagePhotos?.map((image) => (
         <PhotoThumbnail
-          key={img.id}
-          imgSrc={img.uri}
+          key={image.id}
+          id={image.id}
+          imgSrc={image.uri}
           imgAlt="imgAlt"
           imagePercent={imagePercent}
-          isChecked={getIsChecked(index)}
-          handleClickPhoto={handleClickPhoto(index)}
-          handleClickCheck={handleClickCheck(index)}
-          handleClickUncheck={handleClickUncheck(index)}
+          isChecked={getIsChecked(image.id)}
+          handleClickCheck={handleClickCheck(image.id)}
+          handleClickUncheck={handleClickUncheck(image.id)}
+          handleClickPhoto={handleClickPhoto(image.id)}
         />
       ))}
     </div>

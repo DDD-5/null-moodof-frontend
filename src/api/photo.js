@@ -7,3 +7,9 @@ export const getStoragePhotos = (token, params) => axios.get(`${ENV.apiEndpoint}
   },
   params,
 });
+
+export const getStoragePhotoDetail = (token, photoId) => axios.get(`${ENV.apiEndpoint}/storage-photos/${photoId}`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});

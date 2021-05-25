@@ -2,13 +2,13 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import {
-  ChevronLeft, Tag, Save, TrashCan,
-} from '../../../assets/icons/24';
+  ChevronLeft, Tag, Download, TrashCan,
+} from '../../../assets/icons/16';
 import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
 
 const headerStyle = css({
-  position: 'absolute',
+  position: 'fixed',
   top: 0,
   width: '100%',
   display: 'flex',
@@ -19,27 +19,46 @@ const headerStyle = css({
 });
 
 const closeStyle = css({
+  width: 65,
+  height: 32,
   display: 'flex',
   alignItems: 'center',
   fontSize: 14,
   color: 'white',
+  padding: '0 4px',
+  borderRadius: 4,
   cursor: 'pointer',
-});
-
-const titleStyle = css({
-  color: 'white',
-  fontSize: 14,
+  '&:hover': {
+    backgroundColor: 'rgba(33, 33, 33, 0.8)',
+  },
 });
 
 const rightBlockStyle = css({
-  '& svg': {
-    cursor: 'pointer',
-    marginRight: 25,
-    '&:last-of-type': {
-      marginRight: 0,
-    },
+  display: 'flex',
+});
+
+const iconBlockStyle = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 32,
+  height: 32,
+  marginRight: 8,
+  borderRadius: 4,
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: 'rgba(33, 33, 33, 0.8)',
+  },
+  '&:last-child': {
+    marginRight: 0,
   },
 });
+
+const WrappedIcon = ({ Icon, handleClick, color }) => (
+  <div css={iconBlockStyle} onClick={handleClick}>
+    <Icon color={color} />
+  </div>
+);
 
 const PhotoDetailModal = () => {
   const dispatch = useDispatch();
@@ -53,16 +72,14 @@ const PhotoDetailModal = () => {
   return (
     <header css={headerStyle} onClick={(e) => e.stopPropagation()}>
       <div css={closeStyle} onClick={handleCloseModal}>
-        <ChevronLeft css={{ marginRight: 2 }} />
+        <ChevronLeft color="white" css={{ marginRight: 2 }} />
         <span>나가기</span>
       </div>
-      <div css={titleStyle}>
-        <span>카테고리 / 보드</span>
-      </div>
+
       <div css={rightBlockStyle}>
-        <Tag color="white" />
-        <Save color="white" />
-        <TrashCan color="white" />
+        <WrappedIcon Icon={Tag} color="white" />
+        <WrappedIcon Icon={Download} color="white" />
+        <WrappedIcon Icon={TrashCan} color="white" />
       </div>
     </header>
   );

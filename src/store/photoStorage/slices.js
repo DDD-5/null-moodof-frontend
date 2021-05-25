@@ -10,12 +10,15 @@ const photoStorageSlice = createSlice({
     page: 0,
     size: 48,
     storagePhotos: {},
+    storagePhotoDetail: {},
     checkedList: [],
     loading: {
       storagePhotos: false,
+      storagePhotoDetail: false,
     },
     error: {
       storagePhotos: {},
+      storagePhotoDetail: {},
     },
   },
   reducers: {
@@ -49,6 +52,19 @@ const photoStorageSlice = createSlice({
     getStoragePhotosFailed(state, action) {
       state.loading.storagePhotos = false;
       state.error.storagePhotos = action.payload;
+    },
+    // 사진 상세 조회
+    getStoragePhotoDetailRequest(state) {
+      state.storagePhotoDetail = {};
+      state.loading.storagePhotoDetail = true;
+    },
+    getStoragePhotoDetailSuccess(state, action) {
+      state.loading.storagePhotoDetail = false;
+      state.storagePhotoDetail = action.payload;
+    },
+    getStoragePhotoDetailFailed(state, action) {
+      state.loading.storagePhotoDetail = false;
+      state.error.storagePhotoDetail = action.payload;
     },
   },
 });

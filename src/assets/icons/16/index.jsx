@@ -20,3 +20,4 @@ export { default as Copy } from './Copy';
 export { default as Edit } from './Edit';
 export { default as AddCategory } from './AddCategory';
 export { default as Check } from './Check';
+export { default as Tag } from './Tag';
