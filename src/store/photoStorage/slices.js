@@ -66,6 +66,10 @@ const photoStorageSlice = createSlice({
       state.loading.storagePhotoDetail = false;
       state.error.storagePhotoDetail = action.payload;
     },
+    // 페이지 변경
+    setPage(state, action) {
+      state.page = action.payload;
+    },
   },
 });
 
