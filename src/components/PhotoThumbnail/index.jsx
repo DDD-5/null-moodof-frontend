@@ -1,23 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { css } from '@emotion/react';
+import { useSelector } from 'react-redux';
 
-const photoWrapperStyle = (isChecked) => css({
+const photoWrapperStyle = (isChecked, imagePercent, columnCount, spacingSize) => css({
   position: 'relative',
   outline: isChecked ? '2px solid #2F80ED' : '',
   cursor: 'pointer',
-  '@media (min-width: 1200px)': {
-    width: '18%',
-    margin: '0 2.5% 2.5% 0',
-    '&:nth-of-type(5n)': {
-      marginRight: 0,
-    },
-  },
-  '@media (max-width: 1200px)': {
-    width: '22%',
-    margin: '0 4% 4% 0',
-    '&:nth-of-type(4n)': {
-      marginRight: 0,
-    },
+  width: `${imagePercent}%`,
+  margin: `0 ${spacingSize}px ${spacingSize}px 0`,
+  [`&:nth-of-type(${columnCount}n)`]: {
+    marginRight: 0,
   },
   '&:hover': {
     '& .check-button': {
@@ -41,6 +33,12 @@ const photoCenteredStyle = css({
   transform: 'translate(50%, 50%)',
 });
 
+const photoImgStyle = (imageWidth, imageHeight, wrapperWidth, wrapperHeight) => css({
+  width: imageWidth < imageHeight ? wrapperWidth : 'auto',
+  height: imageWidth > imageHeight ? wrapperHeight : 'auto',
+  transform: 'translate(-50%, -50%)',
+});
+
 const checkButtonStyle = (isChecked) => css({
   display: isChecked ? 'block' : 'none',
   position: 'absolute',
@@ -54,35 +52,54 @@ const checkButtonStyle = (isChecked) => css({
 });
 
 const PhotoThumbnail = ({
+  id,
   imgSrc,
   imgAlt,
   isChecked = false,
+  imagePercent,
   handleClickPhoto = () => {},
   handleClickCheck = () => {},
   handleClickUncheck = () => {},
 }) => {
-  // TODO height 받아오는 부분 수정 필요
-  const wrapperRef = useRef(null);
-  const [isImgLoaded, setIsImgLoaded] = useState(false);
+  const {
+    columnCount,
+    spacingSize,
+  } = useSelector((state) => state.photoStorage);
 
-  const photoImgStyle = css({
-    height: `${isImgLoaded ? wrapperRef?.current?.clientHeight : 0}px`,
-    transform: 'translate(-50%, -50%)',
-  });
+  const wrapperRef = useRef(null);
+  const imageRef = useRef(null);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [imageWidth, setImageWidth] = useState(0);
+  const [imageHeight, setImageHeight] = useState(0);
+  const [wrapperWidth, setWrapperWidth] = useState(0);
+  const [wrapperHeight, setWrapperHeight] = useState(0);
+
+  useEffect(() => {
+    setWrapperWidth(wrapperRef.current.clientWidth);
+    setWrapperHeight(wrapperRef.current.clientHeight);
+    setImageWidth(imageRef.current.width);
+    setImageHeight(imageRef.current.height);
+    return () => {
+      setIsImageLoaded(false);
+    };
+  }, [isImageLoaded]);
 
   return (
     <div
-      css={photoWrapperStyle(isChecked)}
-      onClick={handleClickPhoto}
+      css={photoWrapperStyle(isChecked, imagePercent, columnCount, spacingSize)}
+      onClick={() => handleClickPhoto(id)}
       ref={wrapperRef}
     >
       <div css={photoStyle}>
         <div css={photoCenteredStyle}>
           <img
-            css={photoImgStyle}
-            onLoad={() => setIsImgLoaded(true)}
+            css={photoImgStyle(imageWidth, imageHeight, wrapperWidth, wrapperHeight)}
+            onLoad={(e) => {
+              setIsImageLoaded(true);
+            }}
             src={imgSrc}
             alt={imgAlt}
+            ref={imageRef}
           />
         </div>
       </div>

@@ -1,5 +1,6 @@
 export const ENV = {
   apiEndpoint: 'https://www.moodof.net/api',
+  oAuthUrl: 'https://www.moodof.net/oauth2/authorize/google',
 };
 
 export const HEADER_TYPE = {
@@ -19,5 +20,11 @@ export const MENU_TYPE = {
   NAVIGATION: {
     CATEGORY: 'CATEGORY',
     BOARD: 'BOARD',
+  },
+  HEADER: {
+    PHOTO_STORAGE: {
+      SORT: 'SORT',
+      TAG_FILTER: 'TAG_FILTER',
+    },
   },
 };

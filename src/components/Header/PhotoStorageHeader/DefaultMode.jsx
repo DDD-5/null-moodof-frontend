@@ -1,5 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { useDispatch } from 'react-redux';
+
+import { action as appActions } from '../../../store/app/slices';
+import { MENU_TYPE } from '../../../constants';
 import { Sort, Filter, Add } from '../../../assets/icons/16';
 
 const iconBlockStyle = css({
@@ -24,12 +28,40 @@ const WrappedIcon = ({ Icon, handleClick }) => (
   </div>
 );
 
-const DefaultMode = () => (
-  <>
-    <WrappedIcon Icon={Sort} />
-    <WrappedIcon Icon={Filter} />
-    <WrappedIcon Icon={Add} />
-  </>
-);
+const DefaultMode = () => {
+  const dispatch = useDispatch();
+
+  const handleClickSort = (e) => {
+    e.preventDefault();
+
+    dispatch(appActions.openMenu({
+      menuType: MENU_TYPE.HEADER.PHOTO_STORAGE.SORT,
+      menuProps: {
+        pageX: e.pageX,
+        pageY: e.pageY,
+      },
+    }));
+  };
+
+  const handleClickFilter = (e) => {
+    e.preventDefault();
+
+    dispatch(appActions.openMenu({
+      menuType: MENU_TYPE.HEADER.PHOTO_STORAGE.TAG_FILTER,
+      menuProps: {
+        pageX: e.pageX,
+        pageY: e.pageY,
+      },
+    }));
+  };
+
+  return (
+    <>
+      <WrappedIcon Icon={Sort} handleClick={handleClickSort} />
+      <WrappedIcon Icon={Filter} handleClick={handleClickFilter} />
+      <WrappedIcon Icon={Add} />
+    </>
+  );
+};
 
 export default DefaultMode;

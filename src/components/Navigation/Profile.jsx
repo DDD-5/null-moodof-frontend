@@ -32,6 +32,7 @@ const nameBlockStyle = css({
     width: 140,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     '&:nth-of-type(1)': {
       fontSize: 14,
     },

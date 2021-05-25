@@ -9,8 +9,10 @@ import navigation from './navigation/slices';
 import photoStorage from './photoStorage/slices';
 import trashStorage from './trashStorage/slices';
 
+import appSaga from './app/sagas';
 import authSaga from './auth/sagas';
 import navigationSaga from './navigation/sagas';
+import photoStorageSaga from './photoStorage/sagas';
 
 const rootReducer = combineReducers({
   app,
@@ -22,8 +24,10 @@ const rootReducer = combineReducers({
 
 function* rootSaga() {
   yield all([
+    appSaga(),
     authSaga(),
     navigationSaga(),
+    photoStorageSaga(),
   ]);
 }
 

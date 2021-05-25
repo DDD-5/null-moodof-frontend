@@ -10,3 +10,22 @@ export const createBoard = (token, params) => axios.post(
     },
   },
 );
+
+export const removeBoard = (token, boardId) => axios.delete(
+  `${ENV.apiEndpoint}/boards/${boardId}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  },
+);
+
+export const updateBoardName = (token, boardId, params) => axios.put(
+  `${ENV.apiEndpoint}/boards/${boardId}/name`,
+  params,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  },
+);

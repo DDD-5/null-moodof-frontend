@@ -13,7 +13,6 @@ function* getCategories() {
     const response = yield call(categoryApi.getCategories, token);
     yield put(navigationActions.getCategoriesSuccess(response.data));
   } catch (error) {
-    alert('문제가 발생했습니다.');
     yield put(navigationActions.getCategoriesFailed(error));
   }
 }
@@ -24,8 +23,31 @@ function* createBoard({ payload }) {
     const response = yield call(boardApi.createBoard, token, payload);
     yield put(navigationActions.createBoardSuccess(response.data));
   } catch (error) {
-    alert('문제가 발생했습니다.');
     yield put(navigationActions.createBoardFailed(error));
+    yield put(navigationActions.getCategoriesRequest());
+  }
+}
+
+function* removeBoard({ payload }) {
+  try {
+    const { categoryId, boardId } = payload;
+    const token = getToken();
+    yield call(boardApi.removeBoard, token, boardId);
+    yield put(navigationActions.removeBoardSuccess({ categoryId, boardId }));
+  } catch (error) {
+    yield put(navigationActions.removeBoardFailed(error));
+    yield put(navigationActions.getCategoriesRequest());
+  }
+}
+
+function* updateBoardName({ payload }) {
+  try {
+    const { boardId, name } = payload;
+    const token = getToken();
+    const response = yield call(boardApi.updateBoardName, token, boardId, { name });
+    yield put(navigationActions.updateBoardNameSuccess(response.data));
+  } catch (error) {
+    yield put(navigationActions.updateBoardNameFailed(error));
     yield put(navigationActions.getCategoriesRequest());
   }
 }
@@ -38,9 +60,19 @@ function* watchCreateBoard() {
   yield takeLatest(navigationActions.createBoardRequest, createBoard);
 }
 
+function* watchRemoveBoard() {
+  yield takeLatest(navigationActions.removeBoardRequest, removeBoard);
+}
+
+function* watchUpdateBoardName() {
+  yield takeLatest(navigationActions.updateBoardNameRequest, updateBoardName);
+}
+
 export default function* rootSaga() {
   yield all([
     watchGetCategories(),
     watchCreateBoard(),
+    watchRemoveBoard(),
+    watchUpdateBoardName(),
   ]);
 }

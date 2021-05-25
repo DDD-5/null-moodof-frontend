@@ -1,27 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { PhotoThumbnail } from '../../components';
+
 import { action as appActions } from '../../store/app/slices';
 import { action as photoStorageActions } from '../../store/photoStorage/slices';
 import { MODAL_TYPE } from '../../constants';
 
-const IMG_SRC = 'https://seoulhype.files.wordpress.com/2020/05/iu_full.jpg?w=1500&h=768&crop=1';
-const IMG_ALT = 'IU is Love.';
-const dummayArray = Array(10).fill(null);
+const PADDING_SIZE = 18;
 
 const photoStorageStyle = css({
   display: 'flex',
-  padding: 50,
+  padding: `40px ${PADDING_SIZE}px`,
   flexWrap: 'wrap',
+  userSelect: 'none',
 });
 
 const PhotoStorage = () => {
   const dispatch = useDispatch();
-  const { isEditMode, checkedList } = useSelector((state) => state.photoStorage);
+  const {
+    isEditMode,
+    checkedList,
+    storagePhotos: { storagePhotos },
+    columnCount,
+    spacingSize,
+  } = useSelector((state) => state.photoStorage);
+  const [imagePercent, setImagePercent] = useState(0);
+  const photoStorageRef = useRef(null);
 
-  useEffect(() => () => {
-    dispatch(photoStorageActions.clearCheckedList());
+  useEffect(() => {
+    const storageWidth = photoStorageRef.current.clientWidth - (PADDING_SIZE * 2);
+    const gutterPercent = ((spacingSize * (columnCount - 1)) / storageWidth) * 100;
+    setImagePercent((100 - gutterPercent) / columnCount);
+  }, [photoStorageRef]);
+
+  useEffect(() => {
+    dispatch(photoStorageActions.getStoragePhotosRequest());
+    return () => {
+      dispatch(photoStorageActions.clearCheckedList());
+    };
   }, []);
 
   const getIsChecked = (photoId) => checkedList.indexOf(photoId) >= 0;
@@ -47,24 +65,24 @@ const PhotoStorage = () => {
     return () => dispatch(appActions.openModal({
       modalType: MODAL_TYPE.PHOTO_DETAIL,
       modalProps: {
-        // TODO photoId를 넘겨 조회하도록 수정
-        imgSrc: IMG_SRC,
-        imgAlt: IMG_ALT,
+        photoId,
       },
     }));
   };
 
   return (
-    <div css={photoStorageStyle}>
-      {dummayArray.map((img, index) => (
+    <div css={photoStorageStyle} ref={photoStorageRef}>
+      {storagePhotos?.map((image) => (
         <PhotoThumbnail
-          key={index}
-          imgSrc={IMG_SRC}
-          imgAlt={IMG_ALT}
-          isChecked={getIsChecked(index)}
-          handleClickPhoto={handleClickPhoto(index)}
-          handleClickCheck={handleClickCheck(index)}
-          handleClickUncheck={handleClickUncheck(index)}
+          key={image.id}
+          id={image.id}
+          imgSrc={image.uri}
+          imgAlt="imgAlt"
+          imagePercent={imagePercent}
+          isChecked={getIsChecked(image.id)}
+          handleClickCheck={handleClickCheck(image.id)}
+          handleClickUncheck={handleClickUncheck(image.id)}
+          handleClickPhoto={handleClickPhoto(image.id)}
         />
       ))}
     </div>

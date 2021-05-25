@@ -4,7 +4,22 @@ const photoStorageSlice = createSlice({
   name: 'photoStorage',
   initialState: {
     isEditMode: false,
+    columnCount: 6,
+    spacingSize: 12,
+    isDesc: true,
+    page: 0,
+    size: 48,
+    storagePhotos: {},
+    storagePhotoDetail: {},
     checkedList: [],
+    loading: {
+      storagePhotos: false,
+      storagePhotoDetail: false,
+    },
+    error: {
+      storagePhotos: {},
+      storagePhotoDetail: {},
+    },
   },
   reducers: {
     checkPhoto(state, action) {
@@ -25,6 +40,31 @@ const photoStorageSlice = createSlice({
     clearCheckedList(state) {
       state.isEditMode = false;
       state.checkedList = [];
+    },
+    // 전체 사진 조회
+    getStoragePhotosRequest(state) {
+      state.loading.storagePhotos = true;
+    },
+    getStoragePhotosSuccess(state, action) {
+      state.loading.storagePhotos = false;
+      state.storagePhotos = action.payload;
+    },
+    getStoragePhotosFailed(state, action) {
+      state.loading.storagePhotos = false;
+      state.error.storagePhotos = action.payload;
+    },
+    // 사진 상세 조회
+    getStoragePhotoDetailRequest(state) {
+      state.storagePhotoDetail = {};
+      state.loading.storagePhotoDetail = true;
+    },
+    getStoragePhotoDetailSuccess(state, action) {
+      state.loading.storagePhotoDetail = false;
+      state.storagePhotoDetail = action.payload;
+    },
+    getStoragePhotoDetailFailed(state, action) {
+      state.loading.storagePhotoDetail = false;
+      state.error.storagePhotoDetail = action.payload;
     },
   },
 });
