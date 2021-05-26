@@ -89,7 +89,7 @@ const PhotoStorage = () => {
           key={image.id}
           id={image.id}
           imgSrc={image.uri}
-          imgAlt="imgAlt"
+          imgAlt=""
           imagePercent={imagePercent}
           isChecked={getIsChecked(image.id)}
           handleClickCheck={handleClickCheck(image.id)}

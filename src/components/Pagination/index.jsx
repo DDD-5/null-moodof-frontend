@@ -38,7 +38,7 @@ const rightIconBlockStyle = css({
   '& svg': {
     marginLeft: 10,
     cursor: 'pointer',
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
     '& path': {

@@ -19,6 +19,7 @@ const photoDetailModalStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
   userSelect: 'none',
+  zIndex: 20,
 });
 
 const imageStyle = css({

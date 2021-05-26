@@ -12,6 +12,8 @@ const headerStyle = css({
   marginLeft: 240,
   padding: '0 16px 0 20px',
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+  backgroundColor: 'white',
+  zIndex: 10,
 });
 
 const Header = ({ headerType }) => (

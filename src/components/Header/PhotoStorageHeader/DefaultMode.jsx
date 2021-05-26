@@ -37,8 +37,8 @@ const DefaultMode = () => {
     dispatch(appActions.openMenu({
       menuType: MENU_TYPE.HEADER.PHOTO_STORAGE.SORT,
       menuProps: {
-        pageX: e.pageX,
-        pageY: e.pageY,
+        clientX: e.clientX,
+        clientY: e.clientY,
       },
     }));
   };
@@ -49,8 +49,8 @@ const DefaultMode = () => {
     dispatch(appActions.openMenu({
       menuType: MENU_TYPE.HEADER.PHOTO_STORAGE.TAG_FILTER,
       menuProps: {
-        pageX: e.pageX,
-        pageY: e.pageY,
+        clientX: e.clientX,
+        clientY: e.clientY,
       },
     }));
   };

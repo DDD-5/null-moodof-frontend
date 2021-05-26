@@ -17,7 +17,7 @@ const categoryStyle = (isDragging, isOver) => css({
   padding: '10px 0 10px 0',
   borderTop: '1px solid rgba(0, 0, 0, 0.1)',
   opacity: isDragging && 0.5,
-  outline: isOver && '1px solid grey',
+  backgroundColor: (isOver && !isDragging) && 'rgba(240, 246, 255, 1)',
   '&:last-child': {
     borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   },
@@ -176,8 +176,8 @@ const Category = ({
     dispatch(appActions.openMenu({
       menuType: MENU_TYPE.NAVIGATION.CATEGORY,
       menuProps: {
-        pageX: e.pageX,
-        pageY: e.pageY,
+        clientX: e.clientX,
+        clientY: e.clientY,
       },
     }));
   };

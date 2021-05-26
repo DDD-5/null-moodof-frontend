@@ -15,18 +15,19 @@ const appMenuWrapper = css({
   top: 0,
   width: '100%',
   height: '100%',
+  zIndex: 20,
 });
 
-const appMenuStyle = (pageX, pageY, innerWidth, innerHeight) => {
+const appMenuStyle = (clientX, clientY, innerWidth, innerHeight) => {
   const halfWidth = innerWidth / 2;
   const halfHeight = innerHeight / 2;
 
   return css({
     position: 'absolute',
-    top: halfHeight > pageY ? pageY : 'auto',
-    left: halfWidth > pageX ? pageX : 'auto',
-    bottom: halfHeight < pageY ? innerHeight - pageY : 'auto',
-    right: halfWidth < pageX ? innerWidth - pageX : 'auto',
+    top: halfHeight > clientY ? clientY : 'auto',
+    left: halfWidth > clientX ? clientX : 'auto',
+    bottom: halfHeight < clientY ? innerHeight - clientY : 'auto',
+    right: halfWidth < clientX ? innerWidth - clientX : 'auto',
   });
 };
 
@@ -50,7 +51,7 @@ const AppMenu = (props) => {
     <div css={appMenuWrapper} onClick={handleClickClose}>
       <div
         css={appMenuStyle(
-          menuProps.pageX, menuProps.pageY, window.innerWidth, window.innerHeight,
+          menuProps.clientX, menuProps.clientY, window.innerWidth, window.innerHeight,
         )}
         onClick={(e) => e.stopPropagation()}
       >

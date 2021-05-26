@@ -22,12 +22,13 @@ const boardNameStyle = (isDragging, isOver, isSelected) => css({
   cursor: 'pointer',
   color: 'inherit',
   textDecoration: 'none',
-  backgroundColor: (isOver || isDragging)
+  opacity: isDragging && 0.5,
+  backgroundColor: (isOver && !isDragging)
     ? 'rgba(240, 246, 255, 1)'
     : isSelected && '#EEEEEE',
   borderRadius: 4,
   '&:hover': {
-    backgroundColor: (isOver || isDragging)
+    backgroundColor: (isOver && !isDragging)
       ? 'rgba(240, 246, 255, 1)'
       : isSelected
         ? '#EEEEEE'
@@ -156,8 +157,8 @@ const Board = ({
     dispatch(appActions.openMenu({
       menuType: MENU_TYPE.NAVIGATION.BOARD,
       menuProps: {
-        pageX: e.pageX,
-        pageY: e.pageY,
+        clientX: e.clientX,
+        clientY: e.clientY,
         categoryId,
         boardId: id,
       },

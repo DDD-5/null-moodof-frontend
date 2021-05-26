@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
-import AppModal from '../AppModal';
+import AppModal from '.';
 
 const GlobalModalContainer = () => {
   const { modals } = useSelector((state) => state.app);
