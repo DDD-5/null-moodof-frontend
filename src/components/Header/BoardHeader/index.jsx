@@ -44,7 +44,7 @@ const WrappedIcon = ({ Icon, handleClick }) => (
 const BoardHeader = () => (
   <header css={headerStyle}>
     <div>
-      <h2 css={headerTitleStyle}>휴지통</h2>
+      <h2 css={headerTitleStyle}>보드</h2>
     </div>
     <div css={rightBlockStyle}>
       <WrappedIcon Icon={Column} />

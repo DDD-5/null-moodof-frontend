@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import Router from './Router';
-import { GlobalModalContainer, GlobalMenuContainer } from './components';
+import GlobalModalContainer from './components/AppModal/GlobalModalContainer';
+import GlobalMenuContainer from './components/AppMenu/GlobalMenuContainer';
 
 const App = () => (
   <BrowserRouter>

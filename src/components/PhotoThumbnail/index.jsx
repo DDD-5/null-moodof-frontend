@@ -34,7 +34,7 @@ const photoCenteredStyle = css({
 });
 
 const photoImgStyle = (imageWidth, imageHeight, wrapperWidth, wrapperHeight) => css({
-  width: imageWidth < imageHeight ? wrapperWidth : 'auto',
+  width: imageWidth <= imageHeight ? wrapperWidth : 'auto',
   height: imageWidth > imageHeight ? wrapperHeight : 'auto',
   transform: 'translate(-50%, -50%)',
 });

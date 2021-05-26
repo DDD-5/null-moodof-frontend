@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { PhotoThumbnail } from '../../components';
+import { PhotoThumbnail, Pagination } from '../../components';
 
 import { action as appActions } from '../../store/app/slices';
 import { action as photoStorageActions } from '../../store/photoStorage/slices';
@@ -17,14 +17,21 @@ const photoStorageStyle = css({
   userSelect: 'none',
 });
 
+const paginationWrapperStyle = css({
+  width: '100%',
+  marginTop: 16,
+  textAlign: 'center',
+});
+
 const PhotoStorage = () => {
   const dispatch = useDispatch();
   const {
     isEditMode,
     checkedList,
-    storagePhotos: { storagePhotos },
+    storagePhotos,
     columnCount,
     spacingSize,
+    page,
   } = useSelector((state) => state.photoStorage);
   const [imagePercent, setImagePercent] = useState(0);
   const photoStorageRef = useRef(null);
@@ -70,14 +77,19 @@ const PhotoStorage = () => {
     }));
   };
 
+  const handlePageChange = (pageIndex) => {
+    dispatch(photoStorageActions.setPage(pageIndex));
+    dispatch(photoStorageActions.getStoragePhotosRequest());
+  };
+
   return (
     <div css={photoStorageStyle} ref={photoStorageRef}>
-      {storagePhotos?.map((image) => (
+      {storagePhotos?.storagePhotos?.map((image) => (
         <PhotoThumbnail
           key={image.id}
           id={image.id}
           imgSrc={image.uri}
-          imgAlt="imgAlt"
+          imgAlt=""
           imagePercent={imagePercent}
           isChecked={getIsChecked(image.id)}
           handleClickCheck={handleClickCheck(image.id)}
@@ -85,6 +97,13 @@ const PhotoStorage = () => {
           handleClickPhoto={handleClickPhoto(image.id)}
         />
       ))}
+      <div css={paginationWrapperStyle}>
+        <Pagination
+          currentPageIndex={page}
+          totalPageCount={storagePhotos?.totalPageCount}
+          handlePageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

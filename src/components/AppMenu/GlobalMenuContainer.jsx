@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
-import AppMenu from '../AppMenu';
+import AppMenu from '.';
 
 const GlobalMenuContainer = () => {
   const { menu } = useSelector((state) => state.app);
