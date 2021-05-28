@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { css } from '@emotion/react';
 import { Plus, Minus } from '../../assets/icons/12';
 
@@ -10,9 +10,9 @@ const rangeSliderWrapperStyle = css({
   },
 });
 
-const rangeSliderStyle = css({
+const rangeSliderStyle = (width) => css({
   appearance: 'none',
-  width: 60,
+  width,
   height: 2,
   backgroundColor: '#DDE1E6',
   '&::-webkit-slider-thumb ': {
@@ -29,6 +29,7 @@ const rangeSliderStyle = css({
 
 const RangeSlider = ({
   css: style,
+  width = 60,
   min,
   max,
   step,
@@ -39,7 +40,7 @@ const RangeSlider = ({
   <div css={[rangeSliderWrapperStyle, style]} {...args}>
     <Minus />
     <input
-      css={rangeSliderStyle}
+      css={rangeSliderStyle(width)}
       type="range"
       min={min}
       max={max}
