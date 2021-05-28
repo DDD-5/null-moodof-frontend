@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import WrappedIcon from '../WrappedIcon';
 import { Column, Spacing, Share } from '../../../assets/icons/16';
 
 const headerStyle = css({
@@ -18,28 +19,6 @@ const rightBlockStyle = css({
   display: 'flex',
   alignItems: 'center',
 });
-
-const iconBlockStyle = css({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 32,
-  height: 32,
-  marginRight: 8,
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-  },
-  '&:last-child': {
-    marginRight: 0,
-  },
-});
-
-const WrappedIcon = ({ Icon, handleClick }) => (
-  <div css={iconBlockStyle} onClick={handleClick}>
-    <Icon />
-  </div>
-);
 
 const BoardHeader = () => (
   <header css={headerStyle}>

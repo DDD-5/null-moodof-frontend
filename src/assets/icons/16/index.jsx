@@ -23,3 +23,5 @@ export { default as Edit } from './Edit';
 export { default as AddCategory } from './AddCategory';
 export { default as Check } from './Check';
 export { default as Tag } from './Tag';
+export { default as SquareOn } from './SquareOn';
+export { default as SquareOff } from './SquareOff';

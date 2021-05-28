@@ -33,9 +33,9 @@ const photoCenteredStyle = css({
   transform: 'translate(50%, 50%)',
 });
 
-const photoImgStyle = (imageWidth, imageHeight, wrapperSize) => css({
-  width: imageWidth <= imageHeight ? wrapperSize : 'auto',
-  height: imageWidth > imageHeight ? wrapperSize : 'auto',
+const photoImgStyle = (imageWidth, imageHeight) => css({
+  width: imageWidth,
+  height: imageHeight,
   transform: 'translate(-50%, -50%)',
 });
 
@@ -64,6 +64,7 @@ const PhotoThumbnail = ({
   const {
     columnCount,
     spacingSize,
+    isSquareOn,
   } = useSelector((state) => state.photoStorage);
 
   const wrapperRef = useRef(null);
@@ -87,6 +88,10 @@ const PhotoThumbnail = ({
     });
   }, []);
 
+  const isImageWidthLonger = (imageSize.width <= imageSize.height);
+  const imageWidth = isImageWidthLonger ? isSquareOn ? 'auto' : '100%' : isSquareOn ? '100%' : 'auto';
+  const imageHeight = imageWidth === 'auto' ? '100%' : 'auto';
+
   return (
     <div
       css={photoWrapperStyle(isChecked, wrapperSize, columnCount, spacingSize)}
@@ -94,20 +99,18 @@ const PhotoThumbnail = ({
       ref={wrapperRef}
     >
       {isImageLoaded && (
-        <div css={photoStyle}>
-          <div css={photoCenteredStyle}>
-            <img
-              css={photoImgStyle(imageSize.width, imageSize.height, wrapperSize)}
-              onLoad={(e) => {
-                setIsImageLoaded(true);
-              }}
-              src={imgSrc}
-              alt={imgAlt}
-            />
-          </div>
+      <div css={photoStyle}>
+        <div css={photoCenteredStyle}>
+          <img
+            css={photoImgStyle(imageWidth, imageHeight)}
+            src={imgSrc}
+            alt={imgAlt}
+          />
         </div>
+      </div>
       )}
 
+      {!isSquareOn && (
       <div className="check-button" css={checkButtonStyle(isChecked)} onClick={(e) => e.stopPropagation()}>
         <input
           type="checkbox"
@@ -115,6 +118,7 @@ const PhotoThumbnail = ({
           onChange={isChecked ? handleClickUncheck : handleClickCheck}
         />
       </div>
+      )}
     </div>
   );
 };

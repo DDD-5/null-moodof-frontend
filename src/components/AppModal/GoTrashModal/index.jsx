@@ -14,6 +14,7 @@ const goTrashModalStyle = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  zIndex: 10,
 });
 
 const modalContentStyle = css({

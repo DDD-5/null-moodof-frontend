@@ -8,11 +8,12 @@ import { HEADER_TYPE } from '../../constants';
 const headerStyle = css({
   width: 'calc(100% - 240px)',
   height: 48,
-  position: 'fixed',
+  position: 'absolute',
   marginLeft: 240,
   padding: '0 16px 0 20px',
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   backgroundColor: 'white',
+  userSelect: 'none',
   zIndex: 10,
 });
 

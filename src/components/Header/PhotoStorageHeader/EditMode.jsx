@@ -1,6 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import WrappedIcon from '../WrappedIcon';
+
 import { Move, Download, TrashCan } from '../../../assets/icons/16';
 import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
@@ -16,28 +19,6 @@ const checkInputStyle = css({
   height: 16,
   marginRight: 16,
 });
-
-const iconBlockStyle = css({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 32,
-  height: 32,
-  marginRight: 8,
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-  },
-  '&:last-child': {
-    marginRight: 0,
-  },
-});
-
-const WrappedIcon = ({ Icon, handleClick }) => (
-  <div css={iconBlockStyle} onClick={handleClick}>
-    <Icon />
-  </div>
-);
 
 const Default = () => {
   const dispatch = useDispatch();
@@ -58,7 +39,7 @@ const Default = () => {
       <input type="checkbox" css={checkInputStyle} />
       <WrappedIcon Icon={Move} />
       <WrappedIcon Icon={Download} />
-      <WrappedIcon Icon={TrashCan} handleClick={handleClickGoTrash} />
+      <WrappedIcon Icon={TrashCan} onClick={handleClickGoTrash} />
     </>
   );
 };
