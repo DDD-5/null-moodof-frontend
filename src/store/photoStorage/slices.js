@@ -4,8 +4,9 @@ const photoStorageSlice = createSlice({
   name: 'photoStorage',
   initialState: {
     isEditMode: false,
+    isSquareOn: false,
     columnCount: 6,
-    spacingSize: 12,
+    spacingSize: 6,
     isDesc: true,
     page: 0,
     size: 48,
@@ -69,6 +70,10 @@ const photoStorageSlice = createSlice({
     // 페이지 변경
     setPage(state, action) {
       state.page = action.payload;
+    },
+    // 스퀘어 토글
+    toggleIsSquare(state) {
+      state.isSquareOn = !state.isSquareOn;
     },
   },
 });

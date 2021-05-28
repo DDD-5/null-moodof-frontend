@@ -1,32 +1,11 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
+
+import WrappedIcon from '../WrappedIcon';
 
 import { action as appActions } from '../../../store/app/slices';
 import { MENU_TYPE } from '../../../constants';
 import { Sort, Filter, Add } from '../../../assets/icons/16';
-
-const iconBlockStyle = css({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 32,
-  height: 32,
-  marginRight: 8,
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-  },
-  '&:last-child': {
-    marginRight: 0,
-  },
-});
-
-const WrappedIcon = ({ Icon, handleClick }) => (
-  <div css={iconBlockStyle} onClick={handleClick}>
-    <Icon />
-  </div>
-);
 
 const DefaultMode = () => {
   const dispatch = useDispatch();
@@ -57,8 +36,8 @@ const DefaultMode = () => {
 
   return (
     <>
-      <WrappedIcon Icon={Sort} handleClick={handleClickSort} />
-      <WrappedIcon Icon={Filter} handleClick={handleClickFilter} />
+      <WrappedIcon Icon={Sort} onClick={handleClickSort} />
+      <WrappedIcon Icon={Filter} onClick={handleClickFilter} />
       <WrappedIcon Icon={Add} />
     </>
   );

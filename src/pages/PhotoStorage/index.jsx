@@ -11,10 +11,19 @@ import { MODAL_TYPE } from '../../constants';
 const PADDING_SIZE = 18;
 
 const photoStorageStyle = css({
-  display: 'flex',
-  padding: `40px ${PADDING_SIZE}px`,
-  flexWrap: 'wrap',
+  padding: ` 0 ${PADDING_SIZE}px 40px ${PADDING_SIZE}px`,
   userSelect: 'none',
+});
+
+const photoStorageTitleStyle = css({
+  padding: '16px 0',
+  fontSize: 14,
+  color: 'rgba(0, 0, 0, 0.4)',
+});
+
+const photoContainerStyle = css({
+  display: 'flex',
+  flexWrap: 'wrap',
 });
 
 const paginationWrapperStyle = css({
@@ -33,13 +42,13 @@ const PhotoStorage = () => {
     spacingSize,
     page,
   } = useSelector((state) => state.photoStorage);
-  const [imagePercent, setImagePercent] = useState(0);
+  const [wrapperSize, setWrapperSize] = useState(0);
   const photoStorageRef = useRef(null);
 
   useEffect(() => {
     const storageWidth = photoStorageRef.current.clientWidth - (PADDING_SIZE * 2);
-    const gutterPercent = ((spacingSize * (columnCount - 1)) / storageWidth) * 100;
-    setImagePercent((100 - gutterPercent) / columnCount);
+    const size = ((storageWidth - (spacingSize * (columnCount - 1))) / columnCount);
+    setWrapperSize(size);
   }, [photoStorageRef]);
 
   useEffect(() => {
@@ -82,27 +91,36 @@ const PhotoStorage = () => {
     dispatch(photoStorageActions.getStoragePhotosRequest());
   };
 
+  const {
+    storagePhotos: photoList = [],
+    totalPageCount = 0,
+    totalStoragePhotoCount = 0,
+  } = storagePhotos || {};
+
   return (
     <div css={photoStorageStyle} ref={photoStorageRef}>
-      {storagePhotos?.storagePhotos?.map((image) => (
-        <PhotoThumbnail
-          key={image.id}
-          id={image.id}
-          imgSrc={image.uri}
-          imgAlt=""
-          imagePercent={imagePercent}
-          isChecked={getIsChecked(image.id)}
-          handleClickCheck={handleClickCheck(image.id)}
-          handleClickUncheck={handleClickUncheck(image.id)}
-          handleClickPhoto={handleClickPhoto(image.id)}
-        />
-      ))}
-      <div css={paginationWrapperStyle}>
-        <Pagination
-          currentPageIndex={page}
-          totalPageCount={storagePhotos?.totalPageCount}
-          handlePageChange={handlePageChange}
-        />
+      <h2 css={photoStorageTitleStyle}>{totalStoragePhotoCount}장의 이미지</h2>
+      <div css={photoContainerStyle}>
+        {photoList.map((image) => (
+          <PhotoThumbnail
+            key={image.id}
+            id={image.id}
+            imgSrc={image.uri}
+            imgAlt=""
+            wrapperSize={wrapperSize}
+            isChecked={getIsChecked(image.id)}
+            handleClickCheck={handleClickCheck(image.id)}
+            handleClickUncheck={handleClickUncheck(image.id)}
+            handleClickPhoto={handleClickPhoto(image.id)}
+          />
+        ))}
+        <div css={paginationWrapperStyle}>
+          <Pagination
+            currentPageIndex={page}
+            totalPageCount={totalPageCount}
+            handlePageChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
