@@ -7,18 +7,16 @@ const wrappedIconStyle = css({
   alignItems: 'center',
   width: 32,
   height: 32,
-  marginRight: 8,
   cursor: 'pointer',
   '&:hover': {
     backgroundColor: 'rgba(245, 245, 245, 1)',
   },
-  '&:last-child': {
-    marginRight: 0,
-  },
 });
 
-const WrappedIcon = ({ Icon, color, ...args }) => (
-  <div css={wrappedIconStyle} {...args}>
+const WrappedIcon = ({
+  Icon, color, css: style, ...args
+}) => (
+  <div css={[wrappedIconStyle, style]} {...args}>
     <Icon color={color} />
   </div>
 );

@@ -20,15 +20,22 @@ const rightBlockStyle = css({
   alignItems: 'center',
 });
 
+const wrapIconStyle = css({
+  marginRight: 8,
+  '&:last-child': {
+    marginRight: 0,
+  },
+});
+
 const BoardHeader = () => (
   <header css={headerStyle}>
     <div>
-      <h2 css={headerTitleStyle}>보드</h2>
+      <h2 css={headerTitleStyle}>카테고리명</h2>
     </div>
     <div css={rightBlockStyle}>
-      <WrappedIcon Icon={Column} />
-      <WrappedIcon Icon={Spacing} />
-      <WrappedIcon Icon={Share} />
+      <WrappedIcon css={wrapIconStyle} Icon={Column} />
+      <WrappedIcon css={wrapIconStyle} Icon={Spacing} />
+      <WrappedIcon css={wrapIconStyle} Icon={Share} />
     </div>
   </header>
 );

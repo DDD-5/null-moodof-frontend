@@ -17,8 +17,9 @@ const photoStorageStyle = css({
 
 const photoStorageTitleStyle = css({
   padding: '16px 0',
-  fontSize: 14,
   color: 'rgba(0, 0, 0, 0.4)',
+  fontSize: 14,
+  fontWeight: 500,
 });
 
 const photoContainerStyle = css({
@@ -49,7 +50,7 @@ const PhotoStorage = () => {
     const storageWidth = photoStorageRef.current.clientWidth - (PADDING_SIZE * 2);
     const size = ((storageWidth - (spacingSize * (columnCount - 1))) / columnCount);
     setWrapperSize(size);
-  }, [photoStorageRef]);
+  }, [photoStorageRef, columnCount]);
 
   useEffect(() => {
     dispatch(photoStorageActions.getStoragePhotosRequest());

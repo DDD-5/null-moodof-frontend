@@ -37,6 +37,13 @@ const checkInputStyle = css({
   marginRight: 16,
 });
 
+const wrapIconStyle = css({
+  marginRight: 8,
+  '&:last-child': {
+    marginRight: 0,
+  },
+});
+
 const Default = () => {
   const dispatch = useDispatch();
   const { checkedList } = useSelector((state) => state.trashStorage);
@@ -71,8 +78,8 @@ const Default = () => {
       <div css={rightBlockStyle}>
         <span css={countTextStyle}>{checkedList.length}개 이미지가 선택됨</span>
         <input type="checkbox" css={checkInputStyle} />
-        <WrappedIcon Icon={TrashCan} onClick={handleClickDelete} />
-        <WrappedIcon Icon={Restore} onClick={handleClickRestore} />
+        <WrappedIcon css={wrapIconStyle} Icon={TrashCan} onClick={handleClickDelete} />
+        <WrappedIcon css={wrapIconStyle} Icon={Restore} onClick={handleClickRestore} />
       </div>
     </header>
   );
