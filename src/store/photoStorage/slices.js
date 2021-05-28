@@ -23,6 +23,7 @@ const photoStorageSlice = createSlice({
     },
   },
   reducers: {
+    // 체크 리스트 변경
     checkPhoto(state, action) {
       const { photoId } = action.payload;
 
@@ -74,6 +75,10 @@ const photoStorageSlice = createSlice({
     // 스퀘어 토글
     toggleIsSquare(state) {
       state.isSquareOn = !state.isSquareOn;
+    },
+    // 컬럼 수 변경
+    setColumnCount(state, action) {
+      state.columnCount = action.payload;
     },
   },
 });

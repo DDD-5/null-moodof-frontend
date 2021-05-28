@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 
 import WrappedIcon from '../WrappedIcon';
@@ -6,6 +7,13 @@ import WrappedIcon from '../WrappedIcon';
 import { action as appActions } from '../../../store/app/slices';
 import { MENU_TYPE } from '../../../constants';
 import { Sort, Filter, Add } from '../../../assets/icons/16';
+
+const wrapIconStyle = css({
+  marginRight: 8,
+  '&:last-child': {
+    marginRight: 0,
+  },
+});
 
 const DefaultMode = () => {
   const dispatch = useDispatch();
@@ -36,9 +44,9 @@ const DefaultMode = () => {
 
   return (
     <>
-      <WrappedIcon Icon={Sort} onClick={handleClickSort} />
-      <WrappedIcon Icon={Filter} onClick={handleClickFilter} />
-      <WrappedIcon Icon={Add} />
+      <WrappedIcon css={wrapIconStyle} Icon={Sort} onClick={handleClickSort} />
+      <WrappedIcon css={wrapIconStyle} Icon={Filter} onClick={handleClickFilter} />
+      <WrappedIcon css={wrapIconStyle} Icon={Add} />
     </>
   );
 };

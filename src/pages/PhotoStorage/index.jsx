@@ -50,7 +50,7 @@ const PhotoStorage = () => {
     const storageWidth = photoStorageRef.current.clientWidth - (PADDING_SIZE * 2);
     const size = ((storageWidth - (spacingSize * (columnCount - 1))) / columnCount);
     setWrapperSize(size);
-  }, [photoStorageRef]);
+  }, [photoStorageRef, columnCount]);
 
   useEffect(() => {
     dispatch(photoStorageActions.getStoragePhotosRequest());

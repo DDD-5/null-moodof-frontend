@@ -6,3 +6,4 @@ export { default as Button } from './Button';
 export { default as PhotoThumbnail } from './PhotoThumbnail';
 export { default as Pagination } from './Pagination';
 export { default as MasonryPhotoThumbnail } from './MasonryPhotoThumbnail';
+export { default as RangeSlider } from './RangeSlider';
