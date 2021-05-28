@@ -6,6 +6,8 @@ const MasonryPhotoThumbnail = ({
   src,
   x,
   y,
+  isFirstColumn,
+  isLastColumn,
   columnWidth,
   spacingSize,
 }) => {
@@ -14,6 +16,8 @@ const MasonryPhotoThumbnail = ({
     position: 'absolute',
     maxWidth: columnWidth,
     padding: spacingSize / 2,
+    paddingLeft: isFirstColumn && 0,
+    paddingRight: isLastColumn && 0,
     transform: `translateX(${x}px) translateY(${y}px)`,
     '& > img': {
       width: '100%',

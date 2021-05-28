@@ -23,7 +23,7 @@ const rightBlockStyle = css({
 const BoardHeader = () => (
   <header css={headerStyle}>
     <div>
-      <h2 css={headerTitleStyle}>보드</h2>
+      <h2 css={headerTitleStyle}>카테고리명</h2>
     </div>
     <div css={rightBlockStyle}>
       <WrappedIcon Icon={Column} />

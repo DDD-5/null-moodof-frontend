@@ -8,9 +8,30 @@ const COLUMN_SIZE = 3;
 const COLUMN_WIDTH = 250;
 const spacingSize = 10;
 
-const photoBoardStyle = css({});
+const photoBoardStyle = css({
+  padding: '0 18px 40px 18px',
+  userSelect: 'none',
+});
 
-const imagesStyle = css({});
+const titleWrapperStyle = css({
+  display: 'flex',
+  alignItems: 'baseline',
+  padding: '14px 0',
+  '& h2': {
+    fontSize: 18,
+    fontWeight: 700,
+    marginRight: 8,
+  },
+  '& span': {
+    color: 'rgba(0, 0, 0, 0.4)',
+    fontSize: 14,
+    fontWeight: 500,
+  },
+});
+
+const imageListStyle = css({
+  position: 'relative',
+});
 
 const PhotoBoard = () => {
   const { boardId } = useParams();
@@ -59,7 +80,12 @@ const PhotoBoard = () => {
         const y = photoStack[minIndex];
 
         photoStack[minIndex] += (tempPhotos[i].clientHeight + spacingSize);
-        tempPhotoPositions[i] = { x, y };
+        tempPhotoPositions[i] = {
+          x,
+          y,
+          isFirstColumn: minIndex === 0,
+          isLastColumn: minIndex === photoStack.length - 1,
+        };
       }
 
       setPhotoPositions(tempPhotoPositions);
@@ -68,8 +94,13 @@ const PhotoBoard = () => {
 
   return (
     <div css={photoBoardStyle}>
+      <div css={titleWrapperStyle}>
+        <h2>보드명</h2>
+        <span>NN장의 이미지</span>
+      </div>
+
       {isAllPhotoLoaded ? (
-        <div css={imagesStyle}>
+        <div css={imageListStyle}>
           {photos.map((photo, index) => (
             <MasonryPhotoThumbnail
               key={index}
@@ -77,6 +108,8 @@ const PhotoBoard = () => {
               src={photo.src}
               x={photoPositions?.[index]?.x}
               y={photoPositions?.[index]?.y}
+              isFirstColumn={photoPositions?.[index]?.isFirstColumn}
+              isLastColumn={photoPositions?.[index]?.isLastColumn}
               columnWidth={COLUMN_WIDTH}
               spacingSize={spacingSize}
             />

@@ -17,8 +17,9 @@ const photoStorageStyle = css({
 
 const photoStorageTitleStyle = css({
   padding: '16px 0',
-  fontSize: 14,
   color: 'rgba(0, 0, 0, 0.4)',
+  fontSize: 14,
+  fontWeight: 500,
 });
 
 const photoContainerStyle = css({
