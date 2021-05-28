@@ -29,34 +29,26 @@ const rangeSliderStyle = css({
 
 const RangeSlider = ({
   css: style,
-  min = '0',
-  max = '0',
-  step = '0',
-  value = '0',
+  min,
+  max,
+  step,
+  value,
   handleMouseUp = () => {},
   ...args
-}) => {
-  const [sliderValue, setSliderValue] = useState(value);
-
-  const handeChangeSliderValue = (e) => {
-    setSliderValue(e.target.value);
-  };
-
-  return (
-    <div css={[rangeSliderWrapperStyle, style]} {...args}>
-      <Minus />
-      <input
-        css={rangeSliderStyle}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={sliderValue}
-        onChange={handeChangeSliderValue}
-        onMouseUp={handleMouseUp}
-      />
-      <Plus />
-    </div>
-  );
-};
+}) => (
+  <div css={[rangeSliderWrapperStyle, style]} {...args}>
+    <Minus />
+    <input
+      css={rangeSliderStyle}
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      defaultValue={value}
+      onMouseUp={handleMouseUp}
+    />
+    <Plus />
+  </div>
+);
 export default RangeSlider;
