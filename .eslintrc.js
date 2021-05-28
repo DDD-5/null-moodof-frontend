@@ -21,5 +21,6 @@ module.exports = {
     'import/no-cycle': 'off',
     'no-nested-ternary': 'off',
     'no-alert': 'off',
+    'no-console': 'off',
   },
 };
