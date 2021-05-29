@@ -4,6 +4,7 @@ export const ENV = {
 };
 
 export const APP = {
+  navigationWidth: 240,
   headerHeight: 48,
 };
 

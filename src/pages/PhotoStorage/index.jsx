@@ -14,16 +14,21 @@ const PADDING_SIZE = 18;
 const PhotoStorage = () => {
   const dispatch = useDispatch();
   const {
-    isEditMode,
-    checkedList,
-    storagePhotos,
-    columnCount,
-    spacingSize,
-    page,
-    loading: {
-      storagePhotos: isStoragePhotosLoading,
+    app: {
+      isFolded,
     },
-  } = useSelector((state) => state.photoStorage);
+    photoStorage: {
+      isEditMode,
+      checkedList,
+      storagePhotos,
+      columnCount,
+      spacingSize,
+      page,
+      loading: {
+        storagePhotos: isStoragePhotosLoading,
+      },
+    },
+  } = useSelector((state) => state);
   const [wrapperSize, setWrapperSize] = useState(0);
   const photoStorageRef = useRef(null);
 
@@ -31,7 +36,7 @@ const PhotoStorage = () => {
     const storageWidth = photoStorageRef.current.clientWidth - (PADDING_SIZE * 2);
     const size = ((storageWidth - (spacingSize * (columnCount - 1))) / columnCount);
     setWrapperSize(size);
-  }, [photoStorageRef, columnCount]);
+  }, [photoStorageRef, columnCount, isFolded]);
 
   useEffect(() => {
     dispatch(photoStorageActions.getStoragePhotosRequest());
