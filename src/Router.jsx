@@ -11,11 +11,12 @@ import {
 } from './pages';
 import { Navigation, Header } from './components';
 
-import { HEADER_TYPE, ENV } from './constants';
+import { ENV, APP, HEADER_TYPE } from './constants';
 
 const AppFrame = ({ children, headerType }) => {
   const globalWrapperStyle = css({
-    paddingTop: 48,
+    minHeight: '100vh',
+    paddingTop: APP.headerHeight,
     paddingLeft: 240,
   });
 

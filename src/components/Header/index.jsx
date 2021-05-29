@@ -1,13 +1,15 @@
 import React from 'react';
 import { css } from '@emotion/react';
+
 import PhotoStorageHeader from './PhotoStorageHeader';
 import BoardHeader from './BoardHeader';
 import TrashStorageHeader from './TrashStorageHeader';
-import { HEADER_TYPE } from '../../constants';
+
+import { APP, HEADER_TYPE } from '../../constants';
 
 const headerStyle = css({
   width: 'calc(100% - 240px)',
-  height: 48,
+  height: APP.headerHeight,
   position: 'absolute',
   marginLeft: 240,
   padding: '0 16px 0 20px',
