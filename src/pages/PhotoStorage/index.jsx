@@ -25,6 +25,7 @@ const PhotoStorage = () => {
       storagePhotos,
       columnCount,
       spacingSize,
+      isDesc,
       page,
       loading: {
         storagePhotos: isStoragePhotosLoading,
@@ -45,7 +46,7 @@ const PhotoStorage = () => {
     return () => {
       dispatch(photoStorageActions.clearCheckedList());
     };
-  }, []);
+  }, [isDesc]);
 
   const getIsChecked = (photoId) => checkedList.indexOf(photoId) >= 0;
 

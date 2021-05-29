@@ -80,6 +80,10 @@ const photoStorageSlice = createSlice({
     setColumnCount(state, action) {
       state.columnCount = action.payload;
     },
+    // 정렬 토글
+    toggleIsDesc(state) {
+      state.isDesc = !state.isDesc;
+    },
   },
 });
 

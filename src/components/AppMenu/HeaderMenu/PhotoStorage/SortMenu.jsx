@@ -1,24 +1,41 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { action as photoStorageActions } from '../../../../store/photoStorage/slices';
 import { Check } from '../../../../assets/icons/16';
 
-const SortMenu = () => (
-  <div css={menuStyle}>
-    <div css={titleWrapperStyle}>
-      <span>정렬</span>
-    </div>
-    <div css={buttonWrapperStyle}>
-      <div css={buttonStyle(true)}>
-        <span>최신 순</span>
-        <Check />
+const SortMenu = () => {
+  const {
+    isDesc,
+  } = useSelector((state) => state.photoStorage);
+  const dispatch = useDispatch();
+
+  const handleClickToggleDesc = () => {
+    dispatch(photoStorageActions.toggleIsDesc());
+  };
+
+  const isNewOn = isDesc;
+  const isOldOn = !isDesc;
+
+  return (
+    <div css={menuStyle}>
+      <div css={titleWrapperStyle}>
+        <span>정렬</span>
       </div>
-      <div css={buttonStyle(false)}>
-        <span>오래된 순</span>
+      <div css={buttonWrapperStyle}>
+        <div css={buttonStyle(isNewOn)} onClick={!isNewOn ? handleClickToggleDesc : () => {}}>
+          <span>최신 순</span>
+          {isNewOn && <Check />}
+        </div>
+        <div css={buttonStyle(isOldOn)} onClick={!isOldOn ? handleClickToggleDesc : () => {}}>
+          <span>오래된 순</span>
+          {isOldOn && <Check />}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const menuStyle = css({
   width: 240,
@@ -27,6 +44,7 @@ const menuStyle = css({
   backgroundColor: 'rgba(245, 245, 245, 0.7)',
   backdropFilter: 'blur(40px)',
   borderRadius: 4,
+  userSelect: 'none',
 });
 
 const titleWrapperStyle = css({
