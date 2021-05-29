@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { MasonryPhotoThumbnail } from '../../components';
 
-const COLUMN_SIZE = 3;
+const COLUMN_SIZE = 4;
 const COLUMN_WIDTH = 250;
 const spacingSize = 10;
 
@@ -36,9 +36,6 @@ const imageListStyle = css({
 const PhotoBoard = () => {
   const { boardId } = useParams();
   const [photos, setPhotos] = useState([
-    {
-      src: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-    },
     {
       src: 'https://images.unsplash.com/photo-1568377210220-151e1d7f42c7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
     },
@@ -74,6 +71,15 @@ const PhotoBoard = () => {
     },
     {
       src: 'https://images.unsplash.com/photo-1596079890687-58c51d24889a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1609081144289-eacc3108cd03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1517467139951-f5a925c9f9de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1540551079-b1236c0cd8ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
     },
   ]);
   const [isAllPhotoLoaded, setIsAllPhotoLoaded] = useState(false);
