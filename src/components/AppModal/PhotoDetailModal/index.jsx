@@ -9,45 +9,6 @@ import { action as appActions } from '../../../store/app/slices';
 import { action as photoStorageActions } from '../../../store/photoStorage/slices';
 import { MODAL_TYPE } from '../../../constants';
 
-const photoDetailModalStyle = css({
-  position: 'fixed',
-  top: 0,
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.95);',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  userSelect: 'none',
-  zIndex: 20,
-});
-
-const imageStyle = css({
-  zIndex: 10,
-  maxWidth: '70%',
-  maxHeight: '70%',
-});
-
-const prevButtonStyle = css({
-  position: 'fixed',
-  left: 48,
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: '#212121',
-    borderRadius: 4,
-  },
-});
-
-const nextButtonStyle = css({
-  position: 'fixed',
-  right: 48,
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: '#212121',
-    borderRadius: 4,
-  },
-});
-
 const PhotoDetailModal = ({ photoId }) => {
   const dispatch = useDispatch();
   const {
@@ -100,5 +61,44 @@ const PhotoDetailModal = ({ photoId }) => {
     </div>
   );
 };
+
+const photoDetailModalStyle = css({
+  position: 'fixed',
+  top: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.95);',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  userSelect: 'none',
+  zIndex: 20,
+});
+
+const imageStyle = css({
+  zIndex: 10,
+  maxWidth: '70%',
+  maxHeight: '70%',
+});
+
+const prevButtonStyle = css({
+  position: 'fixed',
+  left: 48,
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: '#212121',
+    borderRadius: 4,
+  },
+});
+
+const nextButtonStyle = css({
+  position: 'fixed',
+  right: 48,
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: '#212121',
+    borderRadius: 4,
+  },
+});
 
 export default memo(PhotoDetailModal);

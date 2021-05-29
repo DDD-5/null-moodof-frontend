@@ -8,13 +8,6 @@ import { action as appActions } from '../../../store/app/slices';
 import { MENU_TYPE } from '../../../constants';
 import { Sort, Filter, Add } from '../../../assets/icons/16';
 
-const wrapIconStyle = css({
-  marginRight: 8,
-  '&:last-child': {
-    marginRight: 0,
-  },
-});
-
 const DefaultMode = () => {
   const dispatch = useDispatch();
 
@@ -44,11 +37,18 @@ const DefaultMode = () => {
 
   return (
     <>
-      <WrappedIcon css={wrapIconStyle} Icon={Sort} onClick={handleClickSort} />
-      <WrappedIcon css={wrapIconStyle} Icon={Filter} onClick={handleClickFilter} />
-      <WrappedIcon css={wrapIconStyle} Icon={Add} />
+      <WrappedIcon css={wrappedIconStyle} Icon={Sort} onClick={handleClickSort} />
+      <WrappedIcon css={wrappedIconStyle} Icon={Filter} onClick={handleClickFilter} />
+      <WrappedIcon css={wrappedIconStyle} Icon={Add} />
     </>
   );
 };
+
+const wrappedIconStyle = css({
+  marginRight: 8,
+  '&:last-child': {
+    marginRight: 0,
+  },
+});
 
 export default DefaultMode;

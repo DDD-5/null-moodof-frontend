@@ -10,7 +10,37 @@ import {
 import { action as appActions } from '../../store/app/slices';
 import { MENU_TYPE } from '../../constants';
 
-const appMenuWrapper = css({
+const MENU_COMPONENTS = {
+  [MENU_TYPE.NAVIGATION.CATEGORY]: CategoryMenu,
+  [MENU_TYPE.NAVIGATION.BOARD]: BoardMenu,
+  [MENU_TYPE.HEADER.PHOTO_STORAGE.SORT]: PhotoStorageSortMenu,
+  [MENU_TYPE.HEADER.PHOTO_STORAGE.TAG_FILTER]: PhotoStorageTagFilterMenu,
+};
+
+const AppMenu = (props) => {
+  const dispatch = useDispatch();
+  const { menuType, menuProps } = props;
+  const SpecificMenu = MENU_COMPONENTS[menuType];
+
+  const handleClickClose = () => {
+    dispatch(appActions.closeMenu());
+  };
+
+  return (
+    <div css={appMenuWrapperStyle} onClick={handleClickClose}>
+      <div
+        css={appMenuStyle(
+          menuProps.clientX, menuProps.clientY, window.innerWidth, window.innerHeight,
+        )}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <SpecificMenu {...menuProps} />
+      </div>
+    </div>
+  );
+};
+
+const appMenuWrapperStyle = css({
   position: 'fixed',
   top: 0,
   width: '100%',
@@ -29,36 +59,6 @@ const appMenuStyle = (clientX, clientY, innerWidth, innerHeight) => {
     bottom: halfHeight < clientY ? innerHeight - clientY : 'auto',
     right: halfWidth < clientX ? innerWidth - clientX : 'auto',
   });
-};
-
-const MENU_COMPONENTS = {
-  [MENU_TYPE.NAVIGATION.CATEGORY]: CategoryMenu,
-  [MENU_TYPE.NAVIGATION.BOARD]: BoardMenu,
-  [MENU_TYPE.HEADER.PHOTO_STORAGE.SORT]: PhotoStorageSortMenu,
-  [MENU_TYPE.HEADER.PHOTO_STORAGE.TAG_FILTER]: PhotoStorageTagFilterMenu,
-};
-
-const AppMenu = (props) => {
-  const dispatch = useDispatch();
-  const { menuType, menuProps } = props;
-  const SpecificMenu = MENU_COMPONENTS[menuType];
-
-  const handleClickClose = () => {
-    dispatch(appActions.closeMenu());
-  };
-
-  return (
-    <div css={appMenuWrapper} onClick={handleClickClose}>
-      <div
-        css={appMenuStyle(
-          menuProps.clientX, menuProps.clientY, window.innerWidth, window.innerHeight,
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <SpecificMenu {...menuProps} />
-      </div>
-    </div>
-  );
 };
 
 export default AppMenu;

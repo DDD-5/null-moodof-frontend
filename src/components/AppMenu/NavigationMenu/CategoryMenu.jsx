@@ -3,6 +3,24 @@ import { css } from '@emotion/react';
 
 import { AddCategory, Edit, TrashCan } from '../../../assets/icons/16';
 
+const CategoryMenu = () => (
+  <div css={menuStyle}>
+    <div css={menuItemStyle}>
+      <AddCategory />
+      <span>새 카테고리</span>
+    </div>
+    <div css={menuItemStyle}>
+      <Edit />
+      <span>이름 변경</span>
+    </div>
+    <div css={dividerStyle} />
+    <div css={menuItemStyle}>
+      <TrashCan />
+      <span>삭제</span>
+    </div>
+  </div>
+);
+
 const menuStyle = css({
   width: 135,
   height: 105,
@@ -38,23 +56,5 @@ const dividerStyle = css({
   borderTop: '1px solid rgba(0, 0, 0, 0.1)',
   marginBottom: 5.5,
 });
-
-const CategoryMenu = () => (
-  <div css={menuStyle}>
-    <div css={menuItemStyle}>
-      <AddCategory />
-      <span>새 카테고리</span>
-    </div>
-    <div css={menuItemStyle}>
-      <Edit />
-      <span>이름 변경</span>
-    </div>
-    <div css={dividerStyle} />
-    <div css={menuItemStyle}>
-      <TrashCan />
-      <span>삭제</span>
-    </div>
-  </div>
-);
 
 export default CategoryMenu;

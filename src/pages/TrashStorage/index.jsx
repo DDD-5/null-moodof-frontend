@@ -8,12 +8,6 @@ const IMG_SRC = 'https://seoulhype.files.wordpress.com/2020/05/iu_full.jpg?w=150
 const IMG_ALT = 'IU is Love.';
 const dummayArray = Array(10).fill(null);
 
-const photoStorageStyle = css({
-  display: 'flex',
-  padding: 50,
-  flexWrap: 'wrap',
-});
-
 const PhotoStorage = () => {
   const dispatch = useDispatch();
   const { checkedList } = useSelector((state) => state.trashStorage);
@@ -57,5 +51,11 @@ const PhotoStorage = () => {
     </div>
   );
 };
+
+const photoStorageStyle = css({
+  display: 'flex',
+  padding: 50,
+  flexWrap: 'wrap',
+});
 
 export default PhotoStorage;

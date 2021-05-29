@@ -3,6 +3,23 @@ import { css } from '@emotion/react';
 
 import { Check } from '../../../../assets/icons/16';
 
+const SortMenu = () => (
+  <div css={menuStyle}>
+    <div css={titleWrapperStyle}>
+      <span>정렬</span>
+    </div>
+    <div css={buttonWrapperStyle}>
+      <div css={buttonStyle(true)}>
+        <span>최신 순</span>
+        <Check />
+      </div>
+      <div css={buttonStyle(false)}>
+        <span>오래된 순</span>
+      </div>
+    </div>
+  </div>
+);
+
 const menuStyle = css({
   width: 240,
   height: 138,
@@ -45,22 +62,5 @@ const buttonStyle = (isActive) => css({
     marginBottom: 0,
   },
 });
-
-const SortMenu = () => (
-  <div css={menuStyle}>
-    <div css={titleWrapperStyle}>
-      <span>정렬</span>
-    </div>
-    <div css={buttonWrapperStyle}>
-      <div css={buttonStyle(true)}>
-        <span>최신 순</span>
-        <Check />
-      </div>
-      <div css={buttonStyle(false)}>
-        <span>오래된 순</span>
-      </div>
-    </div>
-  </div>
-);
 
 export default SortMenu;

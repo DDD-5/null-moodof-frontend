@@ -2,6 +2,16 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { APP } from '../../constants';
 
+const NoPhotoMessage = () => (
+  <div css={noPhotoWrapperStyle}>
+    <div css={noPhotoStyle}>
+      <h1>이미지 보관함이 비어있습니다.</h1>
+      <span>무드피커를 이용해 이미지를 가져오거나</span>
+      <span>기기에서 이미지를 업로드하세요.</span>
+    </div>
+  </div>
+);
+
 const noPhotoWrapperStyle = css({
   minHeight: `calc(100vh - ${APP.headerHeight}px)`,
   display: 'flex',
@@ -22,15 +32,5 @@ const noPhotoStyle = css({
     textAlign: 'center',
   },
 });
-
-const NoPhotoMessage = () => (
-  <div css={noPhotoWrapperStyle}>
-    <div css={noPhotoStyle}>
-      <h1>이미지 보관함이 비어있습니다.</h1>
-      <span>무드피커를 이용해 이미지를 가져오거나</span>
-      <span>기기에서 이미지를 업로드하세요.</span>
-    </div>
-  </div>
-);
 
 export default NoPhotoMessage;

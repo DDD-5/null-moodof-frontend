@@ -1,6 +1,14 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
+const WrappedIcon = ({
+  Icon, color, css: style, ...args
+}) => (
+  <div css={[wrappedIconStyle, style]} {...args}>
+    <Icon color={color} />
+  </div>
+);
+
 const wrappedIconStyle = css({
   display: 'flex',
   justifyContent: 'center',
@@ -12,13 +20,5 @@ const wrappedIconStyle = css({
     backgroundColor: 'rgba(245, 245, 245, 1)',
   },
 });
-
-const WrappedIcon = ({
-  Icon, color, css: style, ...args
-}) => (
-  <div css={[wrappedIconStyle, style]} {...args}>
-    <Icon color={color} />
-  </div>
-);
 
 export default WrappedIcon;

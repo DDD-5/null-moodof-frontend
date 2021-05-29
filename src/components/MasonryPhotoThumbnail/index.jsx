@@ -6,22 +6,20 @@ const MasonryPhotoThumbnail = ({
   x,
   y,
   columnWidth,
-}) => {
-  const imageStyle = css({
-    display: 'inline-block',
-    position: 'absolute',
-    maxWidth: columnWidth,
-    transform: `translateX(${x}px) translateY(${y}px)`,
-    '& > img': {
-      width: '100%',
-    },
-  });
+}) => (
+  <div css={imageStyle(x, y, columnWidth)}>
+    <img className="masonry-photo" src={src} alt="" />
+  </div>
+);
 
-  return (
-    <div css={imageStyle}>
-      <img className="masonry-photo" src={src} alt="" />
-    </div>
-  );
-};
+const imageStyle = (x, y, columnWidth) => css({
+  display: 'inline-block',
+  position: 'absolute',
+  maxWidth: columnWidth,
+  transform: `translateX(${x}px) translateY(${y}px)`,
+  '& > img': {
+    width: '100%',
+  },
+});
 
 export default MasonryPhotoThumbnail;

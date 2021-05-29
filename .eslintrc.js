@@ -22,5 +22,6 @@ module.exports = {
     'no-nested-ternary': 'off',
     'no-alert': 'off',
     'no-console': 'off',
+    'no-use-before-define': 'off',
   },
 };

@@ -8,32 +8,6 @@ const COLUMN_SIZE = 4;
 const COLUMN_WIDTH = 250;
 const spacingSize = 6;
 
-const photoBoardStyle = css({
-  padding: '0 18px 40px 18px',
-  userSelect: 'none',
-});
-
-const titleWrapperStyle = css({
-  display: 'flex',
-  alignItems: 'baseline',
-  padding: '14px 0',
-  '& h2': {
-    fontSize: 18,
-    fontWeight: 700,
-    marginRight: 8,
-  },
-  '& span': {
-    color: 'rgba(0, 0, 0, 0.4)',
-    fontSize: 14,
-    fontWeight: 500,
-  },
-});
-
-const imageListStyle = (photosHeight) => css({
-  height: photosHeight,
-  position: 'relative',
-});
-
 const PhotoBoard = () => {
   const { boardId } = useParams();
   const [photos, setPhotos] = useState([
@@ -155,5 +129,31 @@ const PhotoBoard = () => {
     </div>
   );
 };
+
+const photoBoardStyle = css({
+  padding: '0 18px 40px 18px',
+  userSelect: 'none',
+});
+
+const titleWrapperStyle = css({
+  display: 'flex',
+  alignItems: 'baseline',
+  padding: '14px 0',
+  '& h2': {
+    fontSize: 18,
+    fontWeight: 700,
+    marginRight: 8,
+  },
+  '& span': {
+    color: 'rgba(0, 0, 0, 0.4)',
+    fontSize: 14,
+    fontWeight: 500,
+  },
+});
+
+const imageListStyle = (photosHeight) => css({
+  height: photosHeight,
+  position: 'relative',
+});
 
 export default PhotoBoard;

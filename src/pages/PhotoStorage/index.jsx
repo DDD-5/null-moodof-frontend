@@ -11,38 +11,6 @@ import { APP, MODAL_TYPE } from '../../constants';
 
 const PADDING_SIZE = 18;
 
-const photoStorageStyle = css({
-  minHeight: `calc(100vh - ${APP.headerHeight}px)`,
-  padding: ` 0 ${PADDING_SIZE}px 0 ${PADDING_SIZE}px`,
-  userSelect: 'none',
-});
-
-const photoStorageTitleStyle = css({
-  padding: '16px 0',
-  color: 'rgba(0, 0, 0, 0.4)',
-  fontSize: 14,
-  fontWeight: 500,
-});
-
-const photoContainerStyle = css({
-  display: 'flex',
-  flexWrap: 'wrap',
-  paddingBottom: 40,
-});
-
-const paginationWrapperStyle = css({
-  width: '100%',
-  marginTop: 16,
-  textAlign: 'center',
-});
-
-const loadingWrapperStyle = css({
-  minHeight: 'calc(100vh - 48px)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
-
 const PhotoStorage = () => {
   const dispatch = useDispatch();
   const {
@@ -153,5 +121,37 @@ const PhotoStorage = () => {
     </div>
   );
 };
+
+const photoStorageStyle = css({
+  minHeight: `calc(100vh - ${APP.headerHeight}px)`,
+  padding: ` 0 ${PADDING_SIZE}px 0 ${PADDING_SIZE}px`,
+  userSelect: 'none',
+});
+
+const photoStorageTitleStyle = css({
+  padding: '16px 0',
+  color: 'rgba(0, 0, 0, 0.4)',
+  fontSize: 14,
+  fontWeight: 500,
+});
+
+const photoContainerStyle = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  paddingBottom: 40,
+});
+
+const paginationWrapperStyle = css({
+  width: '100%',
+  marginTop: 16,
+  textAlign: 'center',
+});
+
+const loadingWrapperStyle = css({
+  minHeight: 'calc(100vh - 48px)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
 export default PhotoStorage;

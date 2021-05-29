@@ -7,6 +7,14 @@ import TrashStorageHeader from './TrashStorageHeader';
 
 import { APP, HEADER_TYPE } from '../../constants';
 
+const Header = ({ headerType }) => (
+  <header css={headerStyle}>
+    {headerType === HEADER_TYPE.PHOTO_STORAGE && <PhotoStorageHeader />}
+    {headerType === HEADER_TYPE.BOARD && <BoardHeader />}
+    {headerType === HEADER_TYPE.TRASH_STORAGE && <TrashStorageHeader />}
+  </header>
+);
+
 const headerStyle = css({
   width: 'calc(100% - 240px)',
   height: APP.headerHeight,
@@ -18,13 +26,5 @@ const headerStyle = css({
   userSelect: 'none',
   zIndex: 10,
 });
-
-const Header = ({ headerType }) => (
-  <header css={headerStyle}>
-    {headerType === HEADER_TYPE.PHOTO_STORAGE && <PhotoStorageHeader />}
-    {headerType === HEADER_TYPE.BOARD && <BoardHeader />}
-    {headerType === HEADER_TYPE.TRASH_STORAGE && <TrashStorageHeader />}
-  </header>
-);
 
 export default Header;
