@@ -36,6 +36,13 @@ const paginationWrapperStyle = css({
   textAlign: 'center',
 });
 
+const loadingWrapperStyle = css({
+  minHeight: 'calc(100vh - 48px)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 const PhotoStorage = () => {
   const dispatch = useDispatch();
   const {
@@ -45,6 +52,9 @@ const PhotoStorage = () => {
     columnCount,
     spacingSize,
     page,
+    loading: {
+      storagePhotos: isStoragePhotosLoading,
+    },
   } = useSelector((state) => state.photoStorage);
   const [wrapperSize, setWrapperSize] = useState(0);
   const photoStorageRef = useRef(null);
@@ -103,34 +113,42 @@ const PhotoStorage = () => {
 
   return (
     <div css={photoStorageStyle} ref={photoStorageRef}>
-      {photoList.length ? (
-        <>
-          <h2 css={photoStorageTitleStyle}>{totalStoragePhotoCount}장의 이미지</h2>
-          <div css={photoContainerStyle}>
-            {photoList.map((image) => (
-              <PhotoThumbnail
-                key={image.id}
-                id={image.id}
-                imgSrc={image.uri}
-                imgAlt=""
-                wrapperSize={wrapperSize}
-                isChecked={getIsChecked(image.id)}
-                handleClickCheck={handleClickCheck(image.id)}
-                handleClickUncheck={handleClickUncheck(image.id)}
-                handleClickPhoto={handleClickPhoto(image.id)}
-              />
-            ))}
-            <div css={paginationWrapperStyle}>
-              <Pagination
-                currentPageIndex={page}
-                totalPageCount={totalPageCount}
-                handlePageChange={handlePageChange}
-              />
+      {isStoragePhotosLoading && (
+        <div css={loadingWrapperStyle}>
+          <span>Loading</span>
+        </div>
+      )}
+
+      {!isStoragePhotosLoading && (
+        photoList.length ? (
+          <>
+            <h2 css={photoStorageTitleStyle}>{totalStoragePhotoCount}장의 이미지</h2>
+            <div css={photoContainerStyle}>
+              {photoList.map((image) => (
+                <PhotoThumbnail
+                  key={image.id}
+                  id={image.id}
+                  imgSrc={image.uri}
+                  imgAlt=""
+                  wrapperSize={wrapperSize}
+                  isChecked={getIsChecked(image.id)}
+                  handleClickCheck={handleClickCheck(image.id)}
+                  handleClickUncheck={handleClickUncheck(image.id)}
+                  handleClickPhoto={handleClickPhoto(image.id)}
+                />
+              ))}
+              <div css={paginationWrapperStyle}>
+                <Pagination
+                  currentPageIndex={page}
+                  totalPageCount={totalPageCount}
+                  handlePageChange={handlePageChange}
+                />
+              </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <NoPhotoMessage />
+          </>
+        ) : (
+          <NoPhotoMessage />
+        )
       )}
     </div>
   );

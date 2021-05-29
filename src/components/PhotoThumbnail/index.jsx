@@ -39,6 +39,16 @@ const photoImgStyle = (imageWidth, imageHeight) => css({
   transform: 'translate(-50%, -50%)',
 });
 
+const skeletonStyle = (wrapperSize, columnCount, spacingSize) => css({
+  width: wrapperSize,
+  height: wrapperSize,
+  border: '1px solid rgba(0, 0, 0, 0.1)',
+  margin: `0 ${spacingSize}px ${spacingSize}px 0`,
+  [`&:nth-of-type(${columnCount}n)`]: {
+    marginRight: 0,
+  },
+});
+
 const checkButtonStyle = (isChecked) => css({
   display: isChecked ? 'block' : 'none',
   position: 'absolute',
@@ -93,33 +103,34 @@ const PhotoThumbnail = ({
   const imageHeight = imageWidth === 'auto' ? '100%' : 'auto';
 
   return (
-    <div
-      css={photoWrapperStyle(isChecked, wrapperSize, columnCount, spacingSize)}
-      onClick={() => handleClickPhoto(id)}
-      ref={wrapperRef}
-    >
-      {isImageLoaded && (
-      <div css={photoStyle}>
-        <div css={photoCenteredStyle}>
-          <img
-            css={photoImgStyle(imageWidth, imageHeight)}
-            src={imgSrc}
-            alt={imgAlt}
+    isImageLoaded ? (
+      <div
+        css={photoWrapperStyle(isChecked, wrapperSize, columnCount, spacingSize)}
+        onClick={() => handleClickPhoto(id)}
+        ref={wrapperRef}
+      >
+        <div css={photoStyle}>
+          <div css={photoCenteredStyle}>
+            <img
+              css={photoImgStyle(imageWidth, imageHeight)}
+              src={imgSrc}
+              alt={imgAlt}
+            />
+          </div>
+        </div>
+        {!isSquareOn && (
+        <div className="check-button" css={checkButtonStyle(isChecked)} onClick={(e) => e.stopPropagation()}>
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={isChecked ? handleClickUncheck : handleClickCheck}
           />
         </div>
+        )}
       </div>
-      )}
-
-      {!isSquareOn && (
-      <div className="check-button" css={checkButtonStyle(isChecked)} onClick={(e) => e.stopPropagation()}>
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={isChecked ? handleClickUncheck : handleClickCheck}
-        />
-      </div>
-      )}
-    </div>
+    ) : (
+      <div css={skeletonStyle(wrapperSize, columnCount, spacingSize)} />
+    )
   );
 };
 

@@ -6,7 +6,7 @@ import { MasonryPhotoThumbnail } from '../../components';
 
 const COLUMN_SIZE = 4;
 const COLUMN_WIDTH = 250;
-const spacingSize = 10;
+const spacingSize = 6;
 
 const photoBoardStyle = css({
   padding: '0 18px 40px 18px',
@@ -29,7 +29,8 @@ const titleWrapperStyle = css({
   },
 });
 
-const imageListStyle = css({
+const imageListStyle = (photosHeight) => css({
+  height: photosHeight,
   position: 'relative',
 });
 
@@ -84,6 +85,7 @@ const PhotoBoard = () => {
   ]);
   const [isAllPhotoLoaded, setIsAllPhotoLoaded] = useState(false);
   const [photoPositions, setPhotoPositions] = useState([]);
+  const [photosHeight, setPhotosHeight] = useState(0);
 
   useEffect(() => {
     const loadImage = (src) => new Promise((resolve, reject) => {
@@ -108,14 +110,20 @@ const PhotoBoard = () => {
         const minIndex = photoStack.indexOf(Math.min.apply(0, photoStack));
         const x = COLUMN_WIDTH * minIndex;
         const y = photoStack[minIndex];
+        const isFirstColumn = minIndex === 0;
+        const isLastColumn = minIndex === photoStack.length - 1;
 
         photoStack[minIndex] += (tempPhotos[i].clientHeight + spacingSize);
         tempPhotoPositions[i] = {
-          x,
+          x: isFirstColumn ? x : x + (minIndex * spacingSize),
           y,
-          isFirstColumn: minIndex === 0,
-          isLastColumn: minIndex === photoStack.length - 1,
+          isFirstColumn,
+          isLastColumn,
         };
+
+        if (i === photos.length - 1) {
+          setPhotosHeight(Math.max.apply(0, photoStack));
+        }
       }
 
       setPhotoPositions(tempPhotoPositions);
@@ -130,18 +138,14 @@ const PhotoBoard = () => {
       </div>
 
       {isAllPhotoLoaded ? (
-        <div css={imageListStyle}>
+        <div css={imageListStyle(photosHeight)}>
           {photos.map((photo, index) => (
             <MasonryPhotoThumbnail
               key={index}
-              id={index}
               src={photo.src}
               x={photoPositions?.[index]?.x}
               y={photoPositions?.[index]?.y}
-              isFirstColumn={photoPositions?.[index]?.isFirstColumn}
-              isLastColumn={photoPositions?.[index]?.isLastColumn}
               columnWidth={COLUMN_WIDTH}
-              spacingSize={spacingSize}
             />
           ))}
         </div>
