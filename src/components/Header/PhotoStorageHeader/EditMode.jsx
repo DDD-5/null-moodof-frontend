@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,7 +27,7 @@ const wrapIconStyle = css({
   },
 });
 
-const Default = () => {
+const EditMode = () => {
   const dispatch = useDispatch();
   const { checkedList } = useSelector((state) => state.photoStorage);
 
@@ -51,4 +51,4 @@ const Default = () => {
   );
 };
 
-export default Default;
+export default memo(EditMode);

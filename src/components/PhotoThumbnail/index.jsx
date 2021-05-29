@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useSelector } from 'react-redux';
 
@@ -18,7 +18,6 @@ const PhotoThumbnail = ({
     isSquareOn,
   } = useSelector((state) => state.photoStorage);
 
-  const wrapperRef = useRef(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
 
@@ -48,7 +47,6 @@ const PhotoThumbnail = ({
       <div
         css={photoWrapperStyle(isChecked, wrapperSize, columnCount, spacingSize)}
         onClick={() => handleClickPhoto(id)}
-        ref={wrapperRef}
       >
         <div css={photoStyle}>
           <div css={photoCenteredStyle}>
@@ -134,4 +132,4 @@ const checkButtonStyle = (isChecked) => css({
   },
 });
 
-export default PhotoThumbnail;
+export default memo(PhotoThumbnail);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 
 const WrappedIcon = ({
@@ -21,4 +21,4 @@ const wrappedIconStyle = css({
   },
 });
 
-export default WrappedIcon;
+export default memo(WrappedIcon);

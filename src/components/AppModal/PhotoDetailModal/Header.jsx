@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import {
@@ -85,4 +85,4 @@ const iconBlockStyle = css({
   },
 });
 
-export default PhotoDetailModal;
+export default memo(PhotoDetailModal);

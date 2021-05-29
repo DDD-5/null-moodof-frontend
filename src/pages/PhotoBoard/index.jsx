@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useParams } from 'react-router-dom';
 
@@ -156,4 +156,4 @@ const imageListStyle = (photosHeight) => css({
   position: 'relative',
 });
 
-export default PhotoBoard;
+export default memo(PhotoBoard);

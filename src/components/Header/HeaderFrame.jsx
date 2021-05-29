@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -55,4 +55,4 @@ const rightBlockStyle = css({
   alignItems: 'center',
 });
 
-export default HeaderFrame;
+export default memo(HeaderFrame);

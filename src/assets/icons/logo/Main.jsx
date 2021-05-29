@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const Main = ({ ...args }) => (
   <svg width="88" height="32" viewBox="0 0 88 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...args}>
@@ -11,4 +11,4 @@ const Main = ({ ...args }) => (
   </svg>
 );
 
-export default Main;
+export default memo(Main);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PhotoThumbnail } from '../../components';
@@ -58,4 +58,4 @@ const photoStorageStyle = css({
   flexWrap: 'wrap',
 });
 
-export default PhotoStorage;
+export default memo(PhotoStorage);

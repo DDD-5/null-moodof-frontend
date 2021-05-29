@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  memo, useEffect, useRef, useState,
+} from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -159,4 +161,4 @@ const loadingWrapperStyle = css({
   alignItems: 'center',
 });
 
-export default PhotoStorage;
+export default memo(PhotoStorage);

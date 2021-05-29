@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 import { Plus, Minus } from '../../assets/icons/12';
 
@@ -53,4 +53,4 @@ const rangeSliderStyle = (width) => css({
   },
 });
 
-export default RangeSlider;
+export default memo(RangeSlider);

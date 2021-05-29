@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 
 const MasonryPhotoThumbnail = ({
@@ -22,4 +22,4 @@ const imageStyle = (x, y, columnWidth) => css({
   },
 });
 
-export default MasonryPhotoThumbnail;
+export default memo(MasonryPhotoThumbnail);

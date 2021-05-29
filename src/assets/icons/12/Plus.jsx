@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const Plus = ({ color, ...args }) => (
   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" {...args}>
@@ -7,4 +7,4 @@ const Plus = ({ color, ...args }) => (
   </svg>
 );
 
-export default Plus;
+export default memo(Plus);

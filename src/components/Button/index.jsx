@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 
 const Button = ({
@@ -52,4 +52,4 @@ const buttonStyle = (colorType) => {
   });
 };
 
-export default Button;
+export default memo(Button);

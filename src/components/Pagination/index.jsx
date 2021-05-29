@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  memo, useState, useRef, useEffect,
+} from 'react';
 import { css } from '@emotion/react';
 
 import {
@@ -172,4 +174,4 @@ const paginationSpanStyle = css({
   fontSize: 12,
 });
 
-export default Pagination;
+export default memo(Pagination);

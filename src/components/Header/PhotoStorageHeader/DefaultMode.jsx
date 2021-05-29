@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 
@@ -51,4 +51,4 @@ const wrappedIconStyle = css({
   },
 });
 
-export default DefaultMode;
+export default memo(DefaultMode);
