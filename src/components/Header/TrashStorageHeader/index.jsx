@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WrappedIcon from '../WrappedIcon';
+import HeaderFrame from '../HeaderFrame';
 
 import { TrashCan, Restore } from '../../../assets/icons/16';
 import { action as appActions } from '../../../store/app/slices';
@@ -35,36 +36,19 @@ const Default = () => {
   };
 
   return (
-    <header css={headerStyle}>
-      <div>
-        <h2 css={headerTitleStyle}>휴지통</h2>
-      </div>
-      <div css={rightBlockStyle}>
-        <span css={countTextStyle}>{checkedList.length}개 이미지가 선택됨</span>
-        <input type="checkbox" css={checkInputStyle} />
-        <WrappedIcon css={wrappedIconStyle} Icon={TrashCan} onClick={handleClickDelete} />
-        <WrappedIcon css={wrappedIconStyle} Icon={Restore} onClick={handleClickRestore} />
-      </div>
-    </header>
+    <HeaderFrame
+      title="휴지통"
+      rightBlock={(
+        <>
+          <span css={countTextStyle}>{checkedList.length}개 이미지가 선택됨</span>
+          <input type="checkbox" css={checkInputStyle} />
+          <WrappedIcon css={wrappedIconStyle} Icon={TrashCan} onClick={handleClickDelete} />
+          <WrappedIcon css={wrappedIconStyle} Icon={Restore} onClick={handleClickRestore} />
+        </>
+      )}
+    />
   );
 };
-
-const headerStyle = css({
-  height: '100%',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-});
-
-const headerTitleStyle = css({
-  fontSize: 14,
-  fontWeight: 500,
-});
-
-const rightBlockStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-});
 
 const countTextStyle = css({
   fontSize: 14,
