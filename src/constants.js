@@ -3,6 +3,10 @@ export const ENV = {
   oAuthUrl: 'https://www.moodof.net/oauth2/authorize/google',
 };
 
+export const APP = {
+  headerHeight: 48,
+};
+
 export const HEADER_TYPE = {
   PHOTO_STORAGE: 'PHOTO_STORAGE',
   BOARD: 'BOARD',
