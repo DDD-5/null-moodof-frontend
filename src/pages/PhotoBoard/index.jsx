@@ -6,32 +6,7 @@ import { MasonryPhotoThumbnail } from '../../components';
 
 const COLUMN_SIZE = 4;
 const COLUMN_WIDTH = 250;
-const spacingSize = 10;
-
-const photoBoardStyle = css({
-  padding: '0 18px 40px 18px',
-  userSelect: 'none',
-});
-
-const titleWrapperStyle = css({
-  display: 'flex',
-  alignItems: 'baseline',
-  padding: '14px 0',
-  '& h2': {
-    fontSize: 18,
-    fontWeight: 700,
-    marginRight: 8,
-  },
-  '& span': {
-    color: 'rgba(0, 0, 0, 0.4)',
-    fontSize: 14,
-    fontWeight: 500,
-  },
-});
-
-const imageListStyle = css({
-  position: 'relative',
-});
+const spacingSize = 6;
 
 const PhotoBoard = () => {
   const { boardId } = useParams();
@@ -84,6 +59,7 @@ const PhotoBoard = () => {
   ]);
   const [isAllPhotoLoaded, setIsAllPhotoLoaded] = useState(false);
   const [photoPositions, setPhotoPositions] = useState([]);
+  const [photosHeight, setPhotosHeight] = useState(0);
 
   useEffect(() => {
     const loadImage = (src) => new Promise((resolve, reject) => {
@@ -108,14 +84,20 @@ const PhotoBoard = () => {
         const minIndex = photoStack.indexOf(Math.min.apply(0, photoStack));
         const x = COLUMN_WIDTH * minIndex;
         const y = photoStack[minIndex];
+        const isFirstColumn = minIndex === 0;
+        const isLastColumn = minIndex === photoStack.length - 1;
 
         photoStack[minIndex] += (tempPhotos[i].clientHeight + spacingSize);
         tempPhotoPositions[i] = {
-          x,
+          x: isFirstColumn ? x : x + (minIndex * spacingSize),
           y,
-          isFirstColumn: minIndex === 0,
-          isLastColumn: minIndex === photoStack.length - 1,
+          isFirstColumn,
+          isLastColumn,
         };
+
+        if (i === photos.length - 1) {
+          setPhotosHeight(Math.max.apply(0, photoStack));
+        }
       }
 
       setPhotoPositions(tempPhotoPositions);
@@ -130,18 +112,14 @@ const PhotoBoard = () => {
       </div>
 
       {isAllPhotoLoaded ? (
-        <div css={imageListStyle}>
+        <div css={imageListStyle(photosHeight)}>
           {photos.map((photo, index) => (
             <MasonryPhotoThumbnail
               key={index}
-              id={index}
               src={photo.src}
               x={photoPositions?.[index]?.x}
               y={photoPositions?.[index]?.y}
-              isFirstColumn={photoPositions?.[index]?.isFirstColumn}
-              isLastColumn={photoPositions?.[index]?.isLastColumn}
               columnWidth={COLUMN_WIDTH}
-              spacingSize={spacingSize}
             />
           ))}
         </div>
@@ -151,5 +129,31 @@ const PhotoBoard = () => {
     </div>
   );
 };
+
+const photoBoardStyle = css({
+  padding: '0 18px 40px 18px',
+  userSelect: 'none',
+});
+
+const titleWrapperStyle = css({
+  display: 'flex',
+  alignItems: 'baseline',
+  padding: '14px 0',
+  '& h2': {
+    fontSize: 18,
+    fontWeight: 700,
+    marginRight: 8,
+  },
+  '& span': {
+    color: 'rgba(0, 0, 0, 0.4)',
+    fontSize: 14,
+    fontWeight: 500,
+  },
+});
+
+const imageListStyle = (photosHeight) => css({
+  height: photosHeight,
+  position: 'relative',
+});
 
 export default PhotoBoard;

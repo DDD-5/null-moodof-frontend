@@ -1,6 +1,34 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
+const SortMenu = () => (
+  <div css={menuStyle}>
+    <div css={titleWrapperStyle}>
+      <span>필터</span>
+      <div css={titleCheckWrapperStyle}>
+        <span>전체</span>
+        <input type="checkbox" />
+      </div>
+    </div>
+    <div css={checkListStyle}>
+      <div css={noTagCheckItemStyle}>
+        <span>태그 없음</span>
+        <input type="checkbox" />
+      </div>
+      <div css={checkItemWrapperStyle}>
+        <div css={checkItemStyle}>
+          <span>태그1</span>
+          <input type="checkbox" />
+        </div>
+        <div css={checkItemStyle}>
+          <span>태그2</span>
+          <input type="checkbox" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const menuStyle = css({
   width: 240,
   maxHeight: 328,
@@ -72,33 +100,5 @@ const checkItemStyle = css({
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
   },
 });
-
-const SortMenu = () => (
-  <div css={menuStyle}>
-    <div css={titleWrapperStyle}>
-      <span>필터</span>
-      <div css={titleCheckWrapperStyle}>
-        <span>전체</span>
-        <input type="checkbox" />
-      </div>
-    </div>
-    <div css={checkListStyle}>
-      <div css={noTagCheckItemStyle}>
-        <span>태그 없음</span>
-        <input type="checkbox" />
-      </div>
-      <div css={checkItemWrapperStyle}>
-        <div css={checkItemStyle}>
-          <span>태그1</span>
-          <input type="checkbox" />
-        </div>
-        <div css={checkItemStyle}>
-          <span>태그2</span>
-          <input type="checkbox" />
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 export default SortMenu;

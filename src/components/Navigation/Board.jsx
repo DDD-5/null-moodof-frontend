@@ -11,99 +11,6 @@ import { action as navigationActions } from '../../store/navigation/slices';
 import { MENU_TYPE } from '../../constants';
 import { Ellipsis } from '../../assets/icons/16';
 
-const boardNameStyle = (isDragging, isOver, isSelected) => css({
-  height: 40,
-  fontSize: 14,
-  padding: '0 12px 0 32px',
-  marginBottom: 5,
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  cursor: 'pointer',
-  color: 'inherit',
-  textDecoration: 'none',
-  opacity: isDragging && 0.5,
-  backgroundColor: (isOver && !isDragging)
-    ? 'rgba(240, 246, 255, 1)'
-    : isSelected && '#EEEEEE',
-  borderRadius: 4,
-  '&:hover': {
-    backgroundColor: (isOver && !isDragging)
-      ? 'rgba(240, 246, 255, 1)'
-      : isSelected
-        ? '#EEEEEE'
-        : '#F5F5F5',
-    '& .hover-buttons': {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    '& .board-name': {
-      width: 140,
-    },
-  },
-  '&:last-child': {
-    marginBottom: 0,
-  },
-  '& span': {
-    width: 165,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-});
-
-const boardHoverButtons = css({
-  display: 'none',
-  alignItems: 'center',
-  '& svg': {
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-  },
-});
-
-const emptyStyle = (isOver) => css({
-  height: 40,
-  backgroundColor: isOver && 'rgba(240, 246, 255, 1)',
-});
-
-const hoverIconBlockStyle = (isSelected) => css({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 24,
-  height: 24,
-  borderRadius: 4,
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: isSelected
-      ? 'rgba(0, 0, 0, 0.1)'
-      : 'rgba(0, 0, 0, 0.05)',
-  },
-});
-
-const renameBoardStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-  height: 40,
-  padding: '0 12px 0 24px',
-  marginBottom: 5,
-  '&:last-child': {
-    marginBottom: 0,
-  },
-  '& input': {
-    width: 180,
-    height: 30,
-    border: '1px solid rgba(0, 0, 0, 0.2)',
-    borderRadius: 4,
-    padding: '0 8px',
-    '&:focus': {
-      border: '1px solid #2F80ED',
-      outline: 'none',
-    },
-  },
-});
-
 const WrappedHoverIcon = ({ Icon, handleClick, isSelected }) => (
   <div css={hoverIconBlockStyle(isSelected)} onClick={handleClick}>
     <Icon />
@@ -228,9 +135,101 @@ const Board = ({
               </div>
             </Link>
           )
-
       )
   );
 };
+
+const boardNameStyle = (isDragging, isOver, isSelected) => css({
+  height: 40,
+  fontSize: 14,
+  padding: '0 12px 0 32px',
+  marginBottom: 5,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  cursor: 'pointer',
+  color: 'inherit',
+  textDecoration: 'none',
+  opacity: isDragging && 0.5,
+  backgroundColor: (isOver && !isDragging)
+    ? 'rgba(240, 246, 255, 1)'
+    : isSelected && '#EEEEEE',
+  borderRadius: 4,
+  '&:hover': {
+    backgroundColor: (isOver && !isDragging)
+      ? 'rgba(240, 246, 255, 1)'
+      : isSelected
+        ? '#EEEEEE'
+        : '#F5F5F5',
+    '& .hover-buttons': {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    '& .board-name': {
+      width: 140,
+    },
+  },
+  '&:last-child': {
+    marginBottom: 0,
+  },
+  '& span': {
+    width: 165,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+});
+
+const boardHoverButtons = css({
+  display: 'none',
+  alignItems: 'center',
+  '& svg': {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+});
+
+const emptyStyle = (isOver) => css({
+  height: 40,
+  backgroundColor: isOver && 'rgba(240, 246, 255, 1)',
+});
+
+const hoverIconBlockStyle = (isSelected) => css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 24,
+  height: 24,
+  borderRadius: 4,
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: isSelected
+      ? 'rgba(0, 0, 0, 0.1)'
+      : 'rgba(0, 0, 0, 0.05)',
+  },
+});
+
+const renameBoardStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  height: 40,
+  padding: '0 12px 0 24px',
+  marginBottom: 5,
+  '&:last-child': {
+    marginBottom: 0,
+  },
+  '& input': {
+    width: 180,
+    height: 30,
+    border: '1px solid rgba(0, 0, 0, 0.2)',
+    borderRadius: 4,
+    padding: '0 8px',
+    '&:focus': {
+      border: '1px solid #2F80ED',
+      outline: 'none',
+    },
+  },
+});
 
 export default memo(Board);

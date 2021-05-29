@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { useSelector } from 'react-redux';
 
 import {
   Intro,
@@ -13,11 +14,12 @@ import { Navigation, Header } from './components';
 
 import { ENV, APP, HEADER_TYPE } from './constants';
 
-const AppFrame = ({ children, headerType }) => {
+const AppFrame = ({ children, headerType, isFolded }) => {
   const globalWrapperStyle = css({
     minHeight: '100vh',
     paddingTop: APP.headerHeight,
-    paddingLeft: 240,
+    paddingLeft: isFolded ? 0 : APP.navigationWidth,
+    paddingRight: isFolded && 0,
   });
 
   return (
@@ -33,6 +35,7 @@ const AppFrame = ({ children, headerType }) => {
 
 const Router = () => {
   const history = useHistory();
+  const { isFolded } = useSelector((state) => state.app);
 
   const localToken = window.localStorage.getItem('token');
   const params = new URLSearchParams(window.location.search);
@@ -53,17 +56,17 @@ const Router = () => {
         <Intro />
       </Route>
       <Route exact path="/board/:boardId">
-        <AppFrame headerType={HEADER_TYPE.BOARD}>
+        <AppFrame headerType={HEADER_TYPE.BOARD} isFolded={isFolded}>
           <PhotoBoard />
         </AppFrame>
       </Route>
       <Route exact path="/trash">
-        <AppFrame headerType={HEADER_TYPE.TRASH_STORAGE}>
+        <AppFrame headerType={HEADER_TYPE.TRASH_STORAGE} isFolded={isFolded}>
           <TrashStorage />
         </AppFrame>
       </Route>
       <Route exact path="/">
-        <AppFrame headerType={HEADER_TYPE.PHOTO_STORAGE}>
+        <AppFrame headerType={HEADER_TYPE.PHOTO_STORAGE} isFolded={isFolded}>
           <PhotoStorage />
         </AppFrame>
       </Route>

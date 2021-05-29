@@ -1,6 +1,21 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
+const Button = ({
+  colorType = 'main',
+  customStyle,
+  onClick,
+  children,
+}) => (
+  <button
+    type="button"
+    css={[buttonStyle(colorType), customStyle]}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
+
 const buttonStyle = (colorType) => {
   let bgColor = '';
   let bgHoverColor = '';
@@ -36,20 +51,5 @@ const buttonStyle = (colorType) => {
     },
   });
 };
-
-const Button = ({
-  colorType = 'main',
-  customStyle,
-  onClick,
-  children,
-}) => (
-  <button
-    type="button"
-    css={[buttonStyle(colorType), customStyle]}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);
 
 export default Button;

@@ -5,6 +5,47 @@ import { Button } from '../..';
 import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
 
+const GoTrashModal = ({ checkedList }) => {
+  const dispatch = useDispatch();
+
+  const handleCloseModal = () => {
+    dispatch(appActions.closeModal({
+      modalType: MODAL_TYPE.GO_TRASH,
+    }));
+  };
+
+  const handleClickGoTrash = () => {
+    // TODO checkedList를 가지고 Trash로 보내는 API 호출
+  };
+
+  return (
+    <div css={goTrashModalStyle} onClick={handleCloseModal}>
+      <div css={modalContentStyle} onClick={(e) => e.stopPropagation()}>
+        <div css={textBlock}>
+          <span css={titleStyle}>휴지통으로 이동하시겠습니까?</span>
+          <span css={subTitleStyle}>{checkedList.length}개의 이미지가 30일 후 완전히 삭제됩니다.</span>
+        </div>
+        <div css={buttonBlock}>
+          <Button
+            onClick={handleCloseModal}
+            colorType="sub"
+            customStyle={{ width: 138, height: 32 }}
+          >
+            취소
+          </Button>
+          <Button
+            onClick={handleClickGoTrash}
+            colorType="main"
+            customStyle={{ width: 138, height: 32 }}
+          >
+            휴지통으로 이동
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const goTrashModalStyle = css({
   position: 'fixed',
   top: 0,
@@ -50,46 +91,5 @@ const buttonBlock = css({
   justifyContent: 'space-between',
   padding: 16,
 });
-
-const GoTrashModal = ({ checkedList }) => {
-  const dispatch = useDispatch();
-
-  const handleCloseModal = () => {
-    dispatch(appActions.closeModal({
-      modalType: MODAL_TYPE.GO_TRASH,
-    }));
-  };
-
-  const handleClickGoTrash = () => {
-    // TODO checkedList를 가지고 Trash로 보내는 API 호출
-  };
-
-  return (
-    <div css={goTrashModalStyle} onClick={handleCloseModal}>
-      <div css={modalContentStyle} onClick={(e) => e.stopPropagation()}>
-        <div css={textBlock}>
-          <span css={titleStyle}>휴지통으로 이동하시겠습니까?</span>
-          <span css={subTitleStyle}>{checkedList.length}개의 이미지가 30일 후 완전히 삭제됩니다.</span>
-        </div>
-        <div css={buttonBlock}>
-          <Button
-            onClick={handleCloseModal}
-            colorType="sub"
-            customStyle={{ width: 138, height: 32 }}
-          >
-            취소
-          </Button>
-          <Button
-            onClick={handleClickGoTrash}
-            colorType="main"
-            customStyle={{ width: 138, height: 32 }}
-          >
-            휴지통으로 이동
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export default GoTrashModal;

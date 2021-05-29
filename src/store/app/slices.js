@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const appSlice = createSlice({
   name: 'app',
   initialState: {
+    isFolded: false,
     modals: [],
     menu: {},
   },
@@ -31,6 +32,10 @@ const appSlice = createSlice({
     },
     closeMenu(state) {
       state.menu = {};
+    },
+    // 폴드 토글
+    toggleIsFolded(state) {
+      state.isFolded = !state.isFolded;
     },
   },
 });

@@ -11,41 +11,24 @@ import { APP, MODAL_TYPE } from '../../constants';
 
 const PADDING_SIZE = 18;
 
-const photoStorageStyle = css({
-  minHeight: `calc(100vh - ${APP.headerHeight}px)`,
-  padding: ` 0 ${PADDING_SIZE}px 0 ${PADDING_SIZE}px`,
-  userSelect: 'none',
-});
-
-const photoStorageTitleStyle = css({
-  padding: '16px 0',
-  color: 'rgba(0, 0, 0, 0.4)',
-  fontSize: 14,
-  fontWeight: 500,
-});
-
-const photoContainerStyle = css({
-  display: 'flex',
-  flexWrap: 'wrap',
-  paddingBottom: 40,
-});
-
-const paginationWrapperStyle = css({
-  width: '100%',
-  marginTop: 16,
-  textAlign: 'center',
-});
-
 const PhotoStorage = () => {
   const dispatch = useDispatch();
   const {
-    isEditMode,
-    checkedList,
-    storagePhotos,
-    columnCount,
-    spacingSize,
-    page,
-  } = useSelector((state) => state.photoStorage);
+    app: {
+      isFolded,
+    },
+    photoStorage: {
+      isEditMode,
+      checkedList,
+      storagePhotos,
+      columnCount,
+      spacingSize,
+      page,
+      loading: {
+        storagePhotos: isStoragePhotosLoading,
+      },
+    },
+  } = useSelector((state) => state);
   const [wrapperSize, setWrapperSize] = useState(0);
   const photoStorageRef = useRef(null);
 
@@ -53,7 +36,7 @@ const PhotoStorage = () => {
     const storageWidth = photoStorageRef.current.clientWidth - (PADDING_SIZE * 2);
     const size = ((storageWidth - (spacingSize * (columnCount - 1))) / columnCount);
     setWrapperSize(size);
-  }, [photoStorageRef, columnCount]);
+  }, [photoStorageRef, columnCount, isFolded]);
 
   useEffect(() => {
     dispatch(photoStorageActions.getStoragePhotosRequest());
@@ -103,37 +86,77 @@ const PhotoStorage = () => {
 
   return (
     <div css={photoStorageStyle} ref={photoStorageRef}>
-      {photoList.length ? (
-        <>
-          <h2 css={photoStorageTitleStyle}>{totalStoragePhotoCount}장의 이미지</h2>
-          <div css={photoContainerStyle}>
-            {photoList.map((image) => (
-              <PhotoThumbnail
-                key={image.id}
-                id={image.id}
-                imgSrc={image.uri}
-                imgAlt=""
-                wrapperSize={wrapperSize}
-                isChecked={getIsChecked(image.id)}
-                handleClickCheck={handleClickCheck(image.id)}
-                handleClickUncheck={handleClickUncheck(image.id)}
-                handleClickPhoto={handleClickPhoto(image.id)}
-              />
-            ))}
-            <div css={paginationWrapperStyle}>
-              <Pagination
-                currentPageIndex={page}
-                totalPageCount={totalPageCount}
-                handlePageChange={handlePageChange}
-              />
+      {isStoragePhotosLoading && (
+        <div css={loadingWrapperStyle}>
+          <span>Loading</span>
+        </div>
+      )}
+
+      {!isStoragePhotosLoading && (
+        photoList.length ? (
+          <>
+            <h2 css={photoStorageTitleStyle}>{totalStoragePhotoCount}장의 이미지</h2>
+            <div css={photoContainerStyle}>
+              {photoList.map((image) => (
+                <PhotoThumbnail
+                  key={image.id}
+                  id={image.id}
+                  imgSrc={image.uri}
+                  imgAlt=""
+                  wrapperSize={wrapperSize}
+                  isChecked={getIsChecked(image.id)}
+                  handleClickCheck={handleClickCheck(image.id)}
+                  handleClickUncheck={handleClickUncheck(image.id)}
+                  handleClickPhoto={handleClickPhoto(image.id)}
+                />
+              ))}
+              <div css={paginationWrapperStyle}>
+                <Pagination
+                  currentPageIndex={page}
+                  totalPageCount={totalPageCount}
+                  handlePageChange={handlePageChange}
+                />
+              </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <NoPhotoMessage />
+          </>
+        ) : (
+          <NoPhotoMessage />
+        )
       )}
     </div>
   );
 };
+
+const photoStorageStyle = css({
+  minHeight: `calc(100vh - ${APP.headerHeight}px)`,
+  padding: ` 0 ${PADDING_SIZE}px 0 ${PADDING_SIZE}px`,
+  userSelect: 'none',
+});
+
+const photoStorageTitleStyle = css({
+  padding: '16px 0',
+  color: 'rgba(0, 0, 0, 0.4)',
+  fontSize: 14,
+  fontWeight: 500,
+});
+
+const photoContainerStyle = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  paddingBottom: 40,
+});
+
+const paginationWrapperStyle = css({
+  width: '100%',
+  marginTop: 16,
+  textAlign: 'center',
+});
+
+const loadingWrapperStyle = css({
+  minHeight: 'calc(100vh - 48px)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
 export default PhotoStorage;

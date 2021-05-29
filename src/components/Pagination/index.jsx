@@ -5,80 +5,6 @@ import {
   ChevronsLeft, ChevronLeft, ChevronsRight, ChevronRight,
 } from '../../assets/icons/16';
 
-const paginationStyle = css({
-  display: 'inline-flex',
-  alignItems: 'center',
-});
-
-const leftIconBlockStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-  marginRight: 10,
-  '& svg': {
-    marginRight: 10,
-    cursor: 'pointer',
-    '&:last-child': {
-      marginRight: 0,
-    },
-    '& path': {
-      stroke: 'rgba(0, 0, 0, 0.4);',
-    },
-    '&:hover': {
-      '& path': {
-        stroke: '#21272A',
-      },
-    },
-  },
-});
-
-const rightIconBlockStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-  marginLeft: 10,
-  '& svg': {
-    marginLeft: 10,
-    cursor: 'pointer',
-    '&:first-of-type': {
-      marginLeft: 0,
-    },
-    '& path': {
-      stroke: 'rgba(0, 0, 0, 0.4);',
-    },
-    '&:hover': {
-      '& path': {
-        stroke: '#21272A',
-      },
-    },
-  },
-});
-
-const paginationInputStyle = css({
-  width: 32,
-  height: 24,
-  backgroundColor: '#FAFAFA',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  borderRadius: 2,
-  textAlign: 'center',
-  fontSize: 12,
-  '&::-webkit-inner-spin-button': {
-    WebkitAppearance: 'none',
-  },
-  '&:focus': {
-    border: '1px solid #2F80ED',
-    outline: 'none',
-  },
-});
-
-const paginationSlashStyle = css({
-  display: 'inline-block',
-  padding: '0 8px',
-  fontSize: 12,
-});
-
-const paginationSpanStyle = css({
-  fontSize: 12,
-});
-
 const Pagination = ({
   currentPageIndex = 0,
   totalPageCount = 1,
@@ -171,5 +97,79 @@ const Pagination = ({
     </div>
   );
 };
+
+const paginationStyle = css({
+  display: 'inline-flex',
+  alignItems: 'center',
+});
+
+const leftIconBlockStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  marginRight: 10,
+  '& svg': {
+    marginRight: 10,
+    cursor: 'pointer',
+    '&:last-child': {
+      marginRight: 0,
+    },
+    '& path': {
+      stroke: 'rgba(0, 0, 0, 0.4);',
+    },
+    '&:hover': {
+      '& path': {
+        stroke: '#21272A',
+      },
+    },
+  },
+});
+
+const rightIconBlockStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  marginLeft: 10,
+  '& svg': {
+    marginLeft: 10,
+    cursor: 'pointer',
+    '&:first-of-type': {
+      marginLeft: 0,
+    },
+    '& path': {
+      stroke: 'rgba(0, 0, 0, 0.4);',
+    },
+    '&:hover': {
+      '& path': {
+        stroke: '#21272A',
+      },
+    },
+  },
+});
+
+const paginationInputStyle = css({
+  width: 32,
+  height: 24,
+  backgroundColor: '#FAFAFA',
+  border: '1px solid rgba(0, 0, 0, 0.1)',
+  borderRadius: 2,
+  textAlign: 'center',
+  fontSize: 12,
+  '&::-webkit-inner-spin-button': {
+    WebkitAppearance: 'none',
+  },
+  '&:focus': {
+    border: '1px solid #2F80ED',
+    outline: 'none',
+  },
+});
+
+const paginationSlashStyle = css({
+  display: 'inline-block',
+  padding: '0 8px',
+  fontSize: 12,
+});
+
+const paginationSpanStyle = css({
+  fontSize: 12,
+});
 
 export default Pagination;

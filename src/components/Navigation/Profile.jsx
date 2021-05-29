@@ -3,10 +3,63 @@ import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { action as userActions } from '../../store/auth/slices';
+import { APP } from '../../constants';
 import { Logout, ChevronUp, ChevronDown } from '../../assets/icons/16';
 
+const Profile = () => {
+  const dispatch = useDispatch();
+  const { user, loading: { user: isUserLoading } } = useSelector((state) => state.auth);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(userActions.getUserRequest());
+  }, []);
+
+  const handleProfileToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleClickSignout = () => {
+    dispatch(userActions.logout());
+  };
+
+  const {
+    profileUrl,
+    nickname,
+    email,
+  } = user || {};
+
+  return (
+    <div css={profileStyle(isOpen)}>
+      {(!!Object.keys(user).length && !isUserLoading) && (
+        <>
+          {isOpen && (
+          <div css={expandBlockStyle} onClick={handleClickSignout}>
+            <div css={logoutStyle}>
+              <Logout css={{ marginRight: 8 }} />
+              <span>로그아웃</span>
+            </div>
+          </div>
+          )}
+
+          <div css={defaultBlockStyle}>
+            <img css={imageStyle} src={profileUrl} alt="profile" />
+            <div css={nameBlockStyle}>
+              <span>{nickname}</span>
+              <span>{email}</span>
+            </div>
+            {isOpen
+              ? <ChevronDown css={chevronStyle} onClick={handleProfileToggle} />
+              : <ChevronUp css={chevronStyle} onClick={handleProfileToggle} />}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
 const profileStyle = (isOpen) => css({
-  width: 240,
+  width: APP.navigationWidth,
   height: isOpen ? 120 : 65,
   position: 'fixed',
   bottom: 0,
@@ -73,57 +126,5 @@ const expandBlockStyle = css({
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   cursor: 'pointer',
 });
-
-const Profile = () => {
-  const dispatch = useDispatch();
-  const { user, loading: { user: isUserLoading } } = useSelector((state) => state.auth);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    dispatch(userActions.getUserRequest());
-  }, []);
-
-  const handleProfileToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleClickSignout = () => {
-    dispatch(userActions.logout());
-  };
-
-  const {
-    profileUrl,
-    nickname,
-    email,
-  } = user || {};
-
-  return (
-    <div css={profileStyle(isOpen)}>
-      {(!!Object.keys(user).length && !isUserLoading) && (
-        <>
-          {isOpen && (
-          <div css={expandBlockStyle} onClick={handleClickSignout}>
-            <div css={logoutStyle}>
-              <Logout css={{ marginRight: 8 }} />
-              <span>로그아웃</span>
-            </div>
-          </div>
-          )}
-
-          <div css={defaultBlockStyle}>
-            <img css={imageStyle} src={profileUrl} alt="profile" />
-            <div css={nameBlockStyle}>
-              <span>{nickname}</span>
-              <span>{email}</span>
-            </div>
-            {isOpen
-              ? <ChevronDown css={chevronStyle} onClick={handleProfileToggle} />
-              : <ChevronUp css={chevronStyle} onClick={handleProfileToggle} />}
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
 
 export default memo(Profile);
