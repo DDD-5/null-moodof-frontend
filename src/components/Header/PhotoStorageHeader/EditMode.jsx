@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import WrappedIcon from '../WrappedIcon';
 
 import { Move, Download, TrashCan } from '../../../assets/icons/16';
+import { action as photoStorageActions } from '../../../store/photoStorage/slices';
 import { action as appActions } from '../../../store/app/slices';
 import { MODAL_TYPE } from '../../../constants';
 
@@ -29,7 +30,12 @@ const wrapIconStyle = css({
 
 const EditMode = () => {
   const dispatch = useDispatch();
-  const { checkedList } = useSelector((state) => state.photoStorage);
+  const {
+    checkedList,
+    storagePhotos: {
+      storagePhotos,
+    },
+  } = useSelector((state) => state.photoStorage);
 
   const handleClickGoTrash = () => {
     dispatch(appActions.openModal({
@@ -40,10 +46,23 @@ const EditMode = () => {
     }));
   };
 
+  const handleChangeInputCheckbox = () => {
+    if (checkedList.length === storagePhotos.length) {
+      dispatch(photoStorageActions.clearCheckedList());
+    } else {
+      dispatch(photoStorageActions.checkAllPhotos());
+    }
+  };
+
   return (
     <>
       <span css={countTextStyle}>{checkedList.length}개 이미지가 선택됨</span>
-      <input type="checkbox" css={checkInputStyle} />
+      <input
+        type="checkbox"
+        css={checkInputStyle}
+        checked={checkedList.length === storagePhotos.length}
+        onChange={handleChangeInputCheckbox}
+      />
       <WrappedIcon css={wrapIconStyle} Icon={Move} />
       <WrappedIcon css={wrapIconStyle} Icon={Download} />
       <WrappedIcon css={wrapIconStyle} Icon={TrashCan} onClick={handleClickGoTrash} />

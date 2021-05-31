@@ -43,6 +43,9 @@ const photoStorageSlice = createSlice({
       state.isEditMode = false;
       state.checkedList = [];
     },
+    checkAllPhotos(state) {
+      state.checkedList = state.storagePhotos.storagePhotos.map((photo) => photo.id);
+    },
     // 전체 사진 조회
     getStoragePhotosRequest(state) {
       state.loading.storagePhotos = true;
@@ -71,6 +74,8 @@ const photoStorageSlice = createSlice({
     // 페이지 변경
     setPage(state, action) {
       state.page = action.payload;
+      state.checkedList = [];
+      state.isEditMode = false;
     },
     // 스퀘어 토글
     toggleIsSquare(state) {
