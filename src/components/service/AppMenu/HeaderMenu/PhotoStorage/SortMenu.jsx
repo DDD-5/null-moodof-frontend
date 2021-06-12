@@ -2,6 +2,8 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import MenuFrame from './MenuFrame';
+
 import { action as photoStorageActions } from '../../../../../store/photoStorage/slices';
 import { Check } from '../../../../../assets/icons/16';
 
@@ -19,7 +21,7 @@ const SortMenu = () => {
   const isOldOn = !isDesc;
 
   return (
-    <div css={menuStyle}>
+    <MenuFrame width={240} height={140}>
       <div css={titleWrapperStyle}>
         <span>정렬</span>
       </div>
@@ -33,19 +35,9 @@ const SortMenu = () => {
           {isOldOn && <Check />}
         </div>
       </div>
-    </div>
+    </MenuFrame>
   );
 };
-
-const menuStyle = css({
-  width: 240,
-  height: 138,
-  border: '0.5px solid rgba(0, 0, 0, 0.1)',
-  backgroundColor: 'rgba(245, 245, 245, 0.7)',
-  backdropFilter: 'blur(40px)',
-  borderRadius: 4,
-  userSelect: 'none',
-});
 
 const titleWrapperStyle = css({
   display: 'flex',

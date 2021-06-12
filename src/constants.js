@@ -30,6 +30,7 @@ export const MENU_TYPE = {
     PHOTO_STORAGE: {
       SORT: 'SORT',
       TAG_FILTER: 'TAG_FILTER',
+      MOVE_BORAD: 'MOVE_BOARD',
     },
   },
 };

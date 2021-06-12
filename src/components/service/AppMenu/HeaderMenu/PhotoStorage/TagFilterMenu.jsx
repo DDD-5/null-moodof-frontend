@@ -1,8 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
+import MenuFrame from './MenuFrame';
+
 const SortMenu = () => (
-  <div css={menuStyle}>
+  <MenuFrame width={240} height={330} css={{ lineHeight: '1px' }}>
     <div css={titleWrapperStyle}>
       <span>필터</span>
       <div css={titleCheckWrapperStyle}>
@@ -26,18 +28,8 @@ const SortMenu = () => (
         </div>
       </div>
     </div>
-  </div>
+  </MenuFrame>
 );
-
-const menuStyle = css({
-  width: 240,
-  maxHeight: 328,
-  border: '0.5px solid rgba(0, 0, 0, 0.1)',
-  backgroundColor: 'rgba(245, 245, 245, 0.7)',
-  backdropFilter: 'blur(40px)',
-  borderRadius: 4,
-  lineHeight: '1px',
-});
 
 const titleWrapperStyle = css({
   display: 'flex',

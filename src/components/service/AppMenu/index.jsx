@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 
 import { CategoryMenu, BoardMenu } from './NavigationMenu';
 import {
-  SortMenu as PhotoStorageSortMenu, TagFilterMenu as PhotoStorageTagFilterMenu,
+  SortMenu as PhotoStorageSortMenu,
+  TagFilterMenu as PhotoStorageTagFilterMenu,
+  MoveBoardMenu as PhotoStorageMoveBoardMenu,
 } from './HeaderMenu/PhotoStorage';
 
 import { action as appActions } from '../../../store/app/slices';
@@ -15,6 +17,7 @@ const MENU_COMPONENTS = {
   [MENU_TYPE.NAVIGATION.BOARD]: BoardMenu,
   [MENU_TYPE.HEADER.PHOTO_STORAGE.SORT]: PhotoStorageSortMenu,
   [MENU_TYPE.HEADER.PHOTO_STORAGE.TAG_FILTER]: PhotoStorageTagFilterMenu,
+  [MENU_TYPE.HEADER.PHOTO_STORAGE.MOVE_BORAD]: PhotoStorageMoveBoardMenu,
 };
 
 const AppMenu = (props) => {
